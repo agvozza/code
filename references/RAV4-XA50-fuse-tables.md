@@ -2,19 +2,18 @@
 
 Compiled reference for **VIN 2T3A1RFV8MC233488** — 2021 RAV4 XLE Premium, A25A-FKS gasoline, AWD.
 
-> ## ⚠ Position numbers are CORROBORATED but not Toyota-authoritative
+> ## ✅ Positions CONFIRMED against the Toyota box-lid legend
 >
-> **The owner's manual contains no fuse table at all** — Toyota moved the chart entirely to the
-> physical box lid for this generation. The manual says only:
-> *"The amperage rating can be found on the fuse box lid."* (OM p.617)
+> A photograph of the **actual instrument panel junction block lid legend** was located
+> (`fuse-box-diagrams/IJB-LID-LEGEND-photo.jpg`) and is legible. **Every position and amperage in the
+> table below matches it exactly**, including positions 5 and 32 being blank (crossed-out) slots.
 >
-> The numbering below was initially in conflict between two published sources. A **third independent
-> source (the Auto User Guide video table) agrees with this table on ten consecutive positions with
-> zero contradictions** — see `source-research-notes.md` §4a. That resolves the conflict in favour of
-> the numbering used here.
+> This is Toyota's own label — the authoritative source the owner's manual points to
+> (*"The amperage rating can be found on the fuse box lid"*, OM p.617). The numbering conflict is
+> closed: fuse-box.info was right, StartMyCar was wrong.
 >
-> It remains a third-party scheme. **The fuse NAME is still the identifier, and the box lid is still
-> the only authoritative position map.** Photograph it on arrival.
+> Still photograph the lid on **this** vehicle. The legend photo is from another XA50 and confirms the
+> layout, but only your own photo documents the car in evidence.
 
 ---
 
@@ -39,7 +38,8 @@ A search for any luggage/rear/trunk junction or relay block returns **zero hits*
 
 ## Instrument Panel J/B — full table
 
-Positions per fuse-box.info. **StartMyCar disagrees** on several (noted in the Conflict column).
+**Verified against the box-lid legend photograph.** The Conflict column records where StartMyCar's
+scheme differs — every one of those is now confirmed wrong.
 
 | Pos | Amps | Name | Circuit | Conflict |
 |---:|---:|---|---|---|
@@ -47,6 +47,7 @@ Positions per fuse-box.info. **StartMyCar disagrees** on several (noted in the C
 | 2 | 7.5A | **OBD** | On-board diagnostics — **DLC3 pin 16 (+B)** | listed as #3 elsewhere |
 | 3 | 10A | DOME | Dome / interior lighting | |
 | 4 | 7.5A | TRUNK OPN | Power trunk lid opener | |
+| 5 | — | *(blank slot)* | Crossed out on the lid | |
 | 6 | 10A | ECU-DCC NO.2 | ECU | |
 | 7 | 5A | ECU-DCC NO.1 | ECU | |
 | 8 | 15A | RADIO | Radio / audio | |
@@ -73,12 +74,13 @@ Positions per fuse-box.info. **StartMyCar disagrees** on several (noted in the C
 | 29 | 15A | P/OUTLET NO.1 | Cigar lighter / power outlet | |
 | 30 | 5A | SFT LOCK-ACC | Shift lock control | |
 | 31 | 20A | WASHER | Windshield washer | |
+| 32 | — | *(blank slot)* | Crossed out on the lid | |
 | 33 | 10A | **ECU-IG1 NO.4** | ECU (not the camera branch) | |
 | 34 | 5A | BKUP LP | Backup lights | |
 | 35 | 7.5A | **ECU-IG1 NO.2** | ECU (not the camera branch) | |
 | 36 | 5A | **ECU-IG1 NO.1** | ECU (not the camera branch) | |
 
-Positions 5 and 32 are not populated in the published table.
+Positions 5 and 32 are unpopulated — confirmed as crossed-out empty slots on the lid legend itself.
 
 ---
 
@@ -148,7 +150,7 @@ ECU IG2 NO.1  10A  ·  ECU IG2 NO.2  10A  ·  IG2 MAIN  20A
 
 ---
 
-## Unresolved
+## Open items — all closed
 
 1. ~~Which `ECU-IG1` branch feeds the forward recognition camera.~~ **RESOLVED — `ECU-IG1 NO.3`
    (7.5A, pos. 14).** Confirmed by the Toyota service manual on two independent Pre-Collision System
@@ -157,8 +159,9 @@ ECU IG2 NO.1  10A  ·  ECU IG2 NO.2  10A  ·  IG2 MAIN  20A
    citable. See `source-research-notes.md` §7.
    **Note:** this **overturns** the earlier `ECU-IG1 NO.4` hypothesis drawn from a third-party table.
    That guess was wrong.
-2. **Actual position numbers.** Corroborated across three sources, but the box lid governs — the
-   service manual names fuses, not box positions. See the warning at the top.
+2. ~~Actual position numbers.~~ **RESOLVED — confirmed against a photograph of the Toyota box-lid
+   legend.** All 34 populated positions and both blank slots match. See the banner at the top and
+   `fuse-box-diagrams/IJB-LID-LEGEND-photo.jpg`.
 3. ~~Trunk/luggage fuse box.~~ **RESOLVED — there is none.** Zero hits for any luggage, rear or trunk
    junction/relay block across the full service manual; the only blocks on this platform are the IJB,
    the No.1 Engine Room Relay Block, the No.3 Relay Block, and the HV-only HV Battery Junction Block.
@@ -170,7 +173,9 @@ ECU IG2 NO.1  10A  ·  ECU IG2 NO.2  10A  ·  IG2 MAIN  20A
 
 - fuse-box.info — RAV4 XA50 2019–2025 — https://fuse-box.info/toyota/toyota-rav4-xa50-2019-2025-fuses (primary table)
 - StartMyCar — 2021 RAV4 — https://www.startmycar.com/us/toyota/rav4/info/fusebox/2021 (conflicting positions)
-- fuseandrelay.com — RAV4 2019–2026 — https://fuseandrelay.com/toyota/rav4-5g.html (box designations)
+- **fuseandrelay.com — https://fuseandrelay.com/toyota/rav4-5g.html — source of the box-lid legend
+  photographs** (`IJB-LID-LEGEND-photo.jpg`, `ERJB1-LID-LEGEND-photo.jpg`) that confirm the positions
+- autogenius.info — https://www.autogenius.info/toyota-rav4-xa50-2019-2025-fuse-and-relay-box-diagram/ (position grids)
 - 2021 RAV4 Owner's Manual pp. 616–618 (`2021-RAV4-Owners-Manual.pdf`) — box locations and access
 - **2021–2022 RAV4 Toyota Service Manual** (`2021-2022-RAV4-Service-Manual.pdf`, 42,638 pp) —
   **authoritative** for circuit-to-fuse assignments. Key pages extracted to
