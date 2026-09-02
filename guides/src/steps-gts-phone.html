@@ -1,0 +1,327 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>GTS+ Acquisition — Phone</title>
+<style>
+  @page { size: 390pt 780pt; margin: 20pt 18pt 30pt 18pt; }
+  * { box-sizing: border-box; }
+  body { font-family: Helvetica, Arial, sans-serif; font-size: 15.5pt; line-height: 1.47;
+         color: #14181c; margin: 0; -webkit-font-smoothing: antialiased; }
+  p { margin: 0 0 7pt; }
+  b { font-weight: 700; }
+
+  .head { border-bottom: 3px solid #26405c; padding-bottom: 9pt; margin-bottom: 13pt; }
+  .head h1 { font-size: 21pt; line-height: 1.15; margin: 0 0 4pt; color: #101820; }
+  .head .sub { font-size: 13pt; color: #26405c; line-height: 1.3; }
+  .head .meta { font-size: 11pt; color: #6a737c; margin-top: 7pt; line-height: 1.35; }
+
+  .pre { background: #eef3f8; border-radius: 7pt; padding: 11pt 13pt; margin: 0 0 16pt; }
+  .pre h2 { font-size: 14pt; margin: 0 0 7pt; color: #26405c; }
+  .pre ul { margin: 0; padding-left: 15pt; }
+  .pre li { margin-bottom: 6pt; font-size: 14pt; line-height: 1.4; }
+  .pre li:last-child { margin-bottom: 0; }
+
+  .step { margin: 0 0 20pt; orphans: 2; widows: 2; }
+  .badge { display: inline-block; min-width: 23pt; height: 23pt; border-radius: 12pt;
+           background: #26405c; color: #fff; font-size: 13pt; font-weight: 700;
+           text-align: center; line-height: 23pt; padding: 0 6pt; margin-right: 6pt;
+           position: relative; top: 2pt; }
+  .step p { margin-bottom: 6pt; }
+  figure { margin: 9pt 0 0; page-break-inside: avoid; }
+  figure img { max-width: 100%; height: auto; border: 1px solid #b9c2cc; border-radius: 3pt; display: block; }
+  figcaption { font-size: 11pt; color: #6a737c; margin-top: 4pt; line-height: 1.35; }
+  .zoom { font-size: 11pt; color: #6a737c; }
+
+  .warn { background: #fbf0ee; border-left: 4px solid #a3301f; border-radius: 0 5pt 5pt 0;
+          padding: 9pt 11pt; margin: 10pt 0 0; font-size: 13.5pt; line-height: 1.4;
+          page-break-inside: avoid; }
+  .warn b { color: #7d2417; }
+
+  h2.sec { font-size: 18pt; margin: 0 0 4pt; padding-bottom: 6pt; border-bottom: 3px solid #26405c;
+           page-break-before: always; page-break-after: avoid; color: #101820; }
+  .lede { font-size: 13pt; color: #55606a; margin: 7pt 0 12pt; line-height: 1.4; }
+
+  .card { border: 1px solid #ccd4dc; border-left: 4px solid #26405c; border-radius: 0 5pt 5pt 0;
+          padding: 8pt 11pt; margin-bottom: 8pt; page-break-inside: avoid; }
+  .card .t { font-size: 14.5pt; font-weight: 700; line-height: 1.32; margin-bottom: 4pt; }
+  .card .t i { color: #26405c; font-style: normal; }
+  .card .d { font-size: 12.5pt; color: #4a545e; line-height: 1.4; }
+  .card .d span { color: #8b949c; }
+  .card.key { background: #fbf0ee; border-color: #a3301f; }
+  .mono { font-family: "Courier New", monospace; font-size: 0.9em;
+          overflow-wrap: anywhere; word-break: break-word; }
+  .end { font-size: 13pt; color: #4a545e; background: #eef3f8; border-radius: 7pt;
+         padding: 11pt 13pt; margin-top: 12pt; line-height: 1.42; page-break-inside: avoid; }
+
+  .amber { background: #fdf6e8; border-left: 4px solid #b07d1a; border-radius: 0 5pt 5pt 0;
+           padding: 9pt 11pt; margin: 10pt 0 0; font-size: 13.5pt; line-height: 1.4;
+           page-break-inside: avoid; }
+  .amber b { color: #8a5f10; }
+  .srcbox { font-size: 12pt; color: #4a545e; line-height: 1.45; }
+  .srcbox li { margin-bottom: 6pt; }
+</style>
+</head>
+<body>
+
+<div class="head">
+  <h1>GTS+<br>Data Acquisition</h1>
+  <div class="sub">Vehicle Control History, PCS Freeze Frame Data &amp; camera images</div>
+  <div class="meta">Field steps, at the vehicle · Rev. Sept 2026<br>
+  Global Techstream+ replaced Techstream, which Toyota discontinued in September 2024.</div>
+</div>
+
+<div class="pre">
+  <h2>Before you start</h2>
+  <ul>
+    <li>Confirm you have lawful authority. Some states require the owner's written consent.</li>
+    <li>Confirm the TIS subscription is active — <b>Professional Diagnostics</b>, not Standard.</li>
+    <li><b>GTS+ needs the internet.</b> It runs in a browser and logs in to a Toyota server. Offline
+        works for <b>2 days maximum</b> after your last online login, then it refuses to start.</li>
+    <li>Retrieve early. VCH records overwrite; every key cycle risks losing data.</li>
+    <li>Have a booster battery. GTS+ shows vehicle battery voltage in the header — watch it.</li>
+    <li>Photograph the vehicle, VIN plate, odometer and DLC. Note laptop clock vs. actual time.</li>
+    <li><b>Capture every screen as you go</b> — see step 15 for how, because GTS+ printing is
+        unreliable.</li>
+  </ul>
+</div>
+
+<div class="step">
+  <p><span class="badge">1</span>Check for <b>12 volts</b> at the battery. Turn the ignition
+  <b>ON</b> — do not start the engine. Connect the VIM to the PC by USB and to the vehicle's
+  <b>DLC3 (OBD-II)</b> port.</p>
+  <div class="warn"><b>Using a CDR 900 as the VIM?</b> It still works, but you must select it in
+  GTS+ Settings <b>and enter the serial number of your 900</b>. Mongoose-Plus MFC3, MongoosePro MFC2
+  and MongoosePro MFC are the Toyota-supported interfaces.</div>
+</div>
+
+<div class="step">
+  <p><span class="badge">2</span>Double-click the <b>GTSPlus</b> desktop icon. It opens in your
+  default browser — use Chrome, Edge or Firefox. Set <b>Country</b> and <b>User Type</b>
+  (Public User), then click <b>Server Login</b>.</p>
+  <figure><img src="img-gts/login.jpg" alt="GTS+ login screen">
+  <figcaption>Step 2 — Country, User Type, Server Login.</figcaption></figure>
+</div>
+
+<div class="step">
+  <p><span class="badge">3</span>At the home screen, <b>capture the bottom status bar</b> — it shows
+  the GTS+ version, the remaining subscription time and the ONLINE indicator.</p>
+  <figure><img src="img-gts/home.jpg" alt="GTS+ home screen">
+  <figcaption>Step 3 — home screen. Version and Subscription Expiration sit in the bottom-left bar.</figcaption></figure>
+  <div class="warn"><b>The subscription is a hard deadline.</b> A retrieved
+  <span class="mono">.vdas</span> file will not open once it expires. Plan to finish the PCS Data
+  Viewer output while the subscription is still live.</div>
+</div>
+
+<div class="step">
+  <p><span class="badge">4</span>Open <b>GTS+ Settings</b> (bottom row of the home screen) and confirm
+  the VIM selection, dealer/workshop details and e-mail. Save with the button at the bottom right.
+  Capture the VIM setting.</p>
+</div>
+
+<div class="step">
+  <p><span class="badge">5</span>Click <b>Connect to Vehicle</b>.</p>
+</div>
+
+<div class="step">
+  <p><span class="badge">6</span>On the <b>Vehicle Connection</b> screen, confirm the VIN and the
+  Division, Model, Model Year and Engine, choose the vehicle <b>Option</b>, then click the arrow to
+  continue. <b>Capture this screen</b> — it is your record that the tool was on this VIN.</p>
+  <figure><img src="img-gts/vehconn.jpg" alt="GTS+ Vehicle Connection screen">
+  <figcaption>Step 6 — Vehicle Connection. Note <i>VIN reacquisition</i> and <i>VIN manual input</i>
+  beside the VIN field, and <i>Manual</i> at the bottom left.</figcaption></figure>
+  <div class="warn"><b>Connecting manually or direct-to-module? Enter the VIN yourself</b> using
+  <b>VIN manual input</b>. The retrieval file is named from the VIN.</div>
+</div>
+
+<div class="step">
+  <p><span class="badge">7</span>The <b>Main Menu</b> appears. Capture it: the header carries the
+  model, production date, odometer and battery voltage, and the tile row is your map for the rest of
+  the job.</p>
+  <figure><img src="img-gts/mainmenu.jpg" alt="GTS+ Main Menu tiles">
+  <figcaption>Step 7 — Main Menu. <b>Vehicle Control History</b> and <b>PCS FFD Retrieval</b> are the
+  last two tiles on the right.</figcaption></figure>
+  <div class="amber"><b>This is the big change from Techstream.</b> There is no Read Data Function
+  button and no Stored Data tab. VCH and PCS FFD Retrieval are now top-level tiles on the Main Menu.</div>
+</div>
+
+<div class="step">
+  <p><span class="badge">8</span>Run <b>Health Check</b>. Let it finish scanning every system, then
+  capture the result — it is your ECU inventory, with RoB and DTC counts per system.</p>
+  <figure><img src="img-gts/healthcheck.jpg" alt="GTS+ Health Check Result">
+  <figcaption>Step 8 — Health Check Result. Open Freeze Frame Details with the snowflake icon under
+  the FFD column on any system with DTCs.</figcaption></figure>
+</div>
+
+<div class="step">
+  <p><span class="badge">9</span>Open <b>System Select</b>, choose the <b>SRS Airbag</b> system, and
+  work the DTC screen and the <b>Data List</b>. Use the <b>SAVE</b> button at the bottom right — it
+  writes the details into the scan data (TSE) file. Capture both screens.</p>
+</div>
+
+<div class="step">
+  <p><span class="badge">10</span>Open <b>Stored Data</b> and capture it. It records the model, model
+  code, vehicle spec, options, production date, odometer, <b>the GTS+ version</b>, the VIN and your
+  user type — the provenance of the whole retrieval.</p>
+  <figure><img src="img-gts/stored.jpg" alt="GTS+ Stored Data screen">
+  <figcaption>Step 10 — Stored Data. Put the case number in the <b>Memo</b> field before you capture it.</figcaption></figure>
+</div>
+
+<div class="step">
+  <p><span class="badge">11</span>Click the <b>Vehicle Control History</b> tile. GTS+ collects the
+  history from the airbag ECU.</p>
+  <figure><img src="img-gts/vch_wait.jpg" alt="Collecting the Vehicle Control History">
+  <figcaption>Step 11 — collection in progress.</figcaption></figure>
+</div>
+
+<div class="step">
+  <p><span class="badge">12</span>The event table appears: key cycle, elapsed time, clock type, time
+  and date, trigger, odometer and overwrite count, with the current key cycle and the maximum
+  overwrite count across the top. Use the <b>Key Cycle</b> filter at the bottom to narrow it.
+  Capture the whole table — see step 15.</p>
+  <figure><img src="img-gts/vch_table.jpg" alt="GTS+ Vehicle Control History table">
+  <figcaption>Step 12 — the VCH event table in GTS+. <span class="zoom">Pinch to zoom.</span></figcaption></figure>
+  <div class="warn"><b>This tile gives you VCH only — no camera images.</b> Do step 13 as well, even
+  if the table looks complete.</div>
+</div>
+
+<div class="step">
+  <p><span class="badge">13</span>Go back to the Main Menu and click <b>PCS FFD Retrieval</b>. This is
+  the path that pulls the Vehicle Control History <b>and</b> the forward-facing camera images, and
+  writes the <span class="mono">.vdas</span> retrieval file.</p>
+  <p>Work the prompts in order and <b>capture every one</b>:</p>
+  <ul>
+    <li>the consent / legal notice — tick OK to continue;</li>
+    <li>the processing choice — take <b>Read data</b>, not the CSV option, which skips the images;</li>
+    <li>the image-category selection — <b>check every box offered</b> (five on TSS 2.0 and later, one
+        on TSS 1.0);</li>
+    <li>the estimated read time — confirm your power will last, the read can run long;</li>
+    <li>the completion summary — it names the file and reports Operation FFD, Image data and Vehicle
+        Control History separately. <b>This is the most important capture of the retrieval.</b></li>
+  </ul>
+  <div class="amber"><b>Verify these prompts against the screen in front of you.</b> The published
+  GTS+ documentation does not yet illustrate the PCS FFD Retrieval prompts; the sequence above is
+  the one Techstream used and is what practitioners report in GTS+. If a prompt differs, capture it
+  and follow what it says.</div>
+</div>
+
+<div class="step">
+  <p><span class="badge">14</span>Note where the file landed, from the path the completion screen
+  shows. Retrieval files have historically been written to
+  <span class="mono">C:\Users\Public\Documents\Techstream\PCSdata\</span>, while GTS+ keeps its own
+  user data in <span class="mono">C:\Users\Public\Documents\GTSPlus\UserData\</span>. Confirm the
+  actual path on the day — do not assume it.</p>
+</div>
+
+<div class="step">
+  <p><span class="badge">15</span><b>How to capture screens in GTS+.</b> Toyota acknowledges printing
+  problems. For <b>Health Checks and data lists</b>, the browser's own print (<b>Ctrl + P</b>) works.
+  For <b>DTC, Freeze Frame Data, RoB, VCH and operational history</b>, use a full-page screenshot
+  browser extension such as GoFullPage, or press <b>Prt Scn</b> and paste into Paint
+  (<b>Ctrl + V</b>), then save.</p>
+  <div class="amber"><b>Budget time for this.</b> Practitioners moving from Techstream report having
+  to take a screenshot per timestamp where Techstream produced one file with everything in it. Plan
+  for it rather than discovering it at the vehicle.</div>
+</div>
+
+<div class="step">
+  <p><span class="badge">16</span>Save the scan data file for the session, then <b>copy the
+  <span class="mono">.vdas</span> file, the scan data file and every screen capture to external
+  media.</b> Open the copies and check their sizes before you disconnect.</p>
+</div>
+
+<div class="step">
+  <p><span class="badge">17</span>Work the checklist below. When everything is accounted for, exit
+  GTS+, disconnect the VIM from the DLC3 and switch the ignition off.</p>
+</div>
+
+<h2 class="sec">Before you leave</h2>
+<p class="lede">Every item below should be in hand. If one is not applicable, write down <i>why</i>
+rather than leaving it blank.</p>
+
+<div class="card key">
+  <div class="t"><i>1.</i> Retrieval file <span class="mono">.vdas</span></div>
+  <div class="d"><span>Where:</span> the path shown on the PCS FFD Retrieval completion screen<br>
+  <span>How:</span> copy to external media — this is the evidence</div>
+</div>
+<div class="card key">
+  <div class="t"><i>2.</i> PCS FFD Retrieval completion summary</div>
+  <div class="d"><span>Where:</span> end of the PCS FFD Retrieval sequence<br>
+  <span>How:</span> screen capture — status of Operation FFD, Image data and VCH, plus the file name</div>
+</div>
+<div class="card">
+  <div class="t"><i>3.</i> Vehicle Control History event table</div>
+  <div class="d"><span>Where:</span> Main Menu → Vehicle Control History<br>
+  <span>How:</span> full-page screen capture (GoFullPage or Prt Scn)</div>
+</div>
+<div class="card">
+  <div class="t"><i>4.</i> Consent notice, processing choice, image categories, estimated time</div>
+  <div class="d"><span>Where:</span> the PCS FFD Retrieval prompts<br>
+  <span>How:</span> screen capture, one per prompt</div>
+</div>
+<div class="card">
+  <div class="t"><i>5.</i> Scan data (TSE) file for the session</div>
+  <div class="d"><span>Where:</span> saved from System Select · <span>How:</span> save + copy to external media</div>
+</div>
+<div class="card">
+  <div class="t"><i>6.</i> GTS+ version &amp; subscription expiration</div>
+  <div class="d"><span>Where:</span> bottom status bar · <span>How:</span> screen capture</div>
+</div>
+<div class="card">
+  <div class="t"><i>7.</i> VIM selection (and CDR 900 serial, if used)</div>
+  <div class="d"><span>Where:</span> GTS+ Settings · <span>How:</span> screen capture</div>
+</div>
+<div class="card">
+  <div class="t"><i>8.</i> Vehicle identification and VIN</div>
+  <div class="d"><span>Where:</span> Vehicle Connection screen · <span>How:</span> screen capture</div>
+</div>
+<div class="card">
+  <div class="t"><i>9.</i> Main Menu header — production date, odometer, battery voltage</div>
+  <div class="d"><span>Where:</span> Main Menu · <span>How:</span> screen capture</div>
+</div>
+<div class="card">
+  <div class="t"><i>10.</i> Health Check result</div>
+  <div class="d"><span>Where:</span> Main Menu → Health Check · <span>How:</span> Ctrl + P to PDF + screen capture</div>
+</div>
+<div class="card">
+  <div class="t"><i>11.</i> SRS Airbag DTCs and Data List</div>
+  <div class="d"><span>Where:</span> System Select → SRS Airbag · <span>How:</span> SAVE to the TSE file + screen capture</div>
+</div>
+<div class="card">
+  <div class="t"><i>12.</i> Stored Data screen with case number in Memo</div>
+  <div class="d"><span>Where:</span> Main Menu → Stored Data · <span>How:</span> screen capture</div>
+</div>
+<div class="card">
+  <div class="t"><i>13.</i> Scene photographs and clock note</div>
+  <div class="d"><span>Where:</span> vehicle, VIN plate, odometer, DLC · <span>How:</span> camera / notes</div>
+</div>
+
+<div class="end"><b>Next, off the vehicle:</b> open the <span class="mono">.vdas</span> file in
+<b>PCS Data Viewer</b> — it still reads GTS+ retrievals, with the header labelled
+<i>File Information when GTS read out PCS Data</i>. Run <b>File → Output PCS Data</b> for the CSV and
+image output, and <b>Print → Output</b> for the PDF report. Do all of it
+<b>before the subscription expires.</b></div>
+
+<h2 class="sec">Sources</h2>
+<div class="srcbox">
+<p>The GTS+ screens in this guide come from Toyota's own documentation and from current
+practitioner material. There was no GTS+ procedure in the case folder, so these were researched and
+added to <span class="mono">files/</span>:</p>
+<ul>
+  <li><b>Techinfo TS Lite AM Installation Instructions v4.1</b>, Toyota — launching GTS+, VIM
+      selection, Connect to Vehicle, Vehicle Connection, Main Menu and Health Check screens.</li>
+  <li><b>GTS+ Independent User Guide</b>, Toyota — Stored Data and Vehicle Control History screens,
+      offline-mode limit, file locations.</li>
+  <li><b>Global Techstream Plus Known Bugs V2023.04.003.02</b>, Toyota — the printing workarounds in
+      step 15.</li>
+  <li><b>Techinfo TS Lite AM FAQ v4.0</b>, Toyota — subscription and support.</li>
+  <li><b>CDR-O October 2025</b> and <b>Ruth EDR</b> decks, already in the folder — Techstream
+      discontinued September 2024, the CDR 900 serial-number requirement, the VDAS-expiry warning,
+      and the screenshot-per-timestamp problem.</li>
+  <li><b>Accessing Toyota Event / Camera Data</b>, N. Manz, Toyota Canada (WREX 2023) — VCH is stored
+      in the airbag ECU; PCS data paths.</li>
+</ul>
+<p>Brad Muir's <i>GTS+ User Guide for Distribution</i> (October 2024) is referenced by the decks in
+the folder but is not in it, and is only posted behind a paywall. If you can get a copy it is the
+closest thing to a crash-investigation-specific GTS+ manual, and this guide should be checked
+against it.</p>
+</div>
+
+</body></html>
