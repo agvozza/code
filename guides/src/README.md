@@ -1,7 +1,17 @@
-# Toyota Techstream Imaging Guide — source
+# Toyota Techstream guides — source
 
-`../Toyota Techstream Imaging Guide.pdf` is generated from `guide.html` and the
-screenshots in `img/`.
+Three PDFs are built from this directory:
+
+| Output | Source | Page size |
+| --- | --- | --- |
+| `../Toyota Techstream Imaging Guide.pdf` | `guide.html` + `img/` | US Letter |
+| `../Toyota Techstream Data Acquisition Steps.pdf` | `steps.html` + `img/` | US Letter |
+| `../Toyota Techstream Data Acquisition — Phone.pdf` | `steps-phone.html` + `img-phone/` | 390 × 780 pt |
+
+The phone edition is sized to an iPhone viewport so a page fills the screen at
+1:1 with no pinch-zoom for the text. `img-phone/` holds the same screenshots
+cropped to the individual control each step names, since a full application
+window is unreadable at phone width.
 
 Screenshots were extracted from the source decks in `../../files/`:
 

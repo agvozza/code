@@ -1,0 +1,283 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Techstream Acquisition — Phone</title>
+<style>
+  @page { size: 390pt 780pt; margin: 20pt 18pt 30pt 18pt; }
+  * { box-sizing: border-box; }
+  body { font-family: Helvetica, Arial, sans-serif; font-size: 15.5pt; line-height: 1.47;
+         color: #14181c; margin: 0; -webkit-font-smoothing: antialiased; }
+  p { margin: 0 0 7pt; }
+  b { font-weight: 700; }
+
+  .head { border-bottom: 3px solid #26405c; padding-bottom: 9pt; margin-bottom: 13pt; }
+  .head h1 { font-size: 21pt; line-height: 1.15; margin: 0 0 4pt; color: #101820; }
+  .head .sub { font-size: 13pt; color: #26405c; line-height: 1.3; }
+  .head .meta { font-size: 11pt; color: #6a737c; margin-top: 7pt; line-height: 1.35; }
+
+  .pre { background: #eef3f8; border-radius: 7pt; padding: 11pt 13pt; margin: 0 0 16pt; }
+  .pre h2 { font-size: 14pt; margin: 0 0 7pt; color: #26405c; }
+  .pre ul { margin: 0; padding-left: 15pt; }
+  .pre li { margin-bottom: 6pt; font-size: 14pt; line-height: 1.4; }
+  .pre li:last-child { margin-bottom: 0; }
+
+  .step { margin: 0 0 20pt; orphans: 2; widows: 2; }
+  .badge { display: inline-block; min-width: 23pt; height: 23pt; border-radius: 12pt;
+           background: #26405c; color: #fff; font-size: 13pt; font-weight: 700;
+           text-align: center; line-height: 23pt; padding: 0 6pt; margin-right: 6pt;
+           position: relative; top: 2pt; }
+  .step p { margin-bottom: 6pt; }
+  figure { margin: 9pt 0 0; page-break-inside: avoid; }
+  figure img { max-width: 100%; height: auto; border: 1px solid #b9c2cc; border-radius: 3pt; display: block; }
+  figcaption { font-size: 11pt; color: #6a737c; margin-top: 4pt; line-height: 1.35; }
+  .zoom { font-size: 11pt; color: #6a737c; }
+
+  .warn { background: #fbf0ee; border-left: 4px solid #a3301f; border-radius: 0 5pt 5pt 0;
+          padding: 9pt 11pt; margin: 10pt 0 0; font-size: 13.5pt; line-height: 1.4;
+          page-break-inside: avoid; }
+  .warn b { color: #7d2417; }
+
+  h2.sec { font-size: 18pt; margin: 0 0 4pt; padding-bottom: 6pt; border-bottom: 3px solid #26405c;
+           page-break-before: always; page-break-after: avoid; color: #101820; }
+  .lede { font-size: 13pt; color: #55606a; margin: 7pt 0 12pt; line-height: 1.4; }
+
+  .card { border: 1px solid #ccd4dc; border-left: 4px solid #26405c; border-radius: 0 5pt 5pt 0;
+          padding: 8pt 11pt; margin-bottom: 8pt; page-break-inside: avoid; }
+  .card .t { font-size: 14.5pt; font-weight: 700; line-height: 1.32; margin-bottom: 4pt; }
+  .card .t i { color: #26405c; font-style: normal; }
+  .card .d { font-size: 12.5pt; color: #4a545e; line-height: 1.4; }
+  .card .d span { color: #8b949c; }
+  .card.key { background: #fbf0ee; border-color: #a3301f; }
+  .mono { font-family: "Courier New", monospace; font-size: 0.9em; }
+  .end { font-size: 13pt; color: #4a545e; background: #eef3f8; border-radius: 7pt;
+         padding: 11pt 13pt; margin-top: 12pt; line-height: 1.42; page-break-inside: avoid; }
+</style></head>
+<body>
+
+<div class="head">
+  <h1>Techstream<br>Data Acquisition</h1>
+  <div class="sub">Vehicle Control History, PCS Freeze Frame Data &amp; camera images</div>
+  <div class="meta">Field steps, at the vehicle · Rev. Sept 2026<br>
+  Screens after B. Muir / Crash Data Specialists and E. Clarke / CHP MAIT</div>
+</div>
+
+<div class="pre">
+  <h2>Before you start</h2>
+  <ul>
+    <li>Confirm you have lawful authority. Some states require the owner's written consent.</li>
+    <li>Confirm the TIS subscription is active — <b>Professional Diagnostics</b>, not Standard.</li>
+    <li>Retrieve early. VCH records overwrite; every key cycle risks losing data.</li>
+    <li>Have a booster battery. A read can take <b>1–90 minutes</b>.</li>
+    <li>Photograph the vehicle, VIN plate, odometer and DLC. Note laptop clock vs. actual time.</li>
+    <li><b>Screen-capture every screen as you go.</b> They cannot be recreated later.</li>
+  </ul>
+</div>
+
+<div class="step">
+  <p><span class="badge">1</span>Check for <b>12 volts</b> at the battery. Turn the ignition <b>ON</b> — do not start the engine.
+  Connect the VIM to the DLC and to the laptop.</p>
+</div>
+
+<div class="step">
+  <p><span class="badge">2</span>Launch Techstream. <b>Capture the main screen</b> — software version, remaining subscription time
+  (lower left) and the active VIM in the status bar.</p>
+  <figure><img src="img-phone/main_ver.jpg" alt="Version and subscription expiration">
+  <figcaption>Step 2 — lower-left corner of the main screen.</figcaption></figure>
+</div>
+
+<div class="step">
+  <p><span class="badge">3</span>Click <b>Setup → VIM Select</b>. Choose your interface, click <b>OK</b>, and capture it.</p>
+  <figure><img src="img-phone/vimselect.jpg" alt="VIM Select dialog">
+  <figcaption>Step 3 — VIM Select.</figcaption></figure>
+</div>
+
+<div class="step">
+  <p><span class="badge">4</span>Click <b>Connect to Vehicle</b> (top of the left panel).</p>
+  <figure><img src="img-phone/main_connect.jpg" alt="Connect to Vehicle button"></figure>
+  <p style="margin-top:9pt">Confirm Division, Model, Year and Engine, set any options the vehicle
+  carries, add a case note in <b>Memo</b>, then <b>Next</b>. <b>Capture this screen</b> — it is your
+  record that the tool was on this VIN.</p>
+  <figure><img src="img-phone/vehicleinfo.jpg" alt="Vehicle Connection Wizard">
+  <figcaption>Step 4 — confirm vehicle information and VIN.</figcaption></figure>
+  <div class="warn"><b>Connecting manually (D2M)? Type the VIN yourself.</b> Techstream builds the
+  file name from the VIN — blank or wrong gives a mismatch error and a misnamed file.</div>
+</div>
+
+<div class="step">
+  <p><span class="badge">5</span>At the System Selection Menu, run <b>Health Check</b> to bus-scan the vehicle. Save or print the
+  report and capture the menu as your ECU inventory.</p>
+  <figure><img src="img-phone/sys_buttons.jpg" alt="Health Check and Read Data Function buttons">
+  <figcaption>Step 5 — left panel. Health Check now; Read Data Function at step 7.</figcaption></figure>
+  <figure><img src="img-phone/sys_full.jpg" alt="Full System Selection Menu">
+  <figcaption>The full menu — yellow means status unknown, white means the ECU answered.
+  <span class="zoom">Pinch to zoom.</span></figcaption></figure>
+</div>
+
+<div class="step">
+  <p><span class="badge">6</span>Open <b>SRS Airbag</b> → <b>Trouble Codes</b>. Save with the disk icon and capture the current,
+  pending and history codes. Then <b>Data List</b> — save and capture that too.</p>
+  <figure><img src="img-phone/dtc_crop.jpg" alt="SRS Airbag diagnostic codes">
+  <figcaption>Step 6 — diagnostic codes.</figcaption></figure>
+</div>
+
+<div class="step">
+  <p><span class="badge">7</span>Back on the <b>System Select</b> tab, click <b>Read Data Function</b>, then choose
+  <b>PCS FFD Retrieval</b>.</p>
+  <figure><img src="img-phone/readfns.jpg" alt="Read Data Functions dialog">
+  <figcaption>Step 7 — choose PCS FFD Retrieval.</figcaption></figure>
+  <div class="warn"><b>Not the Vehicle Control History button.</b> That path gets VCH only.
+  PCS FFD Retrieval gets the VCH <b>and</b> the camera images.</div>
+</div>
+
+<div class="step">
+  <p><span class="badge">8</span>Read the legal notice, <b>tick OK</b>, then <b>Next</b>. Capture the screen.</p>
+  <figure><img src="img-phone/privacy.jpg" alt="Consent notice">
+  <figcaption>Step 8 — Next stays greyed out until OK is ticked.</figcaption></figure>
+</div>
+
+<div class="step">
+  <p><span class="badge">9</span>Select <b>Read data</b>, then <b>Next</b>.</p>
+  <figure><img src="img-phone/readdata.jpg" alt="Read data or generate csv">
+  <figcaption>Step 9 — choose Read data.</figcaption></figure>
+  <div class="warn"><b>Not "Generate csv file".</b> It does not retrieve the image data. CSV output
+  comes later, from the saved file.</div>
+</div>
+
+<div class="step">
+  <p><span class="badge">10</span>Techstream confirms it will read out Image Data, Operation FFD and Vehicle Control History, and
+  warns the read may take <b>1–90 minutes</b>. Confirm your power will last, then <b>Next</b>.</p>
+  <figure><img src="img-phone/readout.jpg" alt="Read-out confirmation">
+  <figcaption>Step 10 — read-out confirmation.</figcaption></figure>
+</div>
+
+<div class="step">
+  <p><span class="badge">11</span>Select the image data to read and <b>check every box offered</b> — five categories on TSS 2.0,
+  one on TSS 1.0. Capture the screen, then <b>Next</b>.</p>
+  <figure><img src="img-phone/img2.jpg" alt="Image data selection">
+  <figcaption>Step 11 — TSS 2.0 selection. TSS 1.0 offers only <i>PCS related Image data</i>.</figcaption></figure>
+</div>
+
+<div class="step">
+  <p><span class="badge">12</span>Check the estimated read time against your power and available time, then <b>Next</b> to start.
+  Do not disturb the laptop or the connection while it runs.</p>
+  <figure><img src="img-phone/esttime.jpg" alt="Estimated read time">
+  <figcaption>Step 12 — estimated read time.</figcaption></figure>
+</div>
+
+<div class="step">
+  <p><span class="badge">13</span><b>Capture the completion screen — the most important capture of the retrieval.</b> It reports
+  all three data sets and names the file created.</p>
+  <p><span class="mono">Image data : N/A</span> means no images were stored. That is a finding, not a
+  failure.</p>
+  <figure><img src="img-phone/complete.jpg" alt="Read Data complete">
+  <figcaption>Step 13 — file name is <span class="mono">VIN_YYYYMMDDHHMMSS.vdas</span>.</figcaption></figure>
+</div>
+
+<div class="step">
+  <p><span class="badge">14</span>Click <b>Check</b>. Explorer opens at the save folder — by default
+  <span class="mono">C:\Users\Public\Public Documents\ Techstream\PCSdata\</span>. Confirm the
+  <span class="mono">.vdas</span> file is there and note the path.</p>
+  <figure><img src="img-phone/explorer.jpg" alt="Saved vdas file in Explorer">
+  <figcaption>Step 14 — the retrieval file on disk.</figcaption></figure>
+</div>
+
+<div class="step">
+  <p><span class="badge">15</span>Still on scene, open the <b>Stored Data</b> tab and review the event list — key cycle, elapsed
+  time, date and time, trigger, odometer, overwrite count. <b>A circle in the Image column marks an
+  event with camera images.</b> Note the key cycles that matter, then export the list with the disk
+  icon.</p>
+  <figure><img src="img-phone/vch_save.jpg" alt="Disk icon below the event list">
+  <figcaption>Step 15 — the disk icon, below the list on the left.</figcaption></figure>
+  <figure><img src="img-phone/vch_full.jpg" alt="Vehicle Control History event list">
+  <figcaption>The full event list. <span class="zoom">Pinch to zoom.</span></figcaption></figure>
+</div>
+
+<div class="step">
+  <p><span class="badge">16</span>Open each relevant event to see its parameters and trigger note, and export it with the
+  <b>disk icon</b>.</p>
+  <figure><img src="img-phone/event_crop.jpg" alt="Individual trigger event parameters">
+  <figcaption>Step 16 — event parameters, trigger note, and the disk icon below.</figcaption></figure>
+  <div class="warn"><b>The Excel export leaves the camera images behind.</b> Images come out only
+  through the PCS Data Viewer output, done later from the <span class="mono">.vdas</span> file — and
+  only while the subscription is still active.</div>
+</div>
+
+<div class="step">
+  <p><span class="badge">17</span><b>Copy the <span class="mono">.vdas</span> file and every screen capture to external media.</b>
+  Open the copy and check its size. Work the checklist, then exit Techstream, disconnect the VIM and
+  switch the ignition off.</p>
+</div>
+
+<h2 class="sec">Before you leave</h2>
+<p class="lede">Every item below should be in hand. If one is not applicable, write down <i>why</i>
+rather than leaving it blank.</p>
+
+<div class="card key">
+  <div class="t"><i>1.</i> Retrieval file <span class="mono">VIN_…vdas</span></div>
+  <div class="d"><span>Where:</span> <span class="mono">C:\Users\Public\Public Documents\Techstream\PCSdata\</span><br>
+  <span>How:</span> copy to external media — this is the evidence</div>
+</div>
+<div class="card">
+  <div class="t"><i>2.</i> Read Data complete summary</div>
+  <div class="d"><span>Where:</span> Read Data (IMG_OPE_DDR-010)<br>
+  <span>How:</span> screen capture — status of all three data sets plus the file name</div>
+</div>
+<div class="card">
+  <div class="t"><i>3.</i> Vehicle Control History event list</div>
+  <div class="d"><span>Where:</span> Stored Data → Vehicle Control History<br>
+  <span>How:</span> export to Excel (disk icon) + screen capture</div>
+</div>
+<div class="card">
+  <div class="t"><i>4.</i> Individual trigger events, each one relevant</div>
+  <div class="d"><span>Where:</span> event list → event → disk icon<br>
+  <span>How:</span> export to Excel + screen capture</div>
+</div>
+<div class="card">
+  <div class="t"><i>5.</i> Software version &amp; subscription expiration</div>
+  <div class="d"><span>Where:</span> main screen at launch · <span>How:</span> screen capture</div>
+</div>
+<div class="card">
+  <div class="t"><i>6.</i> Interface (VIM) selection</div>
+  <div class="d"><span>Where:</span> Setup → VIM Select · <span>How:</span> screen capture</div>
+</div>
+<div class="card">
+  <div class="t"><i>7.</i> Vehicle identification and VIN</div>
+  <div class="d"><span>Where:</span> Vehicle Connection Wizard · <span>How:</span> screen capture</div>
+</div>
+<div class="card">
+  <div class="t"><i>8.</i> ECU inventory</div>
+  <div class="d"><span>Where:</span> System Select tab · <span>How:</span> screen capture</div>
+</div>
+<div class="card">
+  <div class="t"><i>9.</i> Health Check report</div>
+  <div class="d"><span>Where:</span> System Select → Health Check · <span>How:</span> save / print to PDF</div>
+</div>
+<div class="card">
+  <div class="t"><i>10.</i> SRS Airbag trouble codes</div>
+  <div class="d"><span>Where:</span> SRS Airbag → Trouble Codes · <span>How:</span> save (disk icon) + screen capture</div>
+</div>
+<div class="card">
+  <div class="t"><i>11.</i> SRS Airbag data list</div>
+  <div class="d"><span>Where:</span> SRS Airbag → Data List · <span>How:</span> save (disk icon) + screen capture</div>
+</div>
+<div class="card">
+  <div class="t"><i>12.</i> Consent notice as acknowledged</div>
+  <div class="d"><span>Where:</span> Read Data (IMG_OPE_DDR-009) · <span>How:</span> screen capture</div>
+</div>
+<div class="card">
+  <div class="t"><i>13.</i> Image categories requested</div>
+  <div class="d"><span>Where:</span> image selection screen · <span>How:</span> screen capture</div>
+</div>
+<div class="card">
+  <div class="t"><i>14.</i> Read-out estimated time</div>
+  <div class="d"><span>Where:</span> Read Data (IMG_OPE_DDR-021) · <span>How:</span> screen capture</div>
+</div>
+<div class="card">
+  <div class="t"><i>15.</i> Scene photographs and clock note</div>
+  <div class="d"><span>Where:</span> vehicle, VIN plate, odometer, DLC · <span>How:</span> camera / notes</div>
+</div>
+
+<div class="end"><b>Next, off the vehicle:</b> load the <span class="mono">.vdas</span> file into
+PCS Data Viewer and run <b>File → Output PCS Data</b> for the CSV, image and PDF output. Do this
+<b>before the TIS subscription expires</b> — once it does, the <span class="mono">.vdas</span> file
+can no longer be opened. Those steps are in the full <i>Toyota Techstream Imaging Guide</i>.</div>
+
+</body></html>
