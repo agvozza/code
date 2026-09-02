@@ -29,7 +29,11 @@ Compiled reference for **VIN 2T3A1RFV8MC233488** — 2021 RAV4 XLE Premium, A25A
 The IJB grid is **36 positions in two columns of 18** (1–18 left, 19–36 right, numbered top to bottom)
 — confirmed against the published layout drawing in `fuse-box-diagrams/IJB-instrument-panel-diagram.png`.
 
-No luggage-compartment junction block on this vehicle — that box is Hybrid/Prime only.
+**No luggage-compartment fuse box on this platform.** Confirmed by enumerating every junction and
+relay block named across all 42,638 pages of the Toyota service manual: the only blocks are the
+Instrument Panel Junction Block, the No.1 Engine Room Relay Block, the No.3 Relay Block, and — on HV
+models only — the HV Battery Junction Block (part of the battery pack, not a serviceable cabin box).
+A search for any luggage/rear/trunk junction or relay block returns **zero hits**.
 
 ---
 
@@ -51,7 +55,7 @@ Positions per fuse-box.info. **StartMyCar disagrees** on several (noted in the C
 | 11 | 10A | STRG LOCK | Steering lock | |
 | 12 | 7.5A | DCM | Data communication module (telematics) | |
 | 13 | 5A | **ECU-ACC** | ACC rail | |
-| 14 | 7.5A | **ECU-IG1 NO.3** | ECU — camera candidate | |
+| 14 | 7.5A | **ECU-IG1 NO.3** | **★ FORWARD RECOGNITION CAMERA / PCS — confirmed by Toyota SM** | |
 | 15 | 5A | EPS-IG1 | Electric power steering | |
 | 16 | 10A | **A/BAG-IG2** | **Airbag control module IG2 feed** | listed as #31 elsewhere |
 | 17 | 5A | **METER-IG2** | Combination meter | |
@@ -69,10 +73,10 @@ Positions per fuse-box.info. **StartMyCar disagrees** on several (noted in the C
 | 29 | 15A | P/OUTLET NO.1 | Cigar lighter / power outlet | |
 | 30 | 5A | SFT LOCK-ACC | Shift lock control | |
 | 31 | 20A | WASHER | Windshield washer | |
-| 33 | 10A | **ECU-IG1 NO.4** | ECU — camera candidate | |
+| 33 | 10A | **ECU-IG1 NO.4** | ECU (not the camera branch) | |
 | 34 | 5A | BKUP LP | Backup lights | |
-| 35 | 7.5A | **ECU-IG1 NO.2** | ECU — camera candidate | |
-| 36 | 5A | **ECU-IG1 NO.1** | ECU — camera candidate | |
+| 35 | 7.5A | **ECU-IG1 NO.2** | ECU (not the camera branch) | |
+| 36 | 5A | **ECU-IG1 NO.1** | ECU (not the camera branch) | |
 
 Positions 5 and 32 are not populated in the published table.
 
@@ -109,10 +113,18 @@ OBD  7.5A   ·  ECU-B NO.1  5A  ·  ECU-B NO.2  10A  ·  A/BAG-IG2  10A
 **Tier 2 — add for Techstream and the forward camera**
 
 ```
-ECU-IG1 NO.1  5A   ·  ECU-IG1 NO.2  7.5A  ·  ECU-IG1 NO.3  7.5A
-ECU-IG1 NO.4  10A  ·  ECU-IG2 NO.3  5A    ·  METER-IG2  5A
-ECU-ACC  5A        ·  AM2  7.5A
+★ ECU-IG1 NO.3  7.5A   <-- the forward recognition camera (Toyota SM confirmed)
+  ECU-IG1 NO.1  5A     ·  ECU-IG1 NO.2  7.5A  ·  ECU-IG1 NO.4  10A
+  ECU-IG2 NO.3  5A     ·  METER-IG2  5A
+  ECU-ACC  5A          ·  AM2  7.5A
 ```
+
+`ECU-IG1 NO.3` is now the one that matters for the camera. Powering all four `ECU-IG1` branches
+is still the efficient move — it costs three extra taps and removes any doubt — but if you are
+short on leads or want the minimum, NO.3 is the branch to prioritise.
+
+**Airbag control module** is fed by `A/BAG-IG2` — confirmed at the ACM connector itself:
+terminal **G70-36 (IG2) → A/BAG-IG2 fuse**.
 
 **Tier 3 — engine room, only if the bus will not come up**
 
@@ -138,21 +150,19 @@ ECU IG2 NO.1  10A  ·  ECU IG2 NO.2  10A  ·  IG2 MAIN  20A
 
 ## Unresolved
 
-1. **Which `ECU-IG1` branch feeds the forward recognition camera.** No fuse on this platform is named
-   CAMERA, FCM, PCS, RDA or TSS.
-   **Leading hypothesis: `ECU-IG1 NO.4` (10A, pos. 33.)** A third-party fuse table carries a 10A entry
-   in the low-30s whose circuit list includes *"anticollision system"* (Pre-Collision) and *"lane
-   control system"* (LDA) — both forward-camera functions — and `ECU-IG1 NO.4` is the only 10A
-   `ECU-IG1` branch in this box. Not confirmed: the position digit is ambiguous between 32 and 33 in
-   the source, and that source is an aggregator, not Toyota. See `source-research-notes.md` §4b.
-   **Procedure is unchanged — power all four branches and the question is moot.** Confirm against the
-   TIS EWD *Power Source* section only if the branch must be named in a report.
-2. **Actual position numbers.** Corroborated across three sources, but the box lid governs. See the
-   warning at the top.
-3. **Trunk/luggage fuse box.** Not documented for this VIN — the owner's manual lists exactly three
-   box locations, none in the cargo area. A walkthrough video for a 2021 RAV4 nonetheless includes a
-   "Trunk location" chapter that could not be resolved from available frames. **Check the cargo area
-   on arrival**; it costs thirty seconds.
+1. ~~Which `ECU-IG1` branch feeds the forward recognition camera.~~ **RESOLVED — `ECU-IG1 NO.3`
+   (7.5A, pos. 14).** Confirmed by the Toyota service manual on two independent Pre-Collision System
+   diagrams, both naming *"INSTRUMENT PANEL JUNCTION BLOCK ASSEMBLY — ECU-IG1 NO. 3 FUSE"* alongside
+   the Forward Recognition Camera and Millimeter Wave Radar Sensor. This is Toyota-authoritative and
+   citable. See `source-research-notes.md` §7.
+   **Note:** this **overturns** the earlier `ECU-IG1 NO.4` hypothesis drawn from a third-party table.
+   That guess was wrong.
+2. **Actual position numbers.** Corroborated across three sources, but the box lid governs — the
+   service manual names fuses, not box positions. See the warning at the top.
+3. ~~Trunk/luggage fuse box.~~ **RESOLVED — there is none.** Zero hits for any luggage, rear or trunk
+   junction/relay block across the full service manual; the only blocks on this platform are the IJB,
+   the No.1 Engine Room Relay Block, the No.3 Relay Block, and the HV-only HV Battery Junction Block.
+   Whatever the walkthrough video's "Trunk location" chapter shows, it is not a fuse box.
 
 ---
 
@@ -162,5 +172,14 @@ ECU IG2 NO.1  10A  ·  ECU IG2 NO.2  10A  ·  IG2 MAIN  20A
 - StartMyCar — 2021 RAV4 — https://www.startmycar.com/us/toyota/rav4/info/fusebox/2021 (conflicting positions)
 - fuseandrelay.com — RAV4 2019–2026 — https://fuseandrelay.com/toyota/rav4-5g.html (box designations)
 - 2021 RAV4 Owner's Manual pp. 616–618 (`2021-RAV4-Owners-Manual.pdf`) — box locations and access
+- **2021–2022 RAV4 Toyota Service Manual** (`2021-2022-RAV4-Service-Manual.pdf`, 42,638 pp) —
+  **authoritative** for circuit-to-fuse assignments. Key pages extracted to
+  `RAV4-SM-power-source-extract.pdf`:
+  - pp. 7947, 38318 — PCS system diagrams naming `ECU-IG1 NO. 3` for the forward recognition camera
+  - pp. 37213, 38232, 19432, 20127 — SRS system diagrams naming `A/BAG-IG2`
+  - p. 37232 — airbag sensor assembly connector pinout (`G70-36 IG2 → A/BAG-IG2`) and the full
+    squib circuit list
+  - p. 16511 — smart key system diagram showing the `IG1 NO.1` / `ECU-ACC` relays in the IJB
 
-Third-party tables are secondary sources. Cite the on-vehicle lid photograph in any report.
+Circuit-to-fuse assignments now come from Toyota. **Position numbers still do not** — cite the
+on-vehicle lid photograph for those in any report.

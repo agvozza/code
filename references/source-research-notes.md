@@ -1,4 +1,11 @@
-# Source Research Notes — three user-supplied references
+# Source Research Notes — user-supplied references
+
+> ## ⚠ READ §7 FIRST
+> A **Toyota Service Manual** (42,638 pages, full text layer) was supplied after §§1–6 were written
+> and **supersedes them**. Two open items are now closed with Toyota-authoritative citations:
+> the forward recognition camera runs on **`ECU-IG1 NO. 3`**, and there is **no trunk fuse box**.
+> §4b's `ECU-IG1 NO.4` hypothesis is **wrong** — it is retained below only to show the reasoning
+> that the service manual overturned. Do not act on it.
 
 Research conducted 2026-09-02 against three sources supplied for the VIN 2T3A1RFV8MC233488
 inspection. This document records what each source is, what was extracted, what could not be
@@ -17,10 +24,11 @@ Contents summary up front:
 
 ## 1. The headline result
 
-An independent third source now **confirms the fuse-box.info position numbering** that the field
-sheet had flagged as unverified, and gives a **strong lead on the forward-camera fuse** that was
-previously unresolved. Details in §4. Neither finding is Toyota-authoritative, so the box-lid
-photograph still governs — but the confidence level has moved materially.
+*(Written before the service manual arrived — see §7 for what actually settled these.)*
+
+An independent third source **confirms the fuse-box.info position numbering** that the field
+sheet had flagged as unverified, and gave a lead on the forward-camera fuse. Details in §4. Neither
+finding is Toyota-authoritative, so the box-lid photograph still governs for positions.
 
 ---
 
@@ -145,7 +153,7 @@ Ten independent agreements, zero contradictions. **This substantially resolves t
 conflict in favour of fuse-box.info and against StartMyCar**, whose scheme would have placed
 `A/BAG-IG2` at 31 and `OBD` at 3.
 
-### 4b. The forward-camera fuse — a strong lead, not yet a fact
+### 4b. The forward-camera fuse — a lead that turned out to be WRONG (see §7a)
 
 One entry in the low-30s carries an unusually long circuit list. Legible fragments include:
 
@@ -212,3 +220,97 @@ Deno JS runtime — the default client returned "Sign in to confirm you're not a
 
 Video metadata as retrieved is preserved in `video-frames/video1-metadata.json` and
 `video-frames/video2-metadata.json`; storyboard contact sheets alongside them.
+
+---
+
+# 7. ADDENDUM — Toyota Service Manual obtained (2026-09-02)
+
+A fourth source was supplied after the above was written: the **2021–2022 Toyota RAV4 Service
+Manual**, 412 MB, delivered via Dropbox direct link. It downloaded cleanly in 31 seconds and carries
+a **full text layer across 42,638 pages**. This is a TIS export and it supersedes every third-party
+source in this folder for circuit-to-fuse assignments.
+
+Key pages are extracted to `RAV4-SM-power-source-extract.pdf` (8 pages).
+
+## 7a. Forward recognition camera — RESOLVED, and my earlier guess was wrong
+
+**`ECU-IG1 NO. 3` FUSE.** Confirmed on two independent Pre-Collision System diagrams:
+
+> **p. 7947** — *"\*1 FORWARD RECOGNITION CAMERA · \*2 MILLIMETER WAVE RADAR SENSOR ASSEMBLY ·
+> \*3 INSTRUMENT PANEL JUNCTION BLOCK ASSEMBLY — **ECU-IG1 NO. 3 FUSE** · \*4 DLC3"*
+> (System diagram, w/o Stop and Start System)
+
+> **p. 38318** — same assignment, on the diagram covering both Gasoline and HV models, which also
+> lists the Airbag Sensor Assembly and DLC3.
+
+`ECU-IG1 NO.3` is **7.5A at position 14**.
+
+**This overturns §4b.** The hypothesis there — `ECU-IG1 NO.4` (10A, pos. 33), inferred from a
+third-party table's "anticollision system" wording — **was wrong**. The inference was reasonable
+from the evidence available at the time, but it picked the wrong branch. Toyota's own diagram is
+now the citable answer, and no inference is needed.
+
+This is the practical difference the service manual makes: the earlier advice was "power all four
+`ECU-IG1` branches because we cannot tell which". Now `ECU-IG1 NO.3` is named and citable. Powering
+all four is still the efficient field move — three extra taps, zero doubt — but the report can name
+the branch.
+
+## 7b. Airbag control module — confirmed at the connector
+
+**`A/BAG-IG2` FUSE**, corroborated four ways in the SM (pp. 19432, 20127, 37213, 38232) and, most
+directly, at the module connector itself:
+
+> **p. 37232** — *"G70-36 · IG2 · **A/BAG-IG2 fuse**"*
+
+That same page carries the **full ACM connector pinout**, which is a better squib inventory than the
+VIN decode. Circuits named include:
+
+| Terminal | Circuit |
+|---|---|
+| G70-12/13 | DK−/DK+ — Lower No.1 instrument panel airbag (driver knee) |
+| G70-28/29 | Front airbag sensor RH |
+| G70-30/31 | Front airbag sensor LH |
+| N21-7/8 | Curtain shield airbag LH |
+| N21-15/16 | Front seat airbag LH |
+| N21-25/26 | Front seat adjuster LH (seat position sensor) |
+| N21-29/30 | Floor side airbag sensor LH |
+| N21-31/32 | Side airbag pressure sensor LH |
+| M15-1/2 | Curtain shield airbag RH |
+| **M15-5/6** | **FCP+/FCP− — Front seat cushion airbag RH** |
+| M15-9/10 | Front seat airbag RH |
+| M15-25/26 | Side airbag pressure sensor RH |
+| M15-27/28 | Floor side airbag sensor RH |
+
+Note M15-5/6 independently confirms the **passenger seat cushion airbag** flagged from the VIN decode.
+
+## 7c. Trunk fuse box — RESOLVED, there is none
+
+Every junction and relay block named anywhere in the 42,638 pages was enumerated:
+
+| Block | Present on this vehicle? |
+|---|---|
+| Instrument Panel Junction Block | ✅ |
+| No.1 Engine Room Relay Block | ✅ |
+| No.3 Relay Block | ✅ |
+| HV Battery Junction Block | ❌ HV models only — part of the battery pack, not a cabin box |
+
+A regex for any **luggage / rear / trunk** junction or relay block returns **zero hits**.
+
+Combined with the owner's manual listing exactly three box locations, this closes §3. My original
+statement was correct; the mid-research downgrade to "not documented" was over-cautious. Whatever
+the Simon Car Fixer video shows in its "Trunk location" chapter, it is not a fuse box.
+
+## 7d. Still not resolved: box positions
+
+The service manual names fuses by **name**, never by box position — position maps live in the EWD and
+on the physical lid. So the position-number caveat stands unchanged: **photograph the lid.** The
+difference now is that it only matters for *locating* a fuse, not for *identifying* which one you
+need.
+
+## 7e. Provenance note
+
+The file carries a `GetTheMANUALS.org` watermark, i.e. it is a redistributed copy of Toyota
+copyrighted service literature rather than a TIS-licensed download. It was supplied by you and is
+held here as a local working set only — it is gitignored along with the other third-party material
+and is not pushed to the remote. If the fuse assignment needs to be cited in a filed report, cite
+the equivalent TIS page from a licensed subscription rather than this copy.
