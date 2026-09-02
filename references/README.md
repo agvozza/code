@@ -17,17 +17,20 @@ Companion field sheet: https://claude.ai/code/artifact/cc902ac7-a7e8-49a0-8fa8-4
 | `Toyota-ERG-general.pdf` | 116 pp · 10 MB | techinfo.toyota.com (pre-login) | ⚠ **Generic**, not vehicle-specific. Scanned printout of Toyota's first-responder e-learning deck — no text layer, no RAV4 section. Kept for general SRS handling guidance only. |
 | `RAV4-XA50-fuse-tables.md` | — | Compiled | Fuse tables assembled from published sources, with source conflicts flagged. |
 | `fuse-box-diagrams/` | 5 PNG | fuse-box.info | Position-grid layouts and box locations. Third-party redraws, **not** Toyota lid art. |
+| `source-research-notes.md` | — | Compiled | Deep dive on the three user-supplied sources (wiring-diagram site + two videos): what was obtained, what was blocked, and how they change the open items. |
+| `video-frames/` | 2 PNG + 2 JSON | YouTube | Storyboard contact sheets and metadata for both videos. No captions exist for either. |
 
 ---
 
-## Two findings worth knowing
+## Three findings worth knowing
 
 **1. The owner's manual has no fuse chart.**
 For this generation Toyota moved the fuse legend entirely onto the physical box lid. Page 617 reads:
 *"The amperage rating can be found on the fuse box lid."* There is no name/position table anywhere in
 the 748 pages. This means photographing the box lid is not merely best practice — **it is the only
-authoritative source available without a TIS subscription.** Every position number in
-`RAV4-XA50-fuse-tables.md` is a third-party claim.
+Toyota-authoritative source available without a TIS subscription.** Every position number in
+`RAV4-XA50-fuse-tables.md` is a third-party claim, though see finding 3 on how far they now
+corroborate each other.
 
 The manual does confirm box locations and access method (pp. 616–617):
 IJB at the **left side instrument panel, remove the lid**; engine-compartment boxes open by
@@ -54,6 +57,25 @@ While you are in TIS, the **vehicle-specific Emergency Response Guide** is worth
 every airbag inflator and pretensioner for this exact model, which is a better squib inventory than the
 generic deck in this folder.
 
+
+**3. Two open items moved; one new one opened.**
+
+Research into the three supplied sources (`source-research-notes.md`) produced:
+
+- **Fuse numbering corroborated.** A third independent source agrees with the table in
+  `RAV4-XA50-fuse-tables.md` on ten consecutive positions with no contradictions. The
+  numbering conflict is effectively resolved; the lid photo still governs.
+- **Forward-camera fuse — a lead.** `ECU-IG1 NO.4` (10A) is now the leading hypothesis,
+  from a third-party table whose 10A entry lists "anticollision system" and "lane control
+  system". Not confirmed. Procedure unchanged: power all four `ECU-IG1` branches.
+- **Trunk fuse box — newly uncertain.** The owner's manual documents three boxes, none in
+  the cargo area, and I earlier said flatly there is none. A walkthrough video for a 2021
+  RAV4 has a "Trunk location" chapter that available frames could not resolve. Downgraded
+  to "not documented for this VIN" — look in the cargo area on arrival.
+- **The wiring diagram is still missing.** The supplied fixmycarinfo.com link is behind a
+  Cloudflare bot challenge that no automated route could pass. It should download normally
+  in your own browser.
+
 ---
 
 ## Provenance and handling
@@ -69,8 +91,10 @@ bash references/fetch-sources.sh
 ```
 
 Committing them instead is a deliberate decision, not a default: pushing ~48 MB of third-party
-manuals to a remote is redistribution, which is separate from holding a working copy. Only
-`README.md`, `RAV4-XA50-fuse-tables.md` and `fetch-sources.sh` are tracked.
+manuals to a remote is redistribution, which is separate from holding a working copy. Tracked files
+are the compiled ones only: `README.md`, `RAV4-XA50-fuse-tables.md`, `source-research-notes.md` and
+`fetch-sources.sh`. The `video-frames/` contact sheets are gitignored with the rest — they are
+reconstructions of third-party video content.
 
 Third-party fuse tables are secondary sources. Any report should cite the **on-vehicle lid
 photograph** and, where available, the TIS EWD page — not these files.

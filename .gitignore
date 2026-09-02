@@ -3,3 +3,4 @@
 # through this repository. Reproduce them with: bash references/fetch-sources.sh
 references/*.pdf
 references/fuse-box-diagrams/
+references/video-frames/

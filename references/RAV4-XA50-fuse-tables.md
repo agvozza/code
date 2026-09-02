@@ -2,14 +2,19 @@
 
 Compiled reference for **VIN 2T3A1RFV8MC233488** — 2021 RAV4 XLE Premium, A25A-FKS gasoline, AWD.
 
-> ## ⚠ Position numbers are UNVERIFIED
+> ## ⚠ Position numbers are CORROBORATED but not Toyota-authoritative
 >
-> Published sources disagree on numbering, and **the owner's manual contains no fuse table at all** —
-> Toyota moved the chart entirely to the physical box lid for this generation. The manual says only:
+> **The owner's manual contains no fuse table at all** — Toyota moved the chart entirely to the
+> physical box lid for this generation. The manual says only:
 > *"The amperage rating can be found on the fuse box lid."* (OM p.617)
 >
-> **The fuse NAME is the identifier. The box lid is the only authoritative position map.**
-> Photograph it on arrival.
+> The numbering below was initially in conflict between two published sources. A **third independent
+> source (the Auto User Guide video table) agrees with this table on ten consecutive positions with
+> zero contradictions** — see `source-research-notes.md` §4a. That resolves the conflict in favour of
+> the numbering used here.
+>
+> It remains a third-party scheme. **The fuse NAME is still the identifier, and the box lid is still
+> the only authoritative position map.** Photograph it on arrival.
 
 ---
 
@@ -134,9 +139,20 @@ ECU IG2 NO.1  10A  ·  ECU IG2 NO.2  10A  ·  IG2 MAIN  20A
 ## Unresolved
 
 1. **Which `ECU-IG1` branch feeds the forward recognition camera.** No fuse on this platform is named
-   CAMERA, FCM, PCS, RDA or TSS. Only the Toyota EWD *Power Source* section names it. Power all four
-   branches and the question is moot.
-2. **Actual position numbers.** Box lid only. See the warning at the top.
+   CAMERA, FCM, PCS, RDA or TSS.
+   **Leading hypothesis: `ECU-IG1 NO.4` (10A, pos. 33.)** A third-party fuse table carries a 10A entry
+   in the low-30s whose circuit list includes *"anticollision system"* (Pre-Collision) and *"lane
+   control system"* (LDA) — both forward-camera functions — and `ECU-IG1 NO.4` is the only 10A
+   `ECU-IG1` branch in this box. Not confirmed: the position digit is ambiguous between 32 and 33 in
+   the source, and that source is an aggregator, not Toyota. See `source-research-notes.md` §4b.
+   **Procedure is unchanged — power all four branches and the question is moot.** Confirm against the
+   TIS EWD *Power Source* section only if the branch must be named in a report.
+2. **Actual position numbers.** Corroborated across three sources, but the box lid governs. See the
+   warning at the top.
+3. **Trunk/luggage fuse box.** Not documented for this VIN — the owner's manual lists exactly three
+   box locations, none in the cargo area. A walkthrough video for a 2021 RAV4 nonetheless includes a
+   "Trunk location" chapter that could not be resolved from available frames. **Check the cargo area
+   on arrival**; it costs thirty seconds.
 
 ---
 
