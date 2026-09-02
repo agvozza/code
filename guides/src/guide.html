@@ -1,0 +1,581 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Toyota Techstream Imaging Guide</title>
+<style>
+  @page { size: letter; margin: 0.8in 0.85in 0.85in 0.85in; }
+  * { box-sizing: border-box; }
+  body { font-family: "Times New Roman", Times, serif; font-size: 11.5pt; line-height: 1.42;
+         color: #111; margin: 0; }
+  h1,h2,h3,h4 { font-family: Georgia, "Times New Roman", serif; color: #101820; }
+  p { margin: 0 0 8pt; }
+  ul, ol { margin: 0 0 8pt; padding-left: 20pt; }
+  li { margin-bottom: 3pt; }
+
+  /* ---------- cover ---------- */
+  .cover { height: 9.0in; display: flex; flex-direction: column; justify-content: center;
+           text-align: center; page-break-after: always; }
+  .cover .rev { font-size: 10.5pt; letter-spacing: .06em; text-transform: uppercase; color: #555; }
+  .cover h1 { font-size: 30pt; line-height: 1.18; margin: 14pt 0 6pt; }
+  .cover .sub { font-size: 15pt; color: #26405c; margin: 0 0 26pt; font-family: Georgia, serif; }
+  .cover .rule { width: 2.1in; height: 3px; background: #26405c; margin: 0 auto 26pt; }
+  .cover .scope { font-size: 11.5pt; color: #333; max-width: 5.1in; margin: 0 auto 30pt; }
+  .cover .foot { font-size: 10pt; color: #555; }
+
+  /* ---------- structure ---------- */
+  h2.sec { font-size: 17pt; margin: 0 0 3pt; padding-bottom: 5pt; border-bottom: 2px solid #26405c;
+           page-break-before: always; page-break-after: avoid; }
+  h2.sec.cont { page-break-before: auto; }
+  h3 { font-size: 13pt; margin: 16pt 0 5pt; color: #26405c; page-break-after: avoid; }
+  h4 { font-size: 11.5pt; margin: 12pt 0 4pt; page-break-after: avoid; }
+  .lede { font-size: 11pt; color: #444; margin: 6pt 0 14pt; }
+
+  /* ---------- steps ---------- */
+  .step { page-break-inside: avoid; margin: 0 0 15pt; }
+  .step > .body { display: flex; gap: 9pt; align-items: flex-start; }
+  .num { flex: 0 0 auto; width: 21pt; height: 21pt; border-radius: 50%; background: #26405c;
+         color: #fff; font-family: Georgia, serif; font-size: 11.5pt; font-weight: bold;
+         text-align: center; line-height: 21pt; }
+  .txt { flex: 1 1 auto; }
+  .txt p:last-child { margin-bottom: 0; }
+  figure { margin: 7pt 0 0 30pt; page-break-inside: avoid; }
+  figure img { max-width: 100%; max-height: 2.95in; width: auto; height: auto;
+               border: 1px solid #b9c2cc; display: block; }
+  figure.narrow img { max-width: 3.9in; max-height: 3.0in; }
+  figure.mid img { max-width: 4.9in; max-height: 2.75in; }
+  figcaption { font-size: 9pt; color: #5a6672; margin-top: 3pt; font-style: italic; }
+
+  /* ---------- callouts ---------- */
+  .note, .warn { border-left: 4px solid #26405c; background: #f2f5f8; padding: 8pt 11pt;
+                 margin: 10pt 0 12pt 30pt; font-size: 10.5pt; page-break-inside: avoid; }
+  .warn { border-left-color: #a3301f; background: #fbf1ef; }
+  .note b, .warn b { font-family: Georgia, serif; }
+  .flush { margin-left: 0; }
+  .step.two figure img { max-height: 2.25in; max-width: 4.2in; }
+
+  /* ---------- tables ---------- */
+  table { width: 100%; border-collapse: collapse; font-size: 9.3pt; margin: 7pt 0 12pt; }
+  caption { caption-side: top; text-align: left; font-family: Georgia, serif; font-size: 10.5pt;
+            font-weight: bold; padding-bottom: 5pt; color: #26405c; }
+  th { background: #26405c; color: #fff; text-align: left; padding: 5pt 6pt; font-family: Georgia, serif;
+       font-size: 9.5pt; font-weight: normal; }
+  td { border: 1px solid #c4ccd4; padding: 3.6pt 5.5pt; vertical-align: top; }
+  tbody tr:nth-child(even) td { background: #f4f7fa; }
+  td.n { text-align: center; width: 26pt; color: #26405c; font-weight: bold; }
+  .mono { font-family: "Courier New", monospace; font-size: 9pt; }
+  tr { page-break-inside: avoid; }
+  thead { display: table-header-group; }
+  th:nth-child(1), td:nth-child(1) { width: 6%; }
+  th:nth-child(2), td:nth-child(2) { width: 36%; }
+  th:nth-child(3), td:nth-child(3) { width: 34%; }
+  th:nth-child(4), td:nth-child(4) { width: 24%; }
+
+  .toc { font-size: 11.5pt; }
+  .toc div { padding: 3.5pt 0; border-bottom: 1px dotted #c8d0d8; }
+  .toc .l2 { padding-left: 18pt; font-size: 10.5pt; color: #444; }
+  .src { font-size: 9.5pt; color: #555; }
+</style></head>
+<body>
+
+<!-- ============ COVER ============ -->
+<section class="cover">
+  <div class="rev">Revised September 2026</div>
+  <h1>Toyota Techstream<br>Imaging Guide</h1>
+  <div class="sub">Vehicle Control History &middot; PCS Freeze Frame Data &middot; Forward-Facing Camera Images</div>
+  <div class="rule"></div>
+  <div class="scope">A step-by-step field procedure for retrieving and preserving Toyota and Lexus
+    Vehicle Control History (VCH) and Pre-Collision System (PCS) data using TIS Techstream,
+    ending with a checklist of every file that must be in hand before leaving the inspection.</div>
+  <div class="foot">Compiled from the source material listed on the final page.<br>
+    For use by trained crash investigators with lawful authority to retrieve vehicle data.</div>
+</section>
+
+<!-- ============ TOC ============ -->
+<h2 class="sec cont">Table of Contents</h2>
+<div class="toc">
+  <div><b>General Precautions</b></div>
+  <div class="l2">Before Connecting to the Vehicle &middot; Vehicle Connections &middot; Powering the Module</div>
+  <div><b>About Techstream and Vehicle Control History</b></div>
+  <div class="l2">What VCH Records &middot; Covered Vehicles &middot; TSS 1.0 vs. TSS 2.0 &middot; Overwrite and Evidence Loss</div>
+  <div><b>Equipment and Subscription</b></div>
+  <div class="l2">Hardware &middot; TIS Subscription &middot; Software Installation &middot; PCS Data Viewer</div>
+  <div><b>Imaging Data Using Techstream</b> &mdash; Steps 1&ndash;20</div>
+  <div class="l2">Connecting &middot; Diagnostic Trouble Codes &middot; PCS FFD Retrieval &middot; Reading Out the Data</div>
+  <div><b>Table 1 &mdash; Files You Should Have Before Leaving the Inspection</b></div>
+  <div><b>Extracting the Data Using PCS Data Viewer</b> &mdash; Steps 1&ndash;8</div>
+  <div><b>Table 2 &mdash; Files Produced by PCS Data Viewer</b></div>
+  <div><b>Source Material</b></div>
+</div>
+
+<!-- ============ PRECAUTIONS ============ -->
+<h2 class="sec">General Precautions</h2>
+
+<h3>Before Connecting to the Vehicle</h3>
+<p>Confirm that the vehicle's battery, ground cables, and positive 12-volt cables are properly
+connected and undamaged. Inspect the airbag ECU and its wiring, and the DLC itself, for crash
+damage that may complicate or corrupt a retrieval.</p>
+<p>Photograph the vehicle, the VIN plate, the odometer, and the DLC before you connect anything.
+Record the date and time from your own watch alongside the laptop clock: Techstream timestamps
+the retrieval file from the PC clock, and VCH records carry their own clock reference that must be
+reconciled later.</p>
+
+<h3>Vehicle Connections</h3>
+<p>Toyota provides <b>no direct-to-module connection</b> for Vehicle Control History. The retrieval
+must be made through the vehicle's 16-pin Diagnostic Link Connector (DLC), normally under the
+dash on the driver's side. The VCH data itself is held in the airbag ECU, which Toyota calls the
+<i>Airbag Electronic Control Unit</i>.</p>
+
+<h3>Powering the Module</h3>
+<p>Because the retrieval runs through the DLC, the module must stay powered for the whole read.
+Where vehicle power is unavailable or unreliable, the module can be backpowered through the DLC
+in the same way as a CDR download. A read-out can take anywhere from one to ninety minutes, so
+provide a booster or supply battery rather than relying on a damaged vehicle's own battery.</p>
+<div class="warn flush"><b>Losing power mid-read will end the retrieval.</b> Confirm your power
+source before pressing Next on the read-out screen, not after.</div>
+<figure class="flush"><img src="img/dlc.jpg" alt="DLC to CDR interface cable adapter with external power input">
+<figcaption>DLC to interface cable adapter with external power input &mdash; the arrangement used to
+backpower the vehicle through the 16-pin DLC during a retrieval.</figcaption></figure>
+
+<!-- ============ ABOUT ============ -->
+<h2 class="sec">About Techstream and Vehicle Control History</h2>
+<p class="lede">Vehicle Control History is a separate recording from the airbag EDR record read by
+the Bosch CDR tool. Retrieving one is not a substitute for retrieving the other.</p>
+
+<h3>What VCH Records</h3>
+<p>A CDR download alone may miss data that VCH holds. VCH records <b>post-trigger</b> data as well
+as pre-trigger, which makes it valuable in non-deployment events, multiple impacts, and sideswipes
+that the CDR report does not capture.</p>
+<p>VCH includes the familiar parameters &mdash; vehicle speed, engine RPM, accelerator position,
+brake switch &mdash; and adds yaw rate, lateral and longitudinal G sensor signals, brake oil
+pressure, steering angle, shift position, and the ADAS system parameters. Events may also carry
+forward-facing camera images.</p>
+<p>At least 26 separate trigger types cause an event record to be written. Some events record at
+2&nbsp;Hz and others at 6.67&nbsp;Hz; most triggers capture roughly five seconds before and after
+the trigger. The authoritative trigger list is in the Vehicle Control History section of the
+online service manual at techinfo.toyota.com, which requires a subscription.</p>
+
+<h3>Covered Vehicles</h3>
+<p>Vehicle Control History was introduced progressively:</p>
+<ul>
+  <li>2013 &mdash; Toyota RAV4</li>
+  <li>2014 &mdash; Toyota Highlander; Lexus IS250/350</li>
+  <li>2015 &mdash; Toyota Camry, Corolla, Prius C, Prius V; Lexus NX and RC</li>
+  <li>2016 &mdash; Toyota Avalon, Land Cruiser, Mirai, Prius, Tacoma; Scion iM; Lexus ES, GS, LX and RX</li>
+  <li>Later model years are generally supported; confirm coverage for the specific vehicle before you rely on it.</li>
+</ul>
+
+<h3>TSS 1.0 vs. TSS 2.0</h3>
+<p>The generation of Toyota Safety Sense on the vehicle changes what images you can recover and how
+many boxes appear on the image-selection screen.</p>
+<ul>
+  <li><b>TSS 1.0</b> &mdash; images are stored only for PCS events, and only if <i>the vehicle itself
+    braked</i>. A PCS warning buzzer alone is not enough to link and store images. The retrieval
+    screen offers a single choice, <i>PCS related Image data</i>.</li>
+  <li><b>TSS 2.0</b> (2019 and later RAV4, Corolla hatchback, Lexus ES350 and onward) &mdash; image
+    capture no longer requires the vehicle to brake, and images may be stored against PCS, LKA,
+    EDR, ICS and vehicle-behavior triggers. The retrieval screen offers five separate checkboxes.</li>
+</ul>
+
+<h3>Overwrite and Evidence Loss</h3>
+<div class="warn flush">
+  <p><b>VCH records are overwritten.</b> Events are sorted into recording &ldquo;Areas,&rdquo; and each
+  Area holds a limited number of records before the oldest is replaced &mdash; the pre-collision Area
+  holds about ten records, the lane-departure Area about twelve. Because of the overwrite rules the
+  file numbers are not necessarily chronological.</p>
+  <p style="margin-bottom:0"><b>Every key cycle risks losing data.</b> Retrieve VCH as early in the
+  inspection as practical, and do not drive or repeatedly cycle the vehicle beforehand.</p>
+</div>
+
+<!-- ============ EQUIPMENT ============ -->
+<h2 class="sec">Equipment and Subscription</h2>
+
+<h3>Hardware</h3>
+<ul>
+  <li>A Windows laptop meeting the Techstream requirements, with a Java runtime installed.</li>
+  <li>A vehicle interface module (VIM) with a 16-pin DLC connector. Commonly used devices include
+      the Bosch CDR&nbsp;900, the Toyota MongoosePro MFC or MFC2, and the USB-Link&nbsp;2.</li>
+  <li>A booster or supply battery and, if you intend to backpower, a DLC adapter cable with an
+      external power input.</li>
+  <li>External media &mdash; a USB drive &mdash; to carry the retrieval files off the laptop before
+      you leave the scene.</li>
+</ul>
+
+<h3>TIS Subscription</h3>
+<p>Techstream runs on a subscription from <span class="mono">techinfo.toyota.com</span>. Register at
+<span class="mono">techinfo.snapon.com/TIS/Register.aspx</span> if you do not already have an account.</p>
+<div class="note flush"><b>Select &ldquo;Professional Diagnostics,&rdquo; not &ldquo;Standard.&rdquo;</b>
+A Standard subscription will not run Techstream. Subscriptions are sold in 2-day, monthly and
+yearly terms; a 2-day term is enough for a single inspection but see the warning below.</div>
+<figure class="flush mid"><img src="img/subterm.jpg" alt="TIS subscription term selection screen">
+<figcaption>Subscription Term screen &mdash; set Type to <i>Professional Diagnostics</i>, choose the
+term, and set Quantity to 1.</figcaption></figure>
+<p>Activation is not automatic. TIS emails an activation link with &ldquo;Action Required&rdquo; in the
+subject line, and the subscription stays inactive until you click it. That email frequently lands in
+a spam folder &mdash; check there before assuming the order failed.</p>
+
+<h3>Software Installation</h3>
+<p>Log in, accept the terms of use, and download the current <b>Full</b> Techstream installer from
+the TIS tab under <b>Diagnostics</b>. Save the installer rather than running it directly so a
+reinstall is possible later. Select English (United States) and let the installer run; it takes a
+while. Set the region to North America and the user type to Public User, completing every field on
+that screen. If prompted about Java, install it.</p>
+<p>On first launch Techstream asks for a registration key. Click <b>Software Registration</b>, log
+in, enter a Computer Name and Shop Owner, click <b>Calculate Key</b>, then copy the key back into
+the <b>New Key</b> field and click OK.</p>
+
+<h3>Confirm the Subscription Before You Travel</h3>
+<p>The Techstream main screen shows the software version and the remaining subscription time in the
+lower left. Confirm it reads the expected term before you leave for the inspection.</p>
+<figure class="flush mid"><img src="img/subscription.jpg" alt="Techstream main screen showing subscription expiration">
+<figcaption>Subscription Expiration on the main screen. A 2-day term reads in hours and minutes.</figcaption></figure>
+<div class="warn flush"><b>A 2-day licence stops you reading your own evidence.</b> Once the licence
+expires you can no longer open the retrieved <span class="mono">.vdas</span> file in PCS Data Viewer.
+Complete the PCS Data Viewer extraction in Part&nbsp;2 &mdash; the CSV, image and PDF output &mdash;
+<i>while the subscription is still live</i>, or buy a term long enough to cover the analysis.</div>
+
+<h3>Confirm PCS Data Viewer Is Installed</h3>
+<p>PCS Data Viewer is the application that opens the retrieval file. It installs alongside
+Techstream, in the Techstream program folder. Confirm it is present and, if there is no desktop
+shortcut, create one before you go.</p>
+<figure class="flush mid"><img src="img/viewerinstall.jpg" alt="PCS Data Viewer in the Techstream program folder">
+<figcaption>PCS Data Viewer in the program folder &mdash; send a shortcut to the desktop.</figcaption></figure>
+
+<h3>Optional: Pull the As-Built Record First</h3>
+<p>The same subscription gives access to service manuals and the vehicle's factory
+&ldquo;as-built&rdquo; equipment record. Entering the VIN under the <b>Vehicle Inquiry</b> tab and
+expanding <b>Standard Equipment</b> tells you what safety systems the vehicle actually left the
+factory with &mdash; useful for knowing what to expect before you connect, and printable for the file.</p>
+<figure class="flush"><img src="img/vehinquiry.jpg" alt="TIS Vehicle Inquiry VIN search">
+<figcaption>Vehicle Inquiry &mdash; enter the 17-digit VIN and click Lookup.</figcaption></figure>
+
+<!-- ============ IMAGING ============ -->
+<h2 class="sec">Imaging Data Using Techstream</h2>
+<p class="lede">Screen-capture every screen listed below as you go. The screen captures are the record
+of how the retrieval was performed and of the tool state at the time; they cannot be recreated later.</p>
+
+<div class="step"><div class="body"><div class="num">1</div><div class="txt">
+<p>Verify system power by checking for 12&nbsp;volts at the vehicle's battery. Turn the ignition
+<b>ON</b> &mdash; do not start the engine. Connect the VIM to the DLC and to the laptop, and confirm
+the laptop is booted and stable before opening Techstream.</p></div></div></div>
+
+<div class="step"><div class="body"><div class="num">2</div><div class="txt">
+<p>Launch Techstream. Once it opens, <b>take a screen capture of the main screen</b>, which shows the
+software version and the remaining subscription time in the lower left, and the selected VIM in the
+status bar along the bottom.</p></div></div>
+<figure><img src="img/main.jpg" alt="Techstream main screen">
+<figcaption>Step 2 &mdash; Techstream main screen. Version, Subscription Expiration and the active VIM
+are all visible; capture this screen.</figcaption></figure></div>
+
+<div class="step"><div class="body"><div class="num">3</div><div class="txt">
+<p>Click <b>Setup</b>, then <b>VIM Select</b>.</p></div></div>
+<figure><img src="img/vimmenu.jpg" alt="Setup menu with VIM Select highlighted">
+<figcaption>Step 3 &mdash; Setup &rarr; VIM Select.</figcaption></figure></div>
+
+<div class="step"><div class="body"><div class="num">4</div><div class="txt">
+<p>Choose the interface you are using from the <b>Interface setup</b> list &mdash; several may be
+listed &mdash; and click <b>OK</b>. Take a screen capture showing the device selected and its
+reported vendor, device name and supported protocols.</p></div></div>
+<figure><img src="img/vimselect.jpg" alt="VIM Select dialog">
+<figcaption>Step 4 &mdash; VIM Select. The interface information panel confirms which device
+Techstream will talk through.</figcaption></figure></div>
+
+<div class="step"><div class="body"><div class="num">5</div><div class="txt">
+<p>Click <b>Connect to Vehicle</b> on the left of the main screen. Confirm the ignition is still ON.
+The Vehicle Connection Wizard reports its progress as it connects.</p></div></div>
+<figure><img src="img/connecting.jpg" alt="Vehicle Connection Wizard connecting to vehicle">
+<figcaption>Step 5 &mdash; the Vehicle Connection Wizard connecting to the vehicle.</figcaption></figure></div>
+
+<div class="step"><div class="body"><div class="num">6</div><div class="txt">
+<p>Techstream normally auto-detects the vehicle and populates the VIN. Confirm Division, Model,
+Model Year and Engine, set any options the vehicle carries (Smart Key, Radar Cruise), add a note in
+the Memo field identifying the case, and click <b>Next</b>. <b>Screen-capture this screen</b> &mdash;
+it is your record that the tool was connected to this VIN.</p></div></div>
+<figure class="narrow"><img src="img/vehicleinfo.jpg" alt="Vehicle Connection Wizard vehicle information">
+<figcaption>Step 6 &mdash; confirm the vehicle information and VIN.</figcaption></figure>
+<div class="warn"><b>If you connect manually (direct-to-module / D2M), you must type the VIN
+yourself.</b> Techstream builds the retrieval file name from the VIN, and a blank or wrong VIN
+produces a VIN mismatch error and a misnamed file.</div></div>
+
+<div class="step"><div class="body"><div class="num">7</div><div class="txt">
+<p>The System Selection Menu appears. Yellow cells are possible equipment whose status is unknown;
+running <b>Health Check</b> performs a bus scan and turns the ECUs that actually responded white.
+Run the Health Check, save or print its report, and <b>screen-capture the System Selection Menu</b>
+as your record of the ECU inventory on this vehicle.</p></div></div>
+<figure><img src="img/systemselect.jpg" alt="Techstream System Selection Menu">
+<figcaption>Step 7 &mdash; System Selection Menu. The colour key at the top explains ECU status.</figcaption></figure></div>
+
+<div class="step"><div class="body"><div class="num">8</div><div class="txt">
+<p>Select <b>SRS Airbag</b> (wording varies by vehicle) and click <b>Trouble Codes</b>. Record the
+current, pending and history codes &mdash; save them with the disk icon at the lower right and take a
+screen capture.</p></div></div>
+<figure><img src="img/dtc.jpg" alt="SRS Airbag diagnostic trouble codes">
+<figcaption>Step 8 &mdash; SRS Airbag diagnostic codes, showing Current, Pending and History columns.</figcaption></figure></div>
+
+<div class="step"><div class="body"><div class="num">9</div><div class="txt">
+<p>Click <b>Data List</b> for the additional airbag-system information &mdash; occupant
+classification, buckle switches, number of past DTCs. Save and capture this screen as well.</p></div></div>
+<figure><img src="img/datalist.jpg" alt="SRS Airbag data list">
+<figcaption>Step 9 &mdash; SRS Airbag Data List.</figcaption></figure></div>
+
+<div class="step"><div class="body"><div class="num">10</div><div class="txt">
+<p>Return to the <b>System Select</b> tab and click <b>Read Data Function</b>. Two paths are offered.
+Choose <b>PCS FFD Retrieval</b>.</p></div></div>
+<figure class="mid"><img src="img/readfns.jpg" alt="Read Data Functions dialog">
+<figcaption>Step 10 &mdash; Read Data Functions. Choose PCS FFD Retrieval.</figcaption></figure>
+<div class="note"><b>Why not the Vehicle Control History button?</b> The Vehicle Control History path
+retrieves VCH only. <b>PCS FFD Retrieval retrieves the Vehicle Control History <i>and</i> the camera
+images</b>, if any are present. Always take the PCS FFD Retrieval path so nothing is left behind.
+The same prompts can also be reached from the SRS Airbag section under <b>Utility</b>, but that route
+is not recommended for the same reason.</div></div>
+
+<div class="step"><div class="body"><div class="num">11</div><div class="txt">
+<p>A legal notice appears. Some states require the owner's written consent before Vehicle Control
+History data is downloaded or interpreted. Satisfy yourself that you have the authority to proceed,
+<b>tick the OK checkbox</b>, and click <b>Next</b>. Screen-capture this screen.</p></div></div>
+<figure class="mid"><img src="img/privacy.jpg" alt="Vehicle Control History legal notice">
+<figcaption>Step 11 &mdash; the consent notice. Next stays greyed out until OK is ticked.</figcaption></figure></div>
+
+<div class="step"><div class="body"><div class="num">12</div><div class="txt">
+<p>Select <b>Read data</b> and click <b>Next</b>.</p></div></div>
+<figure class="mid"><img src="img/readdata.jpg" alt="Read data or Generate csv file selection">
+<figcaption>Step 12 &mdash; choose Read data.</figcaption></figure>
+<div class="warn"><b>Do not choose &ldquo;Generate csv file&rdquo; at the vehicle.</b> That option does
+not retrieve the image data. Read the full data set first; the CSV output is produced later from the
+saved file in PCS Data Viewer.</div></div>
+
+<div class="step"><div class="body"><div class="num">13</div><div class="txt">
+<p>Techstream confirms it is about to read out the Image Data, Operation FFD and Vehicle Control
+History, and warns that the read may take between one and ninety minutes. Confirm your power supply
+will last, then click <b>Next</b>.</p></div></div>
+<figure class="mid"><img src="img/readout.jpg" alt="Read out confirmation screen">
+<figcaption>Step 13 &mdash; read-out confirmation and the 1&ndash;90 minute warning.</figcaption></figure></div>
+
+<div class="step two"><div class="body"><div class="num">14</div><div class="txt">
+<p>Select the image data to read, and <b>check every box offered</b>. A TSS 1.0 vehicle offers only
+<i>PCS related Image data</i>; a TSS 2.0 vehicle offers five categories. There is no reason to leave
+any unchecked. <b>Screen-capture this screen</b> &mdash; it records which categories were requested.
+Click <b>Next</b>.</p></div></div>
+<figure class="mid"><img src="img/img2.jpg" alt="TSS 2.0 image data selection with five checkboxes">
+<figcaption>Step 14 &mdash; TSS 2.0 image selection: vehicle behavior, PCS, LKA, ICS and collision
+related image data. PCS = Pre-Collision System, LKA = Lane Keeping Assist, ICS = Intelligent
+Clearance Sonar.</figcaption></figure>
+<figure class="mid"><img src="img/img1.jpg" alt="TSS 1.0 image data selection with a single checkbox">
+<figcaption>Step 14, TSS 1.0 &mdash; a single choice, PCS related Image data.</figcaption></figure></div>
+
+<div class="step"><div class="body"><div class="num">15</div><div class="txt">
+<p>Techstream estimates the read time from the number of stored events. Confirm the estimate against
+your power supply and available time, then click <b>Next</b> to begin the read. Do not disturb the
+laptop or the connection while it runs.</p></div></div>
+<figure class="mid"><img src="img/esttime.jpg" alt="Estimated read time screen">
+<figcaption>Step 15 &mdash; estimated read time for this vehicle.</figcaption></figure></div>
+
+<div class="step two"><div class="body"><div class="num">16</div><div class="txt">
+<p>When the read completes, Techstream reports the status of each of the three data sets and names
+the file it created. <b>Screen-capture this screen. It is the single most important capture of the
+retrieval</b> &mdash; it is your record of the file name and of whether each data set succeeded.</p>
+<p>Read the three status lines carefully. <span class="mono">Image data : N/A</span> means no images
+were stored for the events retrieved, which is a finding in itself &mdash; not a failure of the
+retrieval.</p></div></div>
+<figure class="mid"><img src="img/complete.jpg" alt="Read Data complete, all three data sets successful">
+<figcaption>Step 16 &mdash; all three data sets successful. The file name follows the pattern
+<span class="mono">VIN_YYYYMMDDHHMMSS.vdas</span>.</figcaption></figure>
+<figure class="mid"><img src="img/complete_na.jpg" alt="Read Data complete with image data N/A">
+<figcaption>Step 16 &mdash; the same screen where no images were stored: Image data reads N/A while
+Operation FFD and Vehicle Control History both succeeded.</figcaption></figure></div>
+
+<div class="step"><div class="body"><div class="num">17</div><div class="txt">
+<p>Click <b>Check</b>. Windows Explorer opens at the folder holding the retrieval file, by default
+<span class="mono">C:\Users\Public\Public Documents\Techstream\PCSdata\</span>. Confirm the
+<span class="mono">.vdas</span> file is present and note the full path.</p></div></div>
+<figure class="mid"><img src="img/explorer.jpg" alt="Explorer showing the saved vdas file">
+<figcaption>Step 17 &mdash; the saved retrieval file in the PCSdata folder.</figcaption></figure></div>
+
+<div class="step"><div class="body"><div class="num">18</div><div class="txt">
+<p>While still on scene and still licensed, you may review the events in Techstream itself: the
+<b>Stored Data</b> tab lists the Vehicle Control History with key cycle, elapsed time, date and time,
+trigger description, odometer and overwrite count. <b>A circle in the Image column marks an event
+that has camera images.</b> Identify the events relevant to your investigation and note their key
+cycles.</p></div></div>
+<figure><img src="img/vchlist.jpg" alt="Vehicle Control History event list in Techstream">
+<figcaption>Step 18 &mdash; the VCH event list in Techstream. The disk icon at the lower left exports
+the list.</figcaption></figure></div>
+
+<div class="step"><div class="body"><div class="num">19</div><div class="txt">
+<p>Opening an individual event shows the recorded parameters for that trigger and a trigger note.
+The playback controls step through each data point. Use the <b>disk icon</b> to export the event to
+Excel.</p></div></div>
+<figure><img src="img/event.jpg" alt="Individual trigger event data in Techstream">
+<figcaption>Step 19 &mdash; an individual trigger event with its parameter list and trigger note.</figcaption></figure>
+<div class="warn"><b>Exporting to Excel does not export the camera images.</b> The images come out only
+through PCS FFD Retrieval and the PCS Data Viewer output in Part&nbsp;2. If an event carries images,
+you must complete Part&nbsp;2 to preserve them.</div></div>
+
+<div class="step"><div class="body"><div class="num">20</div><div class="txt">
+<p><b>Copy the <span class="mono">.vdas</span> file and every screen capture to external media before
+you disconnect.</b> Work through Table&nbsp;1 opposite and confirm each item is in hand. When
+everything is accounted for, exit Techstream, disconnect the VIM from the DLC, and turn the ignition
+off.</p></div></div></div>
+
+<!-- ============ TABLE 1 ============ -->
+<h2 class="sec">Table 1 &mdash; Files You Should Have Before Leaving the Inspection</h2>
+<p class="lede">At this point the following should have been imaged from the vehicle. Do not
+disconnect until every row is accounted for. Where a row is marked <i>not applicable</i>, record
+<i>why</i> in your notes rather than leaving it blank.</p>
+
+<table>
+  <thead><tr><th>No.</th><th>File</th><th>Location</th><th>Save Method</th></tr></thead>
+  <tbody>
+    <tr><td class="n">1</td><td>Software version and subscription expiration</td><td>Techstream main screen at launch</td><td>Screen capture</td></tr>
+    <tr><td class="n">2</td><td>Interface (VIM) selection and protocols</td><td>Setup &rarr; VIM Select</td><td>Screen capture</td></tr>
+    <tr><td class="n">3</td><td>Vehicle identification and VIN</td><td>Vehicle Connection Wizard</td><td>Screen capture</td></tr>
+    <tr><td class="n">4</td><td>ECU inventory / System Selection Menu</td><td>System Select tab</td><td>Screen capture</td></tr>
+    <tr><td class="n">5</td><td>Health Check report</td><td>System Select &rarr; Health Check</td><td>Save / print to PDF</td></tr>
+    <tr><td class="n">6</td><td>SRS Airbag diagnostic trouble codes</td><td>SRS Airbag &rarr; Trouble Codes</td><td>Save (disk icon) + screen capture</td></tr>
+    <tr><td class="n">7</td><td>SRS Airbag data list</td><td>SRS Airbag &rarr; Data List</td><td>Save (disk icon) + screen capture</td></tr>
+    <tr><td class="n">8</td><td>Consent / legal notice as acknowledged</td><td>Read Data (IMG_OPE_DDR-009)</td><td>Screen capture</td></tr>
+    <tr><td class="n">9</td><td>Image data categories requested</td><td>Read Data image selection screen</td><td>Screen capture</td></tr>
+    <tr><td class="n">10</td><td>Read-out estimated time</td><td>Read Data (IMG_OPE_DDR-021)</td><td>Screen capture</td></tr>
+    <tr><td class="n">11</td><td><b>Read Data complete summary</b> &mdash; status of Operation FFD, Image data and Vehicle Control History, plus the retrieval file name</td><td>Read Data (IMG_OPE_DDR-010)</td><td>Screen capture</td></tr>
+    <tr><td class="n">12</td><td><b>Retrieval file</b> <span class="mono">VIN_YYYYMMDDHHMMSS.vdas</span></td><td><span class="mono">C:\Users\Public\Public Documents\Techstream\PCSdata\</span></td><td>Copy to external media</td></tr>
+    <tr><td class="n">13</td><td>Vehicle Control History event list</td><td>Stored Data &rarr; Vehicle Control History</td><td>Export (disk icon) to Excel + screen capture</td></tr>
+    <tr><td class="n">14</td><td>Individual trigger event data, for each event relevant to the investigation</td><td>VCH list &rarr; event &rarr; disk icon</td><td>Export to Excel + screen capture</td></tr>
+    <tr><td class="n">15</td><td>Photographs of vehicle, VIN plate, odometer and DLC; laptop clock vs. actual time</td><td>Scene</td><td>Camera / notes</td></tr>
+    <tr><td class="n">16</td><td>Vehicle as-built equipment record <span class="src">(optional, from TIS)</span></td><td>techinfo.toyota.com &rarr; Vehicle Inquiry</td><td>Print to PDF</td></tr>
+  </tbody>
+</table>
+
+<div class="warn flush"><b>The <span class="mono">.vdas</span> file is the evidence.</b> Everything in
+Part&nbsp;2 is produced from it. Verify it copied successfully to external media &mdash; open the copy,
+check the file size &mdash; before the laptop leaves the vehicle.</div>
+
+<!-- ============ PART 2 ============ -->
+<h2 class="sec">Extracting the Data Using PCS Data Viewer</h2>
+<p class="lede">Complete this part while the TIS subscription is still active. Once it expires, the
+<span class="mono">.vdas</span> file can no longer be opened.</p>
+
+<div class="step"><div class="body"><div class="num">1</div><div class="txt">
+<p>Launch <b>PCS Data Viewer</b> from the desktop shortcut. Click <b>File &rarr; Load VDAS File</b> and
+open the retrieval file. The header fills in with the VIN, key cycle, odometer, retrieval date,
+dealer code and the airbag ECU part number and software number.</p></div></div>
+<figure><img src="img/viewer_vch.jpg" alt="PCS Data Viewer with a loaded VDAS file, VCH tab">
+<figcaption>Part 2, Step 1 &mdash; the VCH tab of a loaded retrieval file. Double-click the Key Cycle
+header to sort highest to lowest.</figcaption></figure></div>
+
+<div class="step"><div class="body"><div class="num">2</div><div class="txt">
+<p>Work the <b>VCH</b> tab. Each row is one trigger event: key cycle, elapsed time, clock type, time
+and date, trigger description, odometer, overwrite count, and whether an Image FFD record exists.
+An asterisk in the <b>Image FFD</b> column marks an event with camera images.</p></div></div></div>
+
+<div class="step"><div class="body"><div class="num">3</div><div class="txt">
+<p>Work the <b>FFD</b> tab in the same way. VCH and FFD views of the same event contain overlapping
+but not identical data &mdash; review both.</p></div></div>
+<figure><img src="img/viewer_ffd.jpg" alt="PCS Data Viewer FFD tab">
+<figcaption>Part 2, Step 3 &mdash; the FFD tab, here holding a single collision detection record.</figcaption></figure></div>
+
+<div class="step"><div class="body"><div class="num">4</div><div class="txt">
+<p>Double-click an event to open playback. Selected parameters are graphed against time with the
+trigger at zero. Where the event carries images, they load alongside the graphs and step in sync
+with the playback controls.</p></div></div>
+<figure><img src="img/viewer_play.jpg" alt="PCS Data Viewer event playback with synchronised camera image">
+<figcaption>Part 2, Step 4 &mdash; event playback with vehicle speed, lateral G and steering plotted,
+and the synchronised forward-facing camera image at the right.</figcaption></figure></div>
+
+<div class="step"><div class="body"><div class="num">5</div><div class="txt">
+<p>Click <b>File &rarr; Output PCS Data</b> and choose a destination. Save the output alongside the
+<span class="mono">.vdas</span> file so the retrieval and its extraction stay together.</p></div></div>
+<figure><img src="img/output_menu.jpg" alt="File menu with Output PCS Data highlighted">
+<figcaption>Part 2, Step 5 &mdash; File &rarr; Output PCS Data.</figcaption></figure></div>
+
+<div class="step"><div class="body"><div class="num">6</div><div class="txt">
+<p>The output is written into three directories plus two files: <b>ImageFFD</b>, <b>OperationFFD</b>
+and <b>VCH</b>, with <b>CarAndCommonInfo</b> holding the vehicle and tool data and <b>Result</b>
+recording the output run. Confirm all five are present.</p></div></div>
+<figure class="narrow"><img src="img/output_dirs.jpg" alt="Output directory structure">
+<figcaption>Part 2, Step 6 &mdash; the five output items.</figcaption></figure></div>
+
+<div class="step"><div class="body"><div class="num">7</div><div class="txt">
+<p>On a TSS 2.0 vehicle the image output is split by trigger type into separate folders. Images may
+be duplicated across folders where triggers occurred concurrently &mdash; that is expected, not an
+error. Each category holds one to three sets of images, and each set is accompanied by a
+<span class="mono">Setx</span> CSV file linking the images to the data.</p></div></div>
+<figure class="narrow"><img src="img/image_dirs.jpg" alt="Image output folders by trigger type">
+<figcaption>Part 2, Step 7 &mdash; image folders by trigger type on a TSS 2.0 vehicle.</figcaption></figure>
+<figure><img src="img/images.jpg" alt="Extracted camera images with a set CSV file">
+<figcaption>Part 2, Step 7 &mdash; extracted images, sequentially numbered, with the Set1 CSV that ties
+them to the event data. Images are low resolution, roughly 160&nbsp;&times;&nbsp;102 and monochrome,
+but often still probative.</figcaption></figure></div>
+
+<div class="step"><div class="body"><div class="num">8</div><div class="txt">
+<p>Finally, produce a printed report. Click <b>Print</b>, select the parameters to include &mdash;
+<b>Select All</b> unless you have a reason not to &mdash; and click <b>Output</b>. Choose a
+destination and save as <b>PDF</b>. Any images are printed at the bottom of the report. You do not
+need anything loaded in the viewing area to print.</p></div></div>
+<figure class="mid"><img src="img/print_sel.jpg" alt="Select print data from VCH parameters">
+<figcaption>Part 2, Step 8 &mdash; parameter selection for the printed report.</figcaption></figure>
+<figure class="mid"><img src="img/saveas.jpg" alt="Save As dialog set to PDF">
+<figcaption>Part 2, Step 8 &mdash; save the report as a PDF onto your case media.</figcaption></figure></div>
+
+<!-- ============ TABLE 2 ============ -->
+<h2 class="sec">Table 2 &mdash; Files Produced by PCS Data Viewer</h2>
+<p class="lede">Preserve the output below together with the original <span class="mono">.vdas</span>
+file. The CSV and image files remain readable after the subscription expires; the
+<span class="mono">.vdas</span> file does not.</p>
+
+<table>
+  <thead><tr><th>No.</th><th>File</th><th>Location</th><th>Save Method</th></tr></thead>
+  <tbody>
+    <tr><td class="n">1</td><td>Vehicle Control History event data, one CSV per Area</td><td><span class="mono">VCH\</span></td><td>File &rarr; Output PCS Data</td></tr>
+    <tr><td class="n">2</td><td>Operation Freeze Frame Data, one CSV per event</td><td><span class="mono">OperationFFD\</span></td><td>File &rarr; Output PCS Data</td></tr>
+    <tr><td class="n">3</td><td>Forward-facing camera images, by trigger category</td><td><span class="mono">ImageFFD\1_Vehicle behavior&hellip;5_EDR\</span></td><td>File &rarr; Output PCS Data</td></tr>
+    <tr><td class="n">4</td><td>Image set index files linking images to event data</td><td><span class="mono">ImageFFD\&hellip;\Setx</span></td><td>File &rarr; Output PCS Data</td></tr>
+    <tr><td class="n">5</td><td>Vehicle and tool information</td><td><span class="mono">CarAndCommonInfo</span></td><td>File &rarr; Output PCS Data</td></tr>
+    <tr><td class="n">6</td><td>Output result record</td><td><span class="mono">Result</span></td><td>File &rarr; Output PCS Data</td></tr>
+    <tr><td class="n">7</td><td>Printed VCH / FFD report, images included</td><td>PCS Data Viewer &rarr; Print &rarr; Output</td><td>Save as PDF</td></tr>
+    <tr><td class="n">8</td><td>Screen captures of the viewer showing each relevant event</td><td>PCS Data Viewer</td><td>Screen capture</td></tr>
+  </tbody>
+</table>
+
+<h3>Reading the Output</h3>
+<p>VCH events are sorted into recording <b>Areas</b>, each with its own overwrite rules and record
+capacity. Four Areas commonly relate to an EDR record:</p>
+<ul>
+  <li><b>Areas 1, 5 and 11</b> &mdash; brake control system events: sudden braking, traction control,
+      vehicle stability control.</li>
+  <li><b>Area 6</b> &mdash; pre-collision detection, warning and auto-braking. Up to ten records
+      before overwriting.</li>
+  <li><b>Area 8</b> &mdash; lane departure alert and lane keep assist. Up to twelve records
+      before overwriting.</li>
+</ul>
+<div class="note flush"><b>File numbers are not chronological.</b> Because of the overwrite rules, a
+lower Set number can hold a <i>higher</i> trip count than a higher Set number. Sort by trip count and
+key cycle, not by file name, and use the Time Count to link a VCH event to a CDR event.</div>
+<p>A single retrieval can produce an Excel file with 300 or more data columns for each timestamp.
+Budget analysis time accordingly.</p>
+
+<!-- ============ SOURCES ============ -->
+<h2 class="sec">Source Material</h2>
+<p>This guide is a procedural compilation. The screenshots and the underlying procedure are the work
+of the authors below, and the guide should be read alongside their original material rather than in
+place of it.</p>
+<ul>
+  <li><b>Toyota TechStream / PCS &amp; VCH Data</b>, Brad Muir, Crash Data Specialists LLC &mdash;
+      CDR System Operators / Analysis &amp; Applications Course Series, and the version edited and
+      presented by Rick Ruth at the IPTM 2021 Symposium on Traffic Safety. Source of the setup,
+      retrieval and PCS Data Viewer screenshots.</li>
+  <li><b>Toyota Techstream Software and Vehicle Control History Data &mdash; What Is It and How Do I
+      Get It?</b>, E. Clarke, California Highway Patrol MAIT, September 2020. Source of the
+      in-Techstream Vehicle Control History and trigger event screenshots, and of the licence and
+      camera-image cautions.</li>
+  <li><b>Techstream Lite FAQ</b>, Toyota Motor Sales / techinfo.toyota.com, Rev 2.4.</li>
+  <li><b>SAE 2016-01-1495</b> &mdash; for the specific trigger list and recording rates.</li>
+  <li>The Vehicle Control History section of the Toyota online service manual at
+      techinfo.toyota.com, which is the authoritative reference for trigger definitions and
+      parameters and requires a subscription.</li>
+</ul>
+<p>Format modelled on the Cummins PowerSpec and Insite imaging guides by Cheek, Steiner, Plant and
+Austin.</p>
+
+<div class="note flush"><b>Verify before you rely on it.</b> Techstream screens, menu wording and
+default file paths change between software versions. Confirm the current procedure against the
+service manual for the version you are running, and treat the screenshots here as representative
+rather than exact.</div>
+
+</body></html>
