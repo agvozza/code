@@ -1,0 +1,5 @@
+# Third-party reference documents (Toyota / Bosch / fuse-box.info).
+# Copyrighted publications retained as a local working set only — not redistributed
+# through this repository. Reproduce them with: bash references/fetch-sources.sh
+references/*.pdf
+references/fuse-box-diagrams/
