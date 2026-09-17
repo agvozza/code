@@ -85,6 +85,11 @@ def main(argv=None):
                         "--site-across, reports lines and total image count")
     p.add_argument("--site-across", type=float, metavar="FT",
                    help="site width across the flight lines, in feet")
+    p.add_argument("--offset", type=float, metavar="FT",
+                   help="lateral distance from the aircraft ground track to the "
+                        "centre of the strip you want to image. Reports the gimbal "
+                        "angle that aims there and the GSD it achieves, for keeping "
+                        "the aircraft off the roadway.")
     p.add_argument("--line-sep", type=float, metavar="FT",
                    help="fixed across-track distance between flight lines (e.g. "
                         "shoulder to shoulder). Reports the side overlap that "
@@ -105,6 +110,8 @@ def main(argv=None):
         p.error("site dimensions must be positive")
     if a.line_sep is not None and a.line_sep <= 0:
         p.error("--line-sep must be positive")
+    if a.offset is not None and a.offset <= 0:
+        p.error("--offset must be positive")
 
     if a.alt_m:
         alts = a.alt_m
@@ -138,6 +145,42 @@ def main(argv=None):
     print()
     print("max speed is the fastest you can fly and still hold the requested forward")
     print("overlap at the given interval. Flying faster silently thins your overlap.")
+
+    if a.offset is not None:
+        import math
+        sensor_w, img_w, _, focal = cam
+        pitch_over_f = (sensor_w / img_w) / focal
+        off_m = a.offset / FT_PER_M
+        print()
+        print(f"aiming across a {a.offset:g} ft lateral offset "
+              f"(aircraft stays off the target strip):")
+        print()
+        hdr4 = (f"{'AGL':>12}  {'gimbal (DJI)':>13}  {'off nadir':>10}  "
+                f"{'GSD at aim point':>18}  {'shot every':>11}")
+        print(hdr4)
+        print("-" * len(hdr4))
+        for r in rows:
+            alt_m = r["alt_m"]
+            th = math.atan2(off_m, alt_m)                 # radians off nadir
+            slant = math.hypot(alt_m, off_m)
+            g_across = pitch_over_f * slant               # metres/pixel
+            g_along = g_across / math.cos(th)             # foreshortened
+            dji = -(90.0 - math.degrees(th))
+            # Nose yawed across the road, so the sensor's long axis (img_w)
+            # now runs ALONG the flight path.
+            path_frame = img_w * g_across
+            advance = path_frame * (1.0 - a.front / 100.0)
+            alt = f"{r['alt_ft']:.0f} ft"
+            print(f"{alt:>12}  {dji:>12.0f}°  {math.degrees(th):>9.0f}°  "
+                  f"{g_across * 100:>7.2f} / {g_along * 100:.2f} cm  "
+                  f"{advance * FT_PER_M:>8.0f} ft")
+        print()
+        print("  GSD is across-look / along-look: an oblique frame is foreshortened")
+        print("  in the direction it looks, so the along figure limits what you resolve.")
+        print()
+        print("  Shot spacing assumes the nose is yawed across the roadway, which puts")
+        print(f"  the sensor's long axis ({img_w} px) along the flight path - so spacing is")
+        print("  WIDER than a nadir pass at the same altitude, not tighter.")
 
     if a.line_sep is not None:
         sep_m = a.line_sep / FT_PER_M

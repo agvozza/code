@@ -243,7 +243,7 @@ footer a{color:var(--sign);font-weight:600}
   <div class="toprow">
     <div class="brand">
       <h1>Roadway Flight Card</h1>
-      <p id="sub">Shoulder passes · Mavic 3 Classic · no grid</p>
+      <p id="sub">Shoulder only · never over the roadway · 107.145</p>
     </div>
     <button class="iconbtn" id="theme" aria-label="Toggle light and dark theme">◐</button>
   </div>
@@ -257,46 +257,47 @@ footer a{color:var(--sign);font-weight:600}
 
 <div class="hero">
   <div class="eyebrow">Field Reference</div>
-  <h2>Eight passes along the shoulders.</h2>
-  <p>Manual flight plan for a roadway inspection. Lines run along the shoulders, parallel
-     to the roadway — no grid. Tap each step as you fly it; progress is saved on this phone.
-     Gimbal angles are as the DJI controller displays them.</p>
+  <h2>Tilt the camera, not the aircraft.</h2>
+  <p>Manual flight plan for a roadway inspection. The aircraft stays over the shoulder for
+     the whole job — 14 CFR 107.145, no operation over a moving vehicle. Coverage of the
+     roadway comes from cross-aimed obliques, not from flying above it. Gimbal angles are
+     as the DJI controller displays them.</p>
   <div class="sitebar">
     <span class="chip">LINES <b>Side 1 · Side 2</b></span>
     <span class="chip">FWD OVERLAP <b>90%</b></span>
-    <span class="chip">PRIMARY TIER <b>120 ft</b></span>
-    <span class="chip">ALT FLOOR <b>1.8 × separation</b></span>
+    <span class="chip">NADIR FLOOR <b>1.8 × separation</b></span>
+    <span class="chip">BELOW IT <b>cross-aim</b></span>
     <span class="chip">GIMBAL <b>DJI display</b></span>
   </div>
 </div>
 
 <section>
-  <div class="sechead"><h3>The shoulder constraint</h3><span>read first</span></div>
+  <div class="sechead"><h3>The constraint</h3><span>read first</span></div>
 
   <div class="alert">
-    <h4>Altitude floor ≈ 1.8 × your shoulder separation</h4>
-    <p>Flying the shoulders <strong>fixes your line separation at the road width</strong>.
-       You cannot adjust it — so altitude, not line spacing, is what sets side overlap.</p>
-    <p>Below <strong>1.8 × the separation</strong> the two shoulder lines stop overlapping
-       usefully, and you <strong>add a third pass down the centre</strong>. That halves the
-       effective separation and restores it. One more parallel pass — not a grid.</p>
-    <div class="swap">
-      <span class="was">80 ft apart → below 142 ft</span><span class="arrow">→</span>
-      <span class="now">add centre pass</span>
-    </div>
+    <h4>Aircraft stays over the shoulder — 14 CFR 107.145</h4>
+    <p>No operating over a moving vehicle, so there is <strong>no centre pass</strong> and
+       no crossing the roadway except through a confirmed-clear gap.</p>
+    <p><strong>The camera does not have to be above what it photographs.</strong> Rotate the
+       drone perpendicular to the roadway, tilt the gimbal across, and translate sideways
+       along the shoulder. Tilt replaces translation.</p>
   </div>
 
   <div class="alert">
-    <h4>With no grid, the obliques carry the whole load</h4>
-    <p>A shoulder-only plan has no crosshatch, so <strong>passes 4 and 5 at −55°</strong> are
-       the only thing breaking the focal-length/altitude correlation that bends a corridor
-       into a banana. On this plan they are not optional.</p>
-    <p>The perpendicular crossings and the altitude profiles are the rest of that defence.</p>
+    <h4>Nadir only works above 1.8 × your shoulder separation</h4>
+    <p>Shoulder lines cannot be respaced — their separation <em>is</em> the road width. So
+       altitude sets side overlap. At 80 ft separation and 120 ft AGL, two nadir passes
+       share only <strong>53%</strong>, and the middle of the road gets the thinnest
+       geometry on the job.</p>
+    <div class="swap">
+      <span class="was">below the floor → nadir fails</span><span class="arrow">→</span>
+      <span class="now">cross-aimed obliques</span>
+    </div>
   </div>
 
   <div class="tablewrap" style="margin-top:14px">
     <table>
-      <thead><tr><th>Shoulder separation</th><th>Min AGL · 60%</th><th>Min AGL · 70%</th></tr></thead>
+      <thead><tr><th>Shoulder separation</th><th>Nadir floor · 60%</th><th>· 70%</th></tr></thead>
       <tbody>
         <tr><td class="lab">40 ft</td><td>71 ft</td><td>95 ft</td></tr>
         <tr><td class="lab">60 ft</td><td>107 ft</td><td>142 ft</td></tr>
@@ -306,8 +307,30 @@ footer a{color:var(--sign);font-weight:600}
       </tbody>
     </table>
   </div>
-  <p class="note">Measure your shoulder-to-shoulder separation, then read the floor.
-     Use the calculator below to check any altitude against your own road width.</p>
+  <p class="note"><b>At or above the floor:</b> nadir passes from both shoulders, gimbal −90°.
+     <b>Below it:</b> cross-aimed obliques. The inversion is the point — on a normal grid job
+     nadir is the backbone and obliques supplement it; here it is the other way round.</p>
+</section>
+
+<section>
+  <div class="sechead"><h3>Cross-aim angles</h3><span>40 ft offset</span></div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>AGL</th><th>Gimbal</th><th>Off nadir</th><th>GSD at aim</th><th>Shot every</th></tr></thead>
+      <tbody>
+        <tr><td class="lab">150 ft</td><td>−75°</td><td>15°</td><td>1.26 / 1.31 cm</td><td>22 ft</td></tr>
+        <tr><td class="lab">120 ft</td><td>−72°</td><td>18°</td><td>1.03 / 1.08 cm</td><td>18 ft</td></tr>
+        <tr><td class="lab">100 ft</td><td>−68°</td><td>22°</td><td>0.88 / 0.94 cm</td><td>15 ft</td></tr>
+        <tr class="key"><td class="lab">80 ft ★</td><td>−63°</td><td>27°</td><td>0.73 / 0.81 cm</td><td>13 ft</td></tr>
+        <tr><td class="lab">60 ft</td><td>−56°</td><td>34°</td><td>0.59 / 0.70 cm</td><td>10 ft</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note"><b>The GSD cost of staying legal is about 12%</b> — 0.73 cm cross-aimed at
+     80 ft against 0.65 cm nadir. And <b>shot spacing gets wider, not tighter</b>: yawing the
+     nose across the roadway puts the sensor's long axis along your flight path, so you
+     advance 13 ft between shots instead of the 8 ft a nadir pass needs. GSD is quoted
+     across-look / along-look — an oblique frame is foreshortened in the direction it looks.</p>
 </section>
 
 <section>
@@ -330,22 +353,20 @@ footer a{color:var(--sign);font-weight:600}
 </section>
 
 <section>
-  <div class="sechead"><h3>Gimbal angles</h3><span>as DJI displays</span></div>
+  <div class="sechead"><h3>Gimbal roles</h3><span>as DJI displays</span></div>
   <div class="tablewrap">
     <table>
-      <thead><tr><th>DJI display</th><th>Looking</th><th>Used on</th></tr></thead>
+      <thead><tr><th>DJI display</th><th>Role</th><th>Used on</th></tr></thead>
       <tbody>
-        <tr><td>−90°</td><td class="lab">Straight down — nadir</td><td>Passes 1–3, 6, 8</td></tr>
-        <tr class="key"><td>−55°</td><td class="lab">Calibration oblique</td><td>Passes 4–5, 7</td></tr>
-        <tr><td>−45°</td><td class="lab">Detail oblique</td><td>Pass 8 — pavement</td></tr>
-        <tr><td>−30°</td><td class="lab">Vertical faces</td><td>Pass 8 — barrier, guardrail</td></tr>
+        <tr><td>−90°</td><td class="lab">Nadir — only above the floor</td><td>Passes 1–2, 5</td></tr>
+        <tr class="key"><td>−56° to −75°</td><td class="lab">Cross-aim — set by altitude</td><td>Passes 3–4, 7</td></tr>
+        <tr><td>−45°</td><td class="lab">Detail oblique</td><td>Pass 7 — pavement</td></tr>
+        <tr><td>−30°</td><td class="lab">Vertical faces</td><td>Pass 7 — barrier, guardrail</td></tr>
       </tbody>
     </table>
   </div>
-  <p class="note"><b>−55° is the one that matters.</b> It is 35° off nadir, where two independent
-     studies overlap — MDPI found 20–35° optimal, AeroCartwright 30–45°. A shallower tilt
-     (−75° to −85°) is effectively still a nadir image and will not break the
-     focal-length/height correlation that causes doming.</p>
+  <p class="note">The cross-aim angle is not a fixed number — the lateral offset is fixed by
+     the road and the height is not, so the angle changes with altitude. Use the calculator.</p>
 </section>
 
 <section>
@@ -361,21 +382,23 @@ footer a{color:var(--sign);font-weight:600}
         <input type="number" id="fwd" value="90" min="0" max="99" step="1" inputmode="numeric">
       </div>
       <div class="field">
-        <label for="side">Shoulder sep (ft)</label>
-        <input type="number" id="side" value="80" min="4" max="400" step="5" inputmode="decimal">
+        <label for="side">Offset to aim (ft)</label>
+        <input type="number" id="side" value="40" min="2" max="400" step="5" inputmode="decimal">
       </div>
     </div>
     <div class="out">
-      <div class="cell hi"><span>Shot every</span><b id="o-shot">13 ft</b><i id="o-shot-m">3.9 m</i></div>
-      <div class="cell hi"><span>Side overlap</span><b id="o-line">53%</b><i id="o-line-m">from 2 shoulder lines</i></div>
-      <div class="cell"><span>GSD</span><b id="o-gsd">0.98 cm</b><i id="o-gsd-in">0.38 in</i></div>
-      <div class="cell"><span>Frame</span><b id="o-frame">169 × 127</b><i>ft on the ground</i></div>
-      <div class="cell"><span>Max speed @ 2 s</span><b id="o-spd">1.9 m/s</b><i id="o-spd-mph">4.3 mph</i></div>
-      <div class="cell"><span>Altitude floor</span><b id="o-floor">142 ft</b><i>60% from shoulders alone</i></div>
+      <div class="cell hi"><span>Gimbal — cross-aim</span><b id="o-gim">−72°</b><i id="o-gim-off">18° off nadir</i></div>
+      <div class="cell hi"><span>Shot every — cross-aim</span><b id="o-xshot">18 ft</b><i>nose yawed across</i></div>
+      <div class="cell"><span>GSD at aim point</span><b id="o-xgsd">1.03 cm</b><i id="o-xgsd2">1.08 cm along-look</i></div>
+      <div class="cell"><span>Nadir floor</span><b id="o-floor">142 ft</b><i id="o-floor-v">for this offset</i></div>
+      <div class="cell"><span>If flown nadir</span><b id="o-gsd">0.98 cm</b><i id="o-shot-m">shot every 13 ft</i></div>
+      <div class="cell"><span>Nadir side overlap</span><b id="o-line">53%</b><i id="o-line-m">from 2 shoulder lines</i></div>
     </div>
-      <p class="note">At 90% forward overlap you advance <b>one tenth of a frame</b> per shot.
-       Judge it by watching a feature travel a tenth of the way down your screen — more
-       reliable than estimating ground distance.</p>
+      <p class="note"><b>Offset</b> is the lateral distance from the shoulder you are flying to
+       the strip you want in frame — shoulder to centerline on a 2-lane is about 40 ft. The
+       nadir floor assumes the opposite shoulder sits at twice that offset. At 90% forward
+       overlap you advance one tenth of a frame per shot: judge it by watching a feature
+       travel a tenth of the way down your screen.</p>
   </div>
 </section>
 
@@ -441,30 +464,40 @@ function num(el,def,lo,hi){var v=parseFloat(el.value);if(!isFinite(v))return def
 function calc(){
   var altFt=num(document.getElementById("alt"),120,1,2000);
   var fwd=num(document.getElementById("fwd"),90,0,99);
-  var altM=altFt/FT;
-  var gsd=PITCH/FOCAL*altM;                 /* metres per pixel */
-  var fw=PX_W*gsd, fh=PX_H*gsd;             /* frame, metres */
-  var adv=fh*(1-fwd/100);
-  var spd=adv/2;
+  var offFt=num(document.getElementById("side"),40,1,2000);
+  var altM=altFt/FT, offM=offFt/FT;
+  var gsd=PITCH/FOCAL*altM;                       /* nadir metres/pixel */
+  var fw=PX_W*gsd, fh=PX_H*gsd;                   /* nadir frame, metres */
   function set(id,t){document.getElementById(id).textContent=t}
-  set("o-shot",(adv*FT).toFixed(adv*FT<10?1:0)+" ft");
-  set("o-shot-m",adv.toFixed(1)+" m");
+
+  /* --- cross-aim: tilt to put the target strip on the optical axis --- */
+  var th=Math.atan2(offM,altM);                   /* radians off nadir */
+  var slant=Math.sqrt(altM*altM+offM*offM);
+  var gAcross=PITCH/FOCAL*slant;
+  var gAlong=gAcross/Math.cos(th);
+  set("o-gim","\u2212"+(90-th*180/Math.PI).toFixed(0)+"\u00B0");
+  set("o-gim-off",(th*180/Math.PI).toFixed(0)+"\u00B0 off nadir");
+  /* Nose yawed across the road puts the long sensor axis along the path. */
+  var xAdv=PX_W*gAcross*(1-fwd/100);
+  set("o-xshot",(xAdv*FT).toFixed(xAdv*FT<10?1:0)+" ft");
+  set("o-xgsd",(gAcross*100).toFixed(2)+" cm");
+  set("o-xgsd2",(gAlong*100).toFixed(2)+" cm along-look");
+
+  /* --- nadir comparison, and the floor below which it stops working --- */
+  var adv=fh*(1-fwd/100);
   set("o-gsd",(gsd*100).toFixed(2)+" cm");
-  set("o-gsd-in",(gsd*39.3701).toFixed(2)+" in");
-  set("o-frame",Math.round(fw*FT)+" × "+Math.round(fh*FT));
-  set("o-spd",spd.toFixed(1)+" m/s");
-  set("o-spd-mph",(spd*2.236936).toFixed(1)+" mph");
-  var sepFt=num(document.getElementById("side"),80,1,2000), sepM=sepFt/FT;
+  set("o-shot-m","shot every "+(adv*FT).toFixed(adv*FT<10?1:0)+" ft");
+  var sepM=offM*2;                                /* shoulder to shoulder */
   var ov=(fw-sepM)/fw*100;
   set("o-line",(ov<0?0:ov).toFixed(0)+"%");
-  var verdict = ov<0 ? "GAP — add centre pass"
-              : ov<60 ? "too low — add centre pass"
-              : ov<70 ? "adequate" : "good";
-  set("o-line-m",verdict);
-  var lc=document.getElementById("o-line").parentNode;
-  lc.classList.toggle("bad",ov<60);
+  set("o-line-m",ov<0?"GAP \u2014 cross-aim instead"
+      :ov<60?"too low \u2014 cross-aim instead":ov<70?"adequate":"good");
+  document.getElementById("o-line").parentNode.classList.toggle("bad",ov<60);
   var K=PX_W*PITCH/FOCAL;
-  set("o-floor",(sepM/(0.40*K)*FT).toFixed(0)+" ft");
+  var floorFt=sepM/(0.40*K)*FT;
+  set("o-floor",floorFt.toFixed(0)+" ft");
+  set("o-floor-v",altFt>=floorFt?"you are above it":"you are BELOW it");
+  document.getElementById("o-floor").parentNode.classList.toggle("bad",altFt<floorFt);
 }
 ["alt","fwd","side"].forEach(function(id){
   document.getElementById(id).addEventListener("input",calc);
@@ -475,66 +508,62 @@ calc();
 var FLIGHTS=[
  {alt:"—",sub:"ground",title:"Pre-flight",note:"before takeoff",gimbal:null,steps:[
   ["Fix which side is <b>Side 1</b> and which is <b>Side 2</b>. Keep it for the whole project — it goes in the file names.",""],
-  ["<b>Measure shoulder separation.</b> Read the altitude floor from the table above, or use the calculator.","Below 1.8 x separation you need a centre pass. This decides your whole tier plan."],
-  ["Check airspace; confirm <b>VLOS</b> covers the run. Plan leapfrog launch points if not.",""],
-  ["Walk the run: overhead lines, sign structures, obstructions, launch points.",""],
-  ["Place <b>GCPs in a zigzag</b>, alternating Side 1 and Side 2, every 400–500 ft, with a <b>pair at each end</b>.","Never collinear down the centerline — shoulder-only flying gives the solve little to resist roll about that axis."],
+  ["<b>Measure shoulder separation and your offset to the centerline.</b> Read the nadir floor from the table, or use the calculator.","This decides whether a tier is flown nadir or cross-aimed. Get it wrong and the middle of the road is your weakest data."],
+  ["Confirm <b>VLOS</b> covers the run; plan leapfrog launch points if not.",""],
+  ["Walk the run: overhead lines, sign structures, obstructions, shoulder access, launch points.","You will be flying laterally along the shoulder — check it is clear for the whole run."],
+  ["Place <b>GCPs in a zigzag</b>, alternating Side 1 and Side 2, every 400–500 ft, with a <b>pair at each end</b>.","Never collinear down the centerline. If crossings are ruled out entirely, tighten to 250–300 ft."],
   ["Place <b>check points</b> interleaved, every third position, withheld from the solve.","Your only real accuracy measure. Vary height where terrain allows."],
-  ["Camera: manual exposure, manual WB, focus at infinity, no CPL, JPEG+DNG, <b>single-shot — not timed interval</b>.","Timed interval fights manual flight: it fires while you hover for traffic."]
+  ["Camera: manual exposure, manual WB, focus at infinity, no CPL, JPEG+DNG, <b>single-shot — not timed interval</b>.",""]
  ]},
- {alt:"200",sub:"ft AGL",title:"Warm-up hover",note:"thermal stabilisation",gimbal:null,steps:[
+ {alt:"—",sub:"warm-up",title:"Thermal stabilisation",note:"before the first pass",gimbal:null,steps:[
   ["Take off from the <b>Side 1</b> shoulder at station 0, climb to tier altitude.",""],
   ["<b>Hover 2–3 minutes.</b>","Lens distortion shifts with temperature — a cold first frame is calibrated differently from a warm last one."]
  ]},
- {alt:"Pass 1",sub:"nadir",title:"Side 1 — outbound",note:"parallel to roadway",gimbal:"−90°",steps:[
-  ["<b>Rotate drone parallel to roadway</b>, nose down-station.",""],
-  ["Set gimbal <b>−90°</b>. Position over the <b>Side 1</b> shoulder.",""],
-  ["Fly down-station at the tier's shot spacing.","Hold the line by keeping the pavement edge at a constant position in frame — watching the frame beats watching the aircraft."],
-  ["Traffic: <b>stop, wait, shoot, advance.</b> Never coast while waiting.","Overlap is a function of distance, not time. Hovering costs nothing; coasting opens a gap exactly as long as your patience."]
+ {alt:"Pass 1",sub:"nadir",title:"Side 1 — outbound",note:"only above the nadir floor",gimbal:"−90°",steps:[
+  ["<b>Only at or above 1.8 × shoulder separation</b> — 142 ft at 80 ft separation. Below that, skip to Pass 3.",""],
+  ["<b>Rotate drone parallel to roadway</b>, nose down-station. Gimbal <b>−90°</b>.",""],
+  ["Position over the <b>Side 1</b> shoulder and fly down-station at the tier's spacing.","Hold the line by keeping the pavement edge at a constant position in frame."],
+  ["Traffic: <b>stop, wait, shoot, advance.</b> Never coast while waiting.","Overlap is a function of distance, not time. Hovering costs nothing; coasting opens a gap as long as your patience."]
  ]},
- {alt:"Pass 2",sub:"nadir",title:"Side 2 — return",note:"parallel to roadway",gimbal:"−90°",steps:[
-  ["At the end station, <b>rotate drone perpendicular to roadway</b>.",""],
-  ["Translate across to the <b>Side 2</b> shoulder.",""],
+ {alt:"Pass 2",sub:"nadir",title:"Side 2 — return",note:"only above the nadir floor",gimbal:"−90°",steps:[
+  ["At the end station, <b>rotate drone perpendicular to roadway</b> and translate to <b>Side 2</b>.","Cross only over a roadway confirmed clear of moving vehicles — see Pass 5."],
   ["<b>Rotate drone parallel to roadway</b>, nose up-station. Gimbal stays <b>−90°</b>.",""],
   ["Fly up-station at the same spacing, back to station 0.",""]
  ]},
- {alt:"Pass 3",sub:"nadir",title:"Centre line",note:"only below 1.8 × separation",gimbal:"−90°",steps:[
-  ["<b>Only if</b> your altitude is below 1.8 × shoulder separation. Skip otherwise.","At 80 ft separation and 120 ft AGL, two shoulder lines give 53% side overlap. The centre pass lifts it to 76%."],
-  ["<b>Rotate drone perpendicular to roadway</b>, translate to the centerline.",""],
-  ["<b>Rotate drone parallel to roadway</b>, nose down-station. Gimbal <b>−90°</b>, fly the full length.","This is one more parallel pass, not a grid."]
+ {alt:"Pass 3",sub:"cross-aim",title:"Side 1 — looking across",note:"mandatory below the floor",gimbal:"−56° to −75°",steps:[
+  ["Position over the <b>Side 1</b> shoulder.",""],
+  ["<b>Rotate drone perpendicular to roadway</b> — nose pointed across toward Side 2.","The Mavic's gimbal pitches but does not yaw independently, so looking across means yawing the aircraft."],
+  ["Set the gimbal to the angle for your altitude and offset — <b>−63°</b> at 80 ft AGL over a 40 ft offset.","The angle is not fixed: the offset is set by the road, the height is not, so it changes with altitude."],
+  ["<b>Translate sideways along the Side 1 shoulder</b>, down-station, at the cross-aim spacing.","Flying laterally with the nose held across the road. Slower than nose-forward — practise before the job."]
  ]},
- {alt:"Pass 4",sub:"oblique",title:"Side 1 — looking at Side 2",note:"the anti-doming pass",gimbal:"−55°",steps:[
-  ["Return to the <b>Side 1</b> shoulder. <b>Rotate drone parallel to roadway</b>.",""],
-  ["Set gimbal <b>−55°</b>, camera looking <b>across the roadway toward Side 2</b>.","Gimbal holds where you put it, so this is no harder to hand-fly than nadir."],
-  ["Fly the full length at the tier's shot spacing.","With no grid and no crosshatch, this pass and Pass 5 are the only thing breaking the focal-length/altitude correlation. Not optional."]
+ {alt:"Pass 4",sub:"cross-aim",title:"Side 2 — looking across",note:"opposing viewpoint",gimbal:"−56° to −75°",steps:[
+  ["Translate to the <b>Side 2</b> shoulder, nose pointed across toward Side 1, same gimbal angle.",""],
+  ["Translate sideways along the <b>Side 2</b> shoulder, up-station.","Passes 3 and 4 give every point on the roadway two opposing, convergent look directions. This pair replaces both the centre pass and the separate calibration obliques — it is doing double duty."],
+  ["Confirm the far lane got covered from both sides.","The far side sits at the foreshortened end of each frame; the opposing pass covers it at the near end. Flying only one side documents half the roadway at its worst."]
  ]},
- {alt:"Pass 5",sub:"oblique",title:"Side 2 — looking at Side 1",note:"opposing viewpoint",gimbal:"−55°",steps:[
-  ["<b>Rotate drone perpendicular to roadway</b>, translate to <b>Side 2</b>.",""],
-  ["<b>Rotate drone parallel to roadway</b>. Gimbal <b>−55°</b>, looking <b>across toward Side 1</b>.",""],
-  ["Fly the full length.","Passes 4 and 5 together give every vertical face — barrier, guardrail, sign back, curb, cut slope — two opposing viewpoints. One oblique pass alone leaves one face of everything unobserved."]
+ {alt:"Pass 5",sub:"crossings",title:"Perpendicular crossings",note:"every 1000–1600 ft",gimbal:"−90°",steps:[
+  ["<b>Confirm the roadway beneath is clear of moving vehicles.</b>","107.145 is about vehicles in motion, so a crossing through a confirmed gap differs from a sustained pass down the centerline. Same gap you already wait for. Verify against your own operating authority."],
+  ["<b>Rotate drone perpendicular to roadway</b>, gimbal <b>−90°</b>, cross the full width past the shoulder on both sides, shooting.",""],
+  ["<b>Rotate drone parallel to roadway</b> and resume.","These tie Side 1 and Side 2 together at intervals instead of only at the ends. If crossings are ruled out entirely, drop this and tighten GCP spacing instead."]
  ]},
- {alt:"Pass 6",sub:"crossings",title:"Perpendicular crossings",note:"every 1000–1600 ft",gimbal:"−90°",steps:[
-  ["At each crossing station, stop. <b>Rotate drone perpendicular to roadway</b>, gimbal <b>−90°</b>.",""],
-  ["Cross the full width, past the shoulder on both sides, shooting as you go.","A handful of frames each."],
-  ["<b>Rotate drone parallel to roadway</b> and resume.","These tie Side 1 and Side 2 together at intervals instead of only at the ends — the main defence against the run bending along its length. Spacing is my judgment, not a sourced figure."]
- ]},
- {alt:"Pass 7",sub:"profiles",title:"Altitude profiles",note:"both ends + middle",gimbal:"alt.",steps:[
-  ["At each station, hold position laterally.","Drifting turns a clean scale series into an ambiguous one."],
+ {alt:"Pass 6",sub:"profiles",title:"Altitude profiles",note:"both ends + middle",gimbal:"alt.",steps:[
+  ["Over the shoulder, hold position laterally.","Drifting turns a clean scale series into an ambiguous one."],
   ["Climb or descend in <b>~25 ft steps</b>, shooting at each step.",""],
-  ["<b>Alternate gimbal −90° → −55° → −90°</b> as you go.","Varying height decouples focal length from flying height in the solve. A pure-nadir stack shares the same degenerate geometry as everything else."]
+  ["<b>Alternate nadir and cross-aim</b> as you go, re-setting the gimbal angle at each height.","Varying height decouples focal length from flying height in the solve — and the cross-aim angle changes as you climb, which adds view diversity for free."]
  ]},
- {alt:"Pass 8",sub:"AOI detail",title:"Low detail passes",note:"area of interest only",gimbal:"−90°/−45°/−30°",steps:[
-  ["Drop to 60 ft or lower over the area of interest.","Full-length coverage at this altitude is not worth the frame count — reserve it for what matters."],
-  ["<b>Rotate drone parallel to roadway</b>, gimbal <b>−90°</b>. Fly <b>Side 1, centre, Side 2</b> — three short passes.","At low altitude the shoulder lines alone will gap. The centre pass is mandatory here."],
+ {alt:"Pass 7",sub:"AOI detail",title:"Low detail passes",note:"cross-aimed only",gimbal:"−56°/−45°/−30°",steps:[
+  ["Drop to 60 ft or lower over the area of interest.","Nadir from the shoulders gives only 5% overlap at this height — cross-aim is the only option."],
+  ["<b>Rotate drone perpendicular to roadway</b> and cross-aim from each shoulder in turn — <b>−56°</b> at 60 ft over a 40 ft offset.",""],
   ["Repeat at gimbal <b>−45°</b> — pavement texture, joints, edges, distress.",""],
   ["Gimbal <b>−30°</b> for barrier faces, guardrail, sign structures.",""],
-  ["Two orbits around any structure, camera held on it — one each direction.",""]
+  ["Two orbits around any structure from the shoulder side, camera held on it — one each direction.",""]
  ]},
  {alt:"—",sub:"ground",title:"Before leaving site",note:"verification",gimbal:null,steps:[
   ["Frame counts per pass compared against expected.",""],
-  ["Every GCP confirmed visible in <b>≥8–10 frames</b>.","If in doubt, fly back over it and take a few more."],
+  ["Every GCP confirmed visible in <b>≥8–10 frames</b>.",""],
+  ["Both cross-aim passes flown — <b>Side 1 and Side 2</b>. One alone is not enough.",""],
   ["Cards backed up before anything is formatted.",""],
-  ["Rename per pass: <code>rename-uas-images.sh SITE DATE S1N src dest</code>","Side designation in the filename survives into processing: S1N, S2N, S1O, S2O, CTR, XNG, PRF."]
+  ["Rename per pass: <code>rename-uas-images.sh SITE DATE S1X src dest</code>","S1N / S2N nadir, S1X / S2X cross-aim, XNG crossings, PRF profiles."]
  ]}
 ];
 
