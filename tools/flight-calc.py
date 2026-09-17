@@ -90,6 +90,11 @@ def main(argv=None):
                         "centre of the strip you want to image. Reports the gimbal "
                         "angle that aims there and the GSD it achieves, for keeping "
                         "the aircraft off the roadway.")
+    p.add_argument("--azimuth", type=float, default=90.0, metavar="DEG",
+                   help="angle between the camera look direction and the roadway "
+                        "centreline, in plan. 90 = looking straight across "
+                        "(nose perpendicular); 45 = diagonal. Requires --offset. "
+                        "(default: %(default)s)")
     p.add_argument("--line-sep", type=float, metavar="FT",
                    help="fixed across-track distance between flight lines (e.g. "
                         "shoulder to shoulder). Reports the side overlap that "
@@ -112,6 +117,8 @@ def main(argv=None):
         p.error("--line-sep must be positive")
     if a.offset is not None and a.offset <= 0:
         p.error("--offset must be positive")
+    if not 5 <= a.azimuth <= 90:
+        p.error(f"--azimuth must be between 5 and 90 degrees, got {a.azimuth}")
 
     if a.alt_m:
         alts = a.alt_m
@@ -151,9 +158,17 @@ def main(argv=None):
         sensor_w, img_w, _, focal = cam
         pitch_over_f = (sensor_w / img_w) / focal
         off_m = a.offset / FT_PER_M
+        az = math.radians(a.azimuth)
+        # Looking at azimuth az, the ground run to a strip d away perpendicular
+        # is d/sin(az) -- diagonal looks travel further to reach the same strip.
+        ground_m = off_m / math.sin(az)
+        # Sensor long axis lies across the look direction; only its projection
+        # onto the flight path counts for forward overlap. Conservative: ignore
+        # the short axis contribution.
+        path_frac = abs(math.cos(math.radians(90.0 - a.azimuth)))
         print()
-        print(f"aiming across a {a.offset:g} ft lateral offset "
-              f"(aircraft stays off the target strip):")
+        print(f"aiming across a {a.offset:g} ft perpendicular offset at "
+              f"{a.azimuth:g}\u00b0 to the roadway:")
         print()
         hdr4 = (f"{'AGL':>12}  {'gimbal (DJI)':>13}  {'off nadir':>10}  "
                 f"{'GSD at aim point':>18}  {'shot every':>11}")
@@ -161,14 +176,14 @@ def main(argv=None):
         print("-" * len(hdr4))
         for r in rows:
             alt_m = r["alt_m"]
-            th = math.atan2(off_m, alt_m)                 # radians off nadir
-            slant = math.hypot(alt_m, off_m)
+            th = math.atan2(ground_m, alt_m)               # radians off nadir
+            slant = math.hypot(alt_m, ground_m)
             g_across = pitch_over_f * slant               # metres/pixel
             g_along = g_across / math.cos(th)             # foreshortened
             dji = -(90.0 - math.degrees(th))
             # Nose yawed across the road, so the sensor's long axis (img_w)
             # now runs ALONG the flight path.
-            path_frame = img_w * g_across
+            path_frame = img_w * g_across * path_frac
             advance = path_frame * (1.0 - a.front / 100.0)
             alt = f"{r['alt_ft']:.0f} ft"
             print(f"{alt:>12}  {dji:>12.0f}°  {math.degrees(th):>9.0f}°  "
@@ -178,9 +193,13 @@ def main(argv=None):
         print("  GSD is across-look / along-look: an oblique frame is foreshortened")
         print("  in the direction it looks, so the along figure limits what you resolve.")
         print()
-        print("  Shot spacing assumes the nose is yawed across the roadway, which puts")
-        print(f"  the sensor's long axis ({img_w} px) along the flight path - so spacing is")
-        print("  WIDER than a nadir pass at the same altitude, not tighter.")
+        if a.azimuth >= 89.5:
+            print(f"  Nose yawed square across the roadway puts the sensor's long axis")
+            print(f"  ({img_w} px) along the flight path, so spacing is WIDER than nadir.")
+        else:
+            print(f"  At {a.azimuth:g} degrees the frame is rotated relative to the flight path,")
+            print(f"  so only {path_frac * 100:.0f}% of the long axis counts for forward overlap")
+            print(f"  and spacing tightens accordingly.")
 
     if a.line_sep is not None:
         sep_m = a.line_sep / FT_PER_M

@@ -99,12 +99,75 @@ tools/flight-calc.py --alt-ft 120 100 80 60 --front 90 --offset 40
    in the direction it looks, so the along figure is what limits what you can
    resolve. At these angles the difference is minor.
 
+### 2.3 Diagonal heading — 45° to the roadway
+
+Rotating only 45° to the roadway instead of square across, then tilting the
+gimbal to the centerline, is worth doing on the lower passes. **The best reason
+for it is geometric, not obstruction clearance.**
+
+**The real win: it strengthens the axis that actually fails.** At 90° every look
+direction is perpendicular to the roadway, so the *along-road* axis — the exact
+axis a corridor bends about — gets no convergent geometry at all. A 45° heading
+injects a component of view along the road. That is the same argument that makes
+obliques beat nadir, applied to the one direction a shoulder-only plan otherwise
+leaves unconstrained.
+
+**And it gives four look directions from two passes.** Fly Side 1 outbound at
+45° and Side 2 on the return at 45°: because the travel directions oppose, the
+two look azimuths oppose too. You end up with view diversity in all four
+quadrants rather than two mirrored perpendiculars.
+
+**What it costs.** A diagonal look has to travel further across the ground to
+reach the same strip — at 45°, `40 / sin 45° = 57 ft` instead of 40 ft. Longer
+slant range means coarser GSD, and the rotated frame projects less of its long
+axis onto the flight path, so spacing tightens. At **80 ft AGL, 40 ft offset**:
+
+| Heading | Gimbal | GSD at aim | Shot every |
+|---|---|---|---|
+| 90° — square across | −63° | 0.73 / 0.81 cm | 13 ft |
+| **45° — diagonal** | **−55°** | **0.80 / 0.98 cm** | **10 ft** |
+
+About 10% coarser across-look, 20% along-look, and ~30% more frames.
+
+**How to get it back: fly closer to the pavement edge.** This is where your
+obstruction reasoning pays off properly. Reducing the perpendicular offset from
+40 ft to 25 ft recovers the whole penalty:
+
+| Heading · offset | Gimbal | GSD at aim | Shot every |
+|---|---|---|---|
+| 90° · 40 ft | −63° | 0.73 / 0.81 cm | 13 ft |
+| **45° · 25 ft** | **−66°** | **0.71 / 0.78 cm** | **9 ft** |
+
+Same resolution — slightly better — with the added along-road geometry. The
+only remaining cost is frame count.
+
+**On obstructions, honestly:** rotating the aircraft does not move it, so
+heading alone buys no clearance from trees or lines. What it buys is
+*flyability* — forward-diagonal motion instead of pure lateral, so the forward
+obstacle sensors face partly along the direction of travel and you can see where
+the aircraft is going. That is what makes it practical to hold a tighter line
+near the pavement edge, and **the tighter line is the real clearance gain.** If
+canopy actually overhangs the shoulder, the fix is altitude or lateral position,
+not heading.
+
+> **Safety counterweight:** hugging the pavement edge puts you nearer live
+> travel lanes — truck wake turbulence is real at low altitude, and a drift
+> toward the road becomes an overflight. Keep a deliberate lateral buffer and
+> widen it for high-speed or heavy-truck corridors.
+
+Compute any combination:
+
+```sh
+tools/flight-calc.py --alt-ft 80 60 --front 90 --offset 25 --azimuth 45
+```
+
 ### 2.3 The resulting rule
 
 | Altitude | How to cover the roadway |
 |---|---|
 | **≥ 1.8 × separation** | Nadir passes from both shoulders, gimbal −90° |
 | **< 1.8 × separation** | **Cross-aimed obliques** from both shoulders — not nadir |
+| **Lowest / detail passes** | Cross-aimed at **45° to the roadway**, hugging the pavement edge (§2.3) |
 
 Cross-aiming from Side 1 and Side 2 also gives you two opposing, convergent
 look directions on every point of the roadway. That is strong photogrammetric
@@ -171,7 +234,9 @@ enough on its own.*
 
 12. [ ] Return to the **Side 1** shoulder
 13. [ ] **Rotate drone perpendicular to roadway** — nose pointed across toward
-        Side 2
+        Side 2. On the lower passes, **rotate 45° to the roadway** instead and
+        hug the pavement edge (§2.3): better along-road geometry, easier to fly
+        near trees and lines
 14. [ ] Set the gimbal to the angle for your altitude and offset (§2.2) —
         e.g. **−63°** at 80 ft AGL over a 40 ft offset
 15. [ ] Translate **sideways along the Side 1 shoulder**, down-station, at the
@@ -228,9 +293,10 @@ enough on its own.*
 ### Pass 7 — Detail, AOI only
 
 27. [ ] Drop to 60 ft or lower over the specific area of interest
-28. [ ] **Rotate drone perpendicular to roadway** and cross-aim from each
-        shoulder in turn — at 60 ft over a 40 ft offset that is gimbal **−56°**.
-        Nadir from the shoulders gives only 5% overlap at this height
+28. [ ] **Rotate drone 45° to the roadway** and cross-aim from each shoulder in
+        turn, hugging the pavement edge — at 60 ft over a 25 ft offset that is
+        gimbal **−59°**. Nadir from the shoulders gives only 5% overlap here,
+        and 45° adds the along-road geometry the low tiers otherwise lack
 29. [ ] Repeat at gimbal **−45°** for pavement texture, joints, edges, distress
 30. [ ] Gimbal **−30°** for barrier faces, guardrail, sign structures
 31. [ ] Two orbits around any structure, camera held on it — one each direction
@@ -318,7 +384,7 @@ Honest accounting, since both the grid and the centre pass are unavailable:
 
 | Lost | Covered by |
 |---|---|
-| Crosshatch geometry | Passes 3–4 cross-aimed obliques give two opposing look directions on every point |
+| Crosshatch geometry | Passes 3–4 cross-aimed obliques give two opposing look directions on every point — four if flown at 45° (§2.3) |
 | Centre pass at low altitude | Cross-aiming — tilt replaces translation |
 | Nadir coverage below 1.8 × separation | Accepted: the low tiers are oblique by design |
 | True-nadir pixels on the pavement | The high nadir tier (200 ft), plus obliques at ≤27° off nadir, which is close to nadir |

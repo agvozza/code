@@ -126,7 +126,7 @@ td em{font-style:normal;color:var(--alert);font-size:12px}
 /* ---------- calculator ---------- */
 .calc{background:var(--surface);border:1px solid var(--line);border-radius:12px;
   padding:16px;box-shadow:var(--shadow)}
-.fields{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.fields{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 .field label{display:block;font-size:10.5px;font-weight:700;letter-spacing:.08em;
   text-transform:uppercase;color:var(--ink-3);margin-bottom:5px}
 .field input{
@@ -229,13 +229,13 @@ footer a{color:var(--sign);font-weight:600}
 .resetbtn:active{background:var(--surface-3)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 @media (max-width:400px){
+  .fields{grid-template-columns:1fr 1fr}
   .ladder{padding-left:56px}
   .ladder::before{left:23px}
   .alt{left:-56px;width:49px;font-size:11.5px}
   .alt::after{right:-36px}
   .gimbal{font-size:10.5px;padding:3px 6px}
-  .fields{grid-template-columns:1fr 1fr}
-  .fields .field:first-child{grid-column:1/-1}
+
 }
 </style>
 
@@ -353,6 +353,49 @@ footer a{color:var(--sign);font-weight:600}
 </section>
 
 <section>
+  <div class="sechead"><h3>Diagonal heading — 45°</h3><span>lower passes</span></div>
+
+  <div class="alert">
+    <h4>It strengthens the axis that actually fails</h4>
+    <p>At 90° every look direction is perpendicular to the roadway, so the <strong>along-road
+       axis</strong> — the one a corridor bends about — gets no convergent geometry at all.
+       A 45° heading injects a component of view along the road.</p>
+    <p>Fly Side 1 outbound at 45° and Side 2 back at 45°: the travel directions oppose, so the
+       look azimuths do too. <strong>Four look directions from two passes</strong> instead of
+       two mirrored perpendiculars.</p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Heading · offset</th><th>Gimbal</th><th>GSD at aim</th><th>Shot every</th></tr></thead>
+      <tbody>
+        <tr><td class="lab">90° · 40 ft — square across</td><td>−63°</td><td>0.73 / 0.81 cm</td><td>13 ft</td></tr>
+        <tr class="dim"><td class="lab">45° · 40 ft — same line</td><td>−55°</td><td>0.80 / 0.98 cm</td><td>10 ft</td></tr>
+        <tr class="key"><td class="lab">45° · 25 ft — hugging the edge ★</td><td>−66°</td><td>0.71 / 0.78 cm</td><td>9 ft</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">All at 80 ft AGL. A diagonal look runs further across the ground to reach the
+     same strip — 40 / sin 45° = 57 ft — so on the <b>same line</b> it costs ~10% across-look
+     and 20% along-look GSD. <b>Hugging the pavement edge recovers all of it</b>: 25 ft offset
+     at 45° matches 40 ft at 90°. Only the frame count stays higher, because a rotated frame
+     projects less of its long axis onto the flight path.</p>
+
+  <div class="notes" style="margin-top:14px">
+    <div><span class="dot warn"></span><div><b>Heading alone buys no clearance.</b> Rotating
+      does not move the aircraft. What it buys is flyability — forward-diagonal motion instead
+      of pure lateral, so forward obstacle sensors face partly along travel and you can see
+      where it is going.</div></div>
+    <div><span class="dot ok"></span><div><b>That is what makes the tighter line practical</b>
+      — and the tighter line is the real clearance gain. If canopy actually overhangs the
+      shoulder, the fix is altitude or lateral position, not heading.</div></div>
+    <div><span class="dot bad"></span><div><b>Counterweight:</b> hugging the edge puts you
+      nearer live lanes. Truck wake turbulence is real at low altitude, and a drift toward the
+      road becomes an overflight. Keep a deliberate lateral buffer.</div></div>
+  </div>
+</section>
+
+<section>
   <div class="sechead"><h3>Gimbal roles</h3><span>as DJI displays</span></div>
   <div class="tablewrap">
     <table>
@@ -385,6 +428,10 @@ footer a{color:var(--sign);font-weight:600}
         <label for="side">Offset to aim (ft)</label>
         <input type="number" id="side" value="40" min="2" max="400" step="5" inputmode="decimal">
       </div>
+      <div class="field">
+        <label for="az">Heading to roadway</label>
+        <input type="number" id="az" value="90" min="10" max="90" step="5" inputmode="numeric">
+      </div>
     </div>
     <div class="out">
       <div class="cell hi"><span>Gimbal — cross-aim</span><b id="o-gim">−72°</b><i id="o-gim-off">18° off nadir</i></div>
@@ -394,11 +441,12 @@ footer a{color:var(--sign);font-weight:600}
       <div class="cell"><span>If flown nadir</span><b id="o-gsd">0.98 cm</b><i id="o-shot-m">shot every 13 ft</i></div>
       <div class="cell"><span>Nadir side overlap</span><b id="o-line">53%</b><i id="o-line-m">from 2 shoulder lines</i></div>
     </div>
-      <p class="note"><b>Offset</b> is the lateral distance from the shoulder you are flying to
-       the strip you want in frame — shoulder to centerline on a 2-lane is about 40 ft. The
-       nadir floor assumes the opposite shoulder sits at twice that offset. At 90% forward
-       overlap you advance one tenth of a frame per shot: judge it by watching a feature
-       travel a tenth of the way down your screen.</p>
+      <p class="note"><b>Offset</b> is the perpendicular distance from your flight line to the
+       strip you want in frame — shoulder to centerline on a 2-lane is about 40 ft, or ~25 ft
+       hugging the pavement edge. <b>Heading</b> is the angle between the camera's look
+       direction and the roadway: 90° is square across, 45° is diagonal. Try 45° with a 25 ft
+       offset against 90° with 40 ft — near-identical GSD, but the diagonal adds along-road
+       geometry. The nadir floor assumes the opposite shoulder sits at twice the offset.</p>
   </div>
 </section>
 
@@ -465,20 +513,26 @@ function calc(){
   var altFt=num(document.getElementById("alt"),120,1,2000);
   var fwd=num(document.getElementById("fwd"),90,0,99);
   var offFt=num(document.getElementById("side"),40,1,2000);
+  var azDeg=num(document.getElementById("az"),90,10,90);
   var altM=altFt/FT, offM=offFt/FT;
   var gsd=PITCH/FOCAL*altM;                       /* nadir metres/pixel */
   var fw=PX_W*gsd, fh=PX_H*gsd;                   /* nadir frame, metres */
   function set(id,t){document.getElementById(id).textContent=t}
 
   /* --- cross-aim: tilt to put the target strip on the optical axis --- */
-  var th=Math.atan2(offM,altM);                   /* radians off nadir */
-  var slant=Math.sqrt(altM*altM+offM*offM);
+  /* A diagonal look runs further across the ground to reach the same strip. */
+  var az=azDeg*Math.PI/180;
+  var groundM=offM/Math.sin(az);
+  var th=Math.atan2(groundM,altM);                /* radians off nadir */
+  var slant=Math.sqrt(altM*altM+groundM*groundM);
   var gAcross=PITCH/FOCAL*slant;
   var gAlong=gAcross/Math.cos(th);
   set("o-gim","\u2212"+(90-th*180/Math.PI).toFixed(0)+"\u00B0");
   set("o-gim-off",(th*180/Math.PI).toFixed(0)+"\u00B0 off nadir");
-  /* Nose yawed across the road puts the long sensor axis along the path. */
-  var xAdv=PX_W*gAcross*(1-fwd/100);
+  /* The sensor's long axis lies across the look direction; only its projection
+     onto the flight path counts for forward overlap. */
+  var pathFrac=Math.abs(Math.cos((90-azDeg)*Math.PI/180));
+  var xAdv=PX_W*gAcross*pathFrac*(1-fwd/100);
   set("o-xshot",(xAdv*FT).toFixed(xAdv*FT<10?1:0)+" ft");
   set("o-xgsd",(gAcross*100).toFixed(2)+" cm");
   set("o-xgsd2",(gAlong*100).toFixed(2)+" cm along-look");
@@ -532,13 +586,13 @@ var FLIGHTS=[
  ]},
  {alt:"Pass 3",sub:"cross-aim",title:"Side 1 — looking across",note:"mandatory below the floor",gimbal:"−56° to −75°",steps:[
   ["Position over the <b>Side 1</b> shoulder.",""],
-  ["<b>Rotate drone perpendicular to roadway</b> — nose pointed across toward Side 2.","The Mavic's gimbal pitches but does not yaw independently, so looking across means yawing the aircraft."],
+  ["<b>Rotate drone perpendicular to roadway</b> — nose across toward Side 2. On lower passes, <b>rotate 45° to the roadway</b> instead and hug the pavement edge.","The Mavic's gimbal pitches but does not yaw independently, so looking across means yawing the aircraft. 45° adds along-road geometry and is easier to fly near trees and lines."],
   ["Set the gimbal to the angle for your altitude and offset — <b>−63°</b> at 80 ft AGL over a 40 ft offset.","The angle is not fixed: the offset is set by the road, the height is not, so it changes with altitude."],
   ["<b>Translate sideways along the Side 1 shoulder</b>, down-station, at the cross-aim spacing.","Flying laterally with the nose held across the road. Slower than nose-forward — practise before the job."]
  ]},
  {alt:"Pass 4",sub:"cross-aim",title:"Side 2 — looking across",note:"opposing viewpoint",gimbal:"−56° to −75°",steps:[
   ["Translate to the <b>Side 2</b> shoulder, nose pointed across toward Side 1, same gimbal angle.",""],
-  ["Translate sideways along the <b>Side 2</b> shoulder, up-station.","Passes 3 and 4 give every point on the roadway two opposing, convergent look directions. This pair replaces both the centre pass and the separate calibration obliques — it is doing double duty."],
+  ["Translate along the <b>Side 2</b> shoulder, up-station, same heading angle as Pass 3.","Passes 3 and 4 give every point two opposing look directions — four if flown at 45°, since the travel directions oppose. This pair replaces both the centre pass and the separate calibration obliques."],
   ["Confirm the far lane got covered from both sides.","The far side sits at the foreshortened end of each frame; the opposing pass covers it at the near end. Flying only one side documents half the roadway at its worst."]
  ]},
  {alt:"Pass 5",sub:"crossings",title:"Perpendicular crossings",note:"every 1000–1600 ft",gimbal:"−90°",steps:[
@@ -553,7 +607,7 @@ var FLIGHTS=[
  ]},
  {alt:"Pass 7",sub:"AOI detail",title:"Low detail passes",note:"cross-aimed only",gimbal:"−56°/−45°/−30°",steps:[
   ["Drop to 60 ft or lower over the area of interest.","Nadir from the shoulders gives only 5% overlap at this height — cross-aim is the only option."],
-  ["<b>Rotate drone perpendicular to roadway</b> and cross-aim from each shoulder in turn — <b>−56°</b> at 60 ft over a 40 ft offset.",""],
+  ["<b>Rotate drone 45° to the roadway</b> and cross-aim from each shoulder in turn, hugging the pavement edge — <b>−59°</b> at 60 ft over a 25 ft offset.","Nadir gives 5% overlap here, and 45° adds the along-road geometry the low tiers otherwise lack."],
   ["Repeat at gimbal <b>−45°</b> — pavement texture, joints, edges, distress.",""],
   ["Gimbal <b>−30°</b> for barrier faces, guardrail, sign structures.",""],
   ["Two orbits around any structure from the shoulder side, camera held on it — one each direction.",""]
