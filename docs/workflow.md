@@ -53,8 +53,16 @@ sensor comes out of the case.
 
 ## Phase 0 — Plan
 
+**Agree the accuracy target first.** Quote it as a USIBD Level of Accuracy —
+see [field-capture.md §1](field-capture.md#1-specify-the-accuracy-target-before-anything-else).
+Everything downstream is sized by this number, and on a fused project it needs
+stating per region: scanned surfaces realistically reach LOA30 (~5 mm), while a
+non-RTK photogrammetric block lands nearer 3–5 cm, which is LOA10. Quote both,
+or quote the whole deliverable at the weaker tier — but do not quote one number
+and let the client assume it applies everywhere.
+
 Assign the site code. Design the control layout on a site plan — see
-[field-capture.md §2](field-capture.md#2-control-design-do-this-first-on-paper)
+[field-capture.md §3](field-capture.md#3-control-design-do-this-first-on-paper)
 for counts, distribution and the vertical-spread rule.
 
 **Pick your coordinate frame now.** Two options:
@@ -295,7 +303,13 @@ geometry out of scanned areas entirely.
    middle — is residual doming, and means your control was too flat or too
    sparse in Z. Go back to Phase 6 before you mesh.
 3. Check the check-point RMSE against Phase 6 targets.
-4. Record it all in `60_qc/`, including the numbers you did not like. A
+4. **Convert the result into the accuracy claim you will actually ship.**
+   USIBD LOA is a 2σ (95%) figure, so roughly 2× your check-point RMSE — and
+   it applies to the *delivered* model, not the working cloud. A mesh
+   decimated for delivery can sit a full tier below the point cloud it came
+   from, which is the distinction USIBD draws between measured and represented
+   accuracy. Verify against the deliverable you are handing over.
+5. Record it all in `60_qc/`, including the numbers you did not like. A
    deliverable whose accuracy is documented is worth considerably more than one
    that is merely asserted.
 
