@@ -1,0 +1,624 @@
+<title>Roadway Flight Card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&family=Overpass+Mono:wght@400;600;700&display=swap">
+<style>
+:root{
+  --ground:#E8EAE6; --surface:#FDFDFC; --surface-2:#F1F3EF; --surface-3:#E2E5DF;
+  --ink:#16191C; --ink-2:#4C545A; --ink-3:#778086;
+  --line:#CDD2CB; --line-2:#B8BEB6;
+  --sign:#10653F; --sign-soft:#DCEDE3; --sign-ink:#0B4A2E;
+  --paint:#E8A317; --paint-ink:#7A5200; --paint-soft:#FBEFD6;
+  --alert:#A62019; --alert-soft:#FBE6E4; --alert-ink:#7E1812;
+  --shadow:0 1px 2px rgba(20,25,20,.07),0 4px 14px rgba(20,25,20,.06);
+  --mono:"Overpass Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sans:"Overpass",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#15181A; --surface:#1E2225; --surface-2:#262B2E; --surface-3:#30363A;
+  --ink:#E9ECE9; --ink-2:#A9B1B5; --ink-3:#7C858A;
+  --line:#333A3E; --line-2:#414A4F;
+  --sign:#55C48F; --sign-soft:#16332661; --sign-ink:#7FD9AC;
+  --paint:#F0B429; --paint-ink:#F0C25E; --paint-soft:#3A2E1240;
+  --alert:#F08078; --alert-soft:#3A1E1C66; --alert-ink:#F5A49E;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.24);
+}}
+:root[data-theme="dark"]{
+  --ground:#15181A; --surface:#1E2225; --surface-2:#262B2E; --surface-3:#30363A;
+  --ink:#E9ECE9; --ink-2:#A9B1B5; --ink-3:#7C858A;
+  --line:#333A3E; --line-2:#414A4F;
+  --sign:#55C48F; --sign-soft:#16332661; --sign-ink:#7FD9AC;
+  --paint:#F0B429; --paint-ink:#F0C25E; --paint-soft:#3A2E1240;
+  --alert:#F08078; --alert-soft:#3A1E1C66; --alert-ink:#F5A49E;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.24);
+}
+*{box-sizing:border-box}
+body{
+  background:var(--ground); color:var(--ink);
+  font-family:var(--sans); font-size:16px; line-height:1.5;
+  -webkit-text-size-adjust:100%;
+}
+.wrap{max-width:720px;margin:0 auto;padding-inline:16px;padding-block:0 64px}
+h1,h2,h3{text-wrap:balance;margin:0}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+/* ---------- header ---------- */
+.top{
+  position:sticky; top:env(safe-area-inset-top,0px); z-index:40;
+  background:color-mix(in srgb,var(--ground) 92%,transparent);
+  backdrop-filter:blur(12px); border-bottom:1px solid var(--line);
+  margin-inline:-16px; padding:10px 16px;
+}
+.toprow{display:flex;align-items:center;gap:12px;max-width:720px;margin:0 auto}
+.brand{flex:1;min-width:0}
+.brand h1{font-size:15px;font-weight:800;letter-spacing:.055em;text-transform:uppercase;line-height:1.1}
+.brand p{margin:1px 0 0;font-size:11.5px;color:var(--ink-3);letter-spacing:.03em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.iconbtn{
+  flex:none;width:38px;height:38px;border-radius:9px;border:1px solid var(--line);
+  background:var(--surface);color:var(--ink-2);font-size:16px;cursor:pointer;
+  display:grid;place-items:center;font-family:var(--sans)
+}
+.iconbtn:active{background:var(--surface-3)}
+.meter{display:flex;align-items:center;gap:9px;max-width:720px;margin:9px auto 0}
+.track{flex:1;height:5px;border-radius:99px;background:var(--surface-3);overflow:hidden}
+.fill{height:100%;width:0;background:var(--sign);border-radius:99px;transition:width .3s ease}
+.count{font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--ink-2);
+  font-variant-numeric:tabular-nums;letter-spacing:.02em}
+
+/* ---------- hero ---------- */
+.hero{padding-block:26px 6px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--sign);margin-bottom:9px}
+.hero h2{font-size:clamp(28px,8.5vw,40px);font-weight:800;line-height:1.04;letter-spacing:-.02em}
+.hero p{margin:12px 0 0;color:var(--ink-2);font-size:15.5px;max-width:58ch}
+.sitebar{
+  display:flex;flex-wrap:wrap;gap:7px;margin-top:16px
+}
+.chip{
+  font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:.02em;
+  background:var(--surface);border:1px solid var(--line);border-radius:7px;
+  padding:5px 9px;color:var(--ink-2)
+}
+.chip b{color:var(--ink);font-weight:700}
+
+/* ---------- sections ---------- */
+section{margin-top:38px}
+.sechead{display:flex;align-items:baseline;gap:10px;margin-bottom:14px;
+  padding-bottom:9px;border-bottom:2px solid var(--ink)}
+.sechead h3{font-size:17px;font-weight:800;letter-spacing:.02em}
+.sechead span{font-family:var(--mono);font-size:11px;color:var(--ink-3);margin-left:auto;font-weight:600}
+
+/* ---------- alerts ---------- */
+.alert{
+  background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--paint);
+  border-radius:9px;padding:15px 16px;margin-bottom:12px;box-shadow:var(--shadow)
+}
+.alert h4{margin:0 0 6px;font-size:15px;font-weight:800;color:var(--ink);letter-spacing:.01em}
+.alert p{margin:0 0 8px;font-size:14.5px;color:var(--ink-2)}
+.alert p:last-child{margin-bottom:0}
+.alert strong{color:var(--ink);font-weight:700}
+.swap{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px;font-family:var(--mono);font-size:13px}
+.was{background:var(--alert-soft);border:1px solid var(--alert);color:var(--alert-ink);
+  padding:4px 9px;border-radius:6px;font-weight:700}
+.now{background:var(--sign);color:#fff;padding:4px 9px;border-radius:6px;font-weight:700}
+:root[data-theme="dark"] .now,:root:not([data-theme="light"]) .now{color:#0C1A13}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .now{color:#fff}}
+.arrow{color:var(--ink-3);font-weight:700}
+
+/* ---------- tables ---------- */
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;
+  border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:340px}
+th{font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-3);text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);
+  white-space:nowrap;background:var(--surface-2)}
+td{padding:10px 12px;border-bottom:1px solid var(--line);font-family:var(--mono);
+  font-variant-numeric:tabular-nums;color:var(--ink-2);white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td.lab{font-family:var(--sans);color:var(--ink);font-weight:600;white-space:normal}
+tr.key td{background:var(--sign-soft)}
+tr.key td.lab{color:var(--sign-ink);font-weight:800}
+tr.dim td{color:var(--ink-3)}
+td em{font-style:normal;color:var(--alert);font-size:12px}
+.note{font-size:13px;color:var(--ink-3);margin:9px 2px 0;line-height:1.5}
+
+/* ---------- calculator ---------- */
+.calc{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  padding:16px;box-shadow:var(--shadow)}
+.fields{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.field label{display:block;font-size:10.5px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-3);margin-bottom:5px}
+.field input{
+  width:100%;font-family:var(--mono);font-size:17px;font-weight:700;
+  padding:9px 10px;border-radius:8px;border:1px solid var(--line-2);
+  background:var(--surface-2);color:var(--ink);-moz-appearance:textfield
+}
+.field input:focus-visible{outline:2px solid var(--sign);outline-offset:1px;border-color:var(--sign)}
+.out{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:14px}
+.cell{background:var(--surface-2);border:1px solid var(--line);border-radius:9px;padding:11px 12px}
+.cell.hi{background:var(--sign-soft);border-color:var(--sign)}
+.cell.bad{background:var(--alert-soft);border-color:var(--alert)}
+.cell.bad span,.cell.bad b{color:var(--alert-ink)}
+.cell span{display:block;font-size:10px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-3);margin-bottom:4px}
+.cell.hi span{color:var(--sign-ink)}
+.cell b{font-family:var(--mono);font-size:19px;font-weight:700;color:var(--ink);letter-spacing:-.01em}
+.cell.hi b{color:var(--sign-ink)}
+.cell i{font-style:normal;font-family:var(--mono);font-size:11.5px;color:var(--ink-3);
+  display:block;margin-top:1px}
+
+/* ---------- altitude ladder + flights ---------- */
+.ladder{position:relative;padding-left:66px}
+.ladder::before{
+  content:"";position:absolute;left:28px;top:8px;bottom:8px;width:2px;
+  background:repeating-linear-gradient(to bottom,var(--paint) 0 10px,transparent 10px 20px)
+}
+.tier{position:relative;margin-bottom:14px}
+.alt{
+  position:absolute;left:-66px;top:1px;width:58px;text-align:right;
+  font-family:var(--mono);font-size:12.5px;font-weight:700;color:var(--ink);
+  line-height:1.2;letter-spacing:-.02em
+}
+.alt small{display:block;font-size:9px;font-weight:600;color:var(--ink-3);letter-spacing:.04em}
+.alt::after{
+  content:"";position:absolute;right:-43px;top:4px;width:11px;height:11px;border-radius:50%;
+  background:var(--paint);border:2.5px solid var(--ground);box-sizing:content-box
+}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  overflow:hidden;box-shadow:var(--shadow)}
+.card.done{border-color:var(--sign)}
+.chead{display:flex;align-items:flex-start;gap:10px;padding:13px 15px;
+  background:var(--surface-2);border-bottom:1px solid var(--line)}
+.card.done .chead{background:var(--sign-soft);border-bottom-color:var(--sign)}
+.chead .t{flex:1;min-width:0}
+.chead h4{margin:0;font-size:14.5px;font-weight:800;letter-spacing:.01em;line-height:1.25}
+.chead p{margin:3px 0 0;font-size:12px;color:var(--ink-2);font-family:var(--mono)}
+.gimbal{
+  flex:none;font-family:var(--mono);font-size:11.5px;font-weight:700;
+  background:var(--ink);color:var(--ground);padding:4px 8px;border-radius:6px;
+  white-space:nowrap;max-width:44%;overflow:hidden;text-overflow:ellipsis
+}
+.gimbal.ob{background:var(--paint);color:#3A2800}
+ul.steps{list-style:none;margin:0;padding:4px 0}
+ul.steps li{border-bottom:1px solid var(--line)}
+ul.steps li:last-child{border-bottom:none}
+label.step{display:flex;gap:12px;align-items:flex-start;padding:12px 15px;cursor:pointer;
+  -webkit-tap-highlight-color:transparent}
+label.step:active{background:var(--surface-2)}
+label.step input{
+  flex:none;width:23px;height:23px;margin:0;accent-color:var(--sign);cursor:pointer
+}
+label.step input:focus-visible{outline:2px solid var(--sign);outline-offset:2px}
+.body{flex:1;min-width:0;font-size:14.5px;line-height:1.45}
+.n{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--ink-3);
+  margin-right:7px;letter-spacing:.02em}
+label.step input:checked ~ .body{color:var(--ink-3);text-decoration:line-through;
+  text-decoration-color:var(--line-2)}
+.body b{font-weight:700;color:var(--ink)}
+label.step input:checked ~ .body b{color:var(--ink-3)}
+.body code{font-family:var(--mono);font-size:12.5px;background:var(--surface-3);
+  padding:1.5px 5px;border-radius:4px;color:var(--ink)}
+.why{display:block;margin-top:5px;font-size:12.5px;color:var(--ink-3);line-height:1.45}
+
+/* ---------- glossary ---------- */
+.search{width:100%;font-family:var(--sans);font-size:15px;padding:11px 13px;
+  border-radius:9px;border:1px solid var(--line-2);background:var(--surface);
+  color:var(--ink);margin-bottom:11px}
+.search:focus-visible{outline:2px solid var(--sign);outline-offset:1px;border-color:var(--sign)}
+dl{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+dl>div{padding:11px 14px;border-bottom:1px solid var(--line)}
+dl>div:last-child{border-bottom:none}
+dt{font-weight:800;font-size:13.5px;letter-spacing:.01em}
+dd{margin:2px 0 0;font-size:13.5px;color:var(--ink-2);line-height:1.45}
+.empty{padding:18px 14px;text-align:center;color:var(--ink-3);font-size:14px}
+
+/* ---------- misc ---------- */
+.notes{background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:4px 0}
+.notes div{display:flex;gap:11px;padding:11px 15px;border-bottom:1px solid var(--line);font-size:14px;line-height:1.45}
+.notes div:last-child{border-bottom:none}
+.dot{flex:none;width:8px;height:8px;border-radius:50%;margin-top:7px}
+.dot.warn{background:var(--paint)} .dot.ok{background:var(--sign)} .dot.bad{background:var(--alert)}
+.notes b{font-weight:700}
+footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--ink-3);line-height:1.6}
+footer a{color:var(--sign);font-weight:600}
+.resetbtn{margin-top:14px;font-family:var(--sans);font-size:13px;font-weight:600;
+  background:var(--surface);border:1px solid var(--line-2);color:var(--ink-2);
+  padding:9px 15px;border-radius:8px;cursor:pointer}
+.resetbtn:active{background:var(--surface-3)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:400px){
+  .ladder{padding-left:56px}
+  .ladder::before{left:23px}
+  .alt{left:-56px;width:49px;font-size:11.5px}
+  .alt::after{right:-36px}
+  .gimbal{font-size:10.5px;padding:3px 6px}
+  .fields{grid-template-columns:1fr 1fr}
+  .fields .field:first-child{grid-column:1/-1}
+}
+</style>
+
+<div class="top">
+  <div class="toprow">
+    <div class="brand">
+      <h1>Roadway Flight Card</h1>
+      <p id="sub">Shoulder passes · Mavic 3 Classic · no grid</p>
+    </div>
+    <button class="iconbtn" id="theme" aria-label="Toggle light and dark theme">◐</button>
+  </div>
+  <div class="meter">
+    <div class="track"><div class="fill" id="fill"></div></div>
+    <div class="count" id="count">0/34</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<div class="hero">
+  <div class="eyebrow">Field Reference</div>
+  <h2>Eight passes along the shoulders.</h2>
+  <p>Manual flight plan for a roadway inspection. Lines run along the shoulders, parallel
+     to the roadway — no grid. Tap each step as you fly it; progress is saved on this phone.
+     Gimbal angles are as the DJI controller displays them.</p>
+  <div class="sitebar">
+    <span class="chip">LINES <b>Side 1 · Side 2</b></span>
+    <span class="chip">FWD OVERLAP <b>90%</b></span>
+    <span class="chip">PRIMARY TIER <b>120 ft</b></span>
+    <span class="chip">ALT FLOOR <b>1.8 × separation</b></span>
+    <span class="chip">GIMBAL <b>DJI display</b></span>
+  </div>
+</div>
+
+<section>
+  <div class="sechead"><h3>The shoulder constraint</h3><span>read first</span></div>
+
+  <div class="alert">
+    <h4>Altitude floor ≈ 1.8 × your shoulder separation</h4>
+    <p>Flying the shoulders <strong>fixes your line separation at the road width</strong>.
+       You cannot adjust it — so altitude, not line spacing, is what sets side overlap.</p>
+    <p>Below <strong>1.8 × the separation</strong> the two shoulder lines stop overlapping
+       usefully, and you <strong>add a third pass down the centre</strong>. That halves the
+       effective separation and restores it. One more parallel pass — not a grid.</p>
+    <div class="swap">
+      <span class="was">80 ft apart → below 142 ft</span><span class="arrow">→</span>
+      <span class="now">add centre pass</span>
+    </div>
+  </div>
+
+  <div class="alert">
+    <h4>With no grid, the obliques carry the whole load</h4>
+    <p>A shoulder-only plan has no crosshatch, so <strong>passes 4 and 5 at −55°</strong> are
+       the only thing breaking the focal-length/altitude correlation that bends a corridor
+       into a banana. On this plan they are not optional.</p>
+    <p>The perpendicular crossings and the altitude profiles are the rest of that defence.</p>
+  </div>
+
+  <div class="tablewrap" style="margin-top:14px">
+    <table>
+      <thead><tr><th>Shoulder separation</th><th>Min AGL · 60%</th><th>Min AGL · 70%</th></tr></thead>
+      <tbody>
+        <tr><td class="lab">40 ft</td><td>71 ft</td><td>95 ft</td></tr>
+        <tr><td class="lab">60 ft</td><td>107 ft</td><td>142 ft</td></tr>
+        <tr class="key"><td class="lab">80 ft — 2-lane + shoulders</td><td>142 ft</td><td>189 ft</td></tr>
+        <tr><td class="lab">100 ft</td><td>178 ft</td><td>237 ft</td></tr>
+        <tr><td class="lab">120 ft — divided</td><td>213 ft</td><td>284 ft</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Measure your shoulder-to-shoulder separation, then read the floor.
+     Use the calculator below to check any altitude against your own road width.</p>
+</section>
+
+<section>
+  <div class="sechead"><h3>Altitude ladder</h3><span>90 / 70 overlap</span></div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>AGL</th><th>GSD</th><th>Frame</th><th>Shot every</th><th>Line step</th><th>Max speed</th></tr></thead>
+      <tbody>
+        <tr class="dim"><td class="lab">400 ft <em>recon</em></td><td>3.25 cm</td><td>563 × 422</td><td>42 ft</td><td>169 ft</td><td>6.4 m/s</td></tr>
+        <tr><td class="lab">200 ft</td><td>1.63 cm</td><td>282 × 211</td><td>21 ft</td><td>84 ft</td><td>3.2 m/s</td></tr>
+        <tr class="key"><td class="lab">120 ft ★</td><td>0.98 cm</td><td>169 × 127</td><td>13 ft</td><td>51 ft</td><td>1.9 m/s</td></tr>
+        <tr><td class="lab">80 ft <em>AOI</em></td><td>0.65 cm</td><td>113 × 84</td><td>8 ft</td><td>34 ft</td><td>1.3 m/s</td></tr>
+        <tr><td class="lab">50 ft <em>AOI</em></td><td>0.41 cm</td><td>70 × 53</td><td>5 ft</td><td>21 ft</td><td>0.8 m/s</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note"><b>★ 120 ft is the deliverable tier.</b> Max speed is the fastest you can fly and
+     still hold overlap at a 2 s interval — flying faster silently thins it. Frame and
+     distance figures in feet.</p>
+</section>
+
+<section>
+  <div class="sechead"><h3>Gimbal angles</h3><span>as DJI displays</span></div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>DJI display</th><th>Looking</th><th>Used on</th></tr></thead>
+      <tbody>
+        <tr><td>−90°</td><td class="lab">Straight down — nadir</td><td>Passes 1–3, 6, 8</td></tr>
+        <tr class="key"><td>−55°</td><td class="lab">Calibration oblique</td><td>Passes 4–5, 7</td></tr>
+        <tr><td>−45°</td><td class="lab">Detail oblique</td><td>Pass 8 — pavement</td></tr>
+        <tr><td>−30°</td><td class="lab">Vertical faces</td><td>Pass 8 — barrier, guardrail</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note"><b>−55° is the one that matters.</b> It is 35° off nadir, where two independent
+     studies overlap — MDPI found 20–35° optimal, AeroCartwright 30–45°. A shallower tilt
+     (−75° to −85°) is effectively still a nadir image and will not break the
+     focal-length/height correlation that causes doming.</p>
+</section>
+
+<section>
+  <div class="sechead"><h3>On-site calculator</h3><span>live</span></div>
+  <div class="calc">
+    <div class="fields">
+      <div class="field">
+        <label for="alt">Altitude AGL (ft)</label>
+        <input type="number" id="alt" value="120" min="10" max="400" step="5" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label for="fwd">Forward %</label>
+        <input type="number" id="fwd" value="90" min="0" max="99" step="1" inputmode="numeric">
+      </div>
+      <div class="field">
+        <label for="side">Shoulder sep (ft)</label>
+        <input type="number" id="side" value="80" min="4" max="400" step="5" inputmode="decimal">
+      </div>
+    </div>
+    <div class="out">
+      <div class="cell hi"><span>Shot every</span><b id="o-shot">13 ft</b><i id="o-shot-m">3.9 m</i></div>
+      <div class="cell hi"><span>Side overlap</span><b id="o-line">53%</b><i id="o-line-m">from 2 shoulder lines</i></div>
+      <div class="cell"><span>GSD</span><b id="o-gsd">0.98 cm</b><i id="o-gsd-in">0.38 in</i></div>
+      <div class="cell"><span>Frame</span><b id="o-frame">169 × 127</b><i>ft on the ground</i></div>
+      <div class="cell"><span>Max speed @ 2 s</span><b id="o-spd">1.9 m/s</b><i id="o-spd-mph">4.3 mph</i></div>
+      <div class="cell"><span>Altitude floor</span><b id="o-floor">142 ft</b><i>60% from shoulders alone</i></div>
+    </div>
+      <p class="note">At 90% forward overlap you advance <b>one tenth of a frame</b> per shot.
+       Judge it by watching a feature travel a tenth of the way down your screen — more
+       reliable than estimating ground distance.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sechead"><h3>The passes</h3><span id="secount"></span></div>
+  <div class="ladder" id="ladder"></div>
+  <button class="resetbtn" id="reset">Reset all checkboxes</button>
+</section>
+
+<section>
+  <div class="sechead"><h3>Site notes</h3><span>from your image</span></div>
+  <div class="notes">
+    <div><span class="dot bad"></span><div><b>Active traffic.</b> Stop, wait, shoot, advance —
+      never coast while waiting, or you open a gap exactly as long as your patience.</div></div>
+    <div><span class="dot ok"></span><div><b>Parked cars in the salvage lot are fine.</b>
+      Stationary objects reconstruct correctly. Only motion between frames corrupts. Don't wait on them.</div></div>
+    <div><span class="dot warn"></span><div><b>Fuel canopy, lower left.</b> Tall obstruction and a
+      hard shadow. Note its height before descending.</div></div>
+    <div><span class="dot warn"></span><div><b>Treeline moves in wind</b> — same matching problem
+      as traffic, and unavoidable. Fly that edge on a calm day.</div></div>
+    <div><span class="dot bad"></span><div><b>Check for overhead utility lines</b> before descending
+      below 80 ft. Hard to see in imagery, hard to see in flight.</div></div>
+    <div><span class="dot warn"></span><div><b>Verify site scale.</b> Dimensions estimated from an
+      uncalibrated screenshot (~0.75 ft/px). Measure the polygon before flying.</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="sechead"><h3>Glossary</h3><span id="gcount"></span></div>
+  <input class="search" id="q" type="search" placeholder="Search terms — GSD, nadir, doming…" autocomplete="off">
+  <dl id="gloss"></dl>
+</section>
+
+<footer>
+  Computed from the Mavic 3 Classic Hasselblad L2D-20c: 17.3 mm sensor across 5280 px,
+  12.29 mm focal length. Overlap specification from Pix4D; oblique angle from the overlap of
+  MDPI <i>Drones</i> 2024 and AeroCartwright. Full workflow, sources and tooling in the
+  <a href="https://github.com/agvozza/code/tree/claude/reality-capture-naming-n98dct">Reality Capture</a> repository.
+</footer>
+</div>
+
+<script>
+/* ---------- persistence (per-viewer convenience only) ---------- */
+var KEY="rfc.v1";
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return{}}}
+function save(o){try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}}
+var state=load();
+
+/* ---------- theme ---------- */
+var tbtn=document.getElementById("theme");
+tbtn.addEventListener("click",function(){
+  var r=document.documentElement,cur=r.getAttribute("data-theme");
+  var dark=cur?cur==="dark":matchMedia("(prefers-color-scheme:dark)").matches;
+  r.setAttribute("data-theme",dark?"light":"dark");
+  try{localStorage.setItem("rfc.theme",dark?"light":"dark")}catch(e){}
+});
+try{var st=localStorage.getItem("rfc.theme");if(st)document.documentElement.setAttribute("data-theme",st)}catch(e){}
+
+/* ---------- calculator ---------- */
+var SENSOR=17.3, PX_W=5280, PX_H=3956, FOCAL=12.29, FT=3.280839895;
+var PITCH=SENSOR/PX_W;
+function num(el,def,lo,hi){var v=parseFloat(el.value);if(!isFinite(v))return def;return Math.min(hi,Math.max(lo,v));}
+function calc(){
+  var altFt=num(document.getElementById("alt"),120,1,2000);
+  var fwd=num(document.getElementById("fwd"),90,0,99);
+  var altM=altFt/FT;
+  var gsd=PITCH/FOCAL*altM;                 /* metres per pixel */
+  var fw=PX_W*gsd, fh=PX_H*gsd;             /* frame, metres */
+  var adv=fh*(1-fwd/100);
+  var spd=adv/2;
+  function set(id,t){document.getElementById(id).textContent=t}
+  set("o-shot",(adv*FT).toFixed(adv*FT<10?1:0)+" ft");
+  set("o-shot-m",adv.toFixed(1)+" m");
+  set("o-gsd",(gsd*100).toFixed(2)+" cm");
+  set("o-gsd-in",(gsd*39.3701).toFixed(2)+" in");
+  set("o-frame",Math.round(fw*FT)+" × "+Math.round(fh*FT));
+  set("o-spd",spd.toFixed(1)+" m/s");
+  set("o-spd-mph",(spd*2.236936).toFixed(1)+" mph");
+  var sepFt=num(document.getElementById("side"),80,1,2000), sepM=sepFt/FT;
+  var ov=(fw-sepM)/fw*100;
+  set("o-line",(ov<0?0:ov).toFixed(0)+"%");
+  var verdict = ov<0 ? "GAP — add centre pass"
+              : ov<60 ? "too low — add centre pass"
+              : ov<70 ? "adequate" : "good";
+  set("o-line-m",verdict);
+  var lc=document.getElementById("o-line").parentNode;
+  lc.classList.toggle("bad",ov<60);
+  var K=PX_W*PITCH/FOCAL;
+  set("o-floor",(sepM/(0.40*K)*FT).toFixed(0)+" ft");
+}
+["alt","fwd","side"].forEach(function(id){
+  document.getElementById(id).addEventListener("input",calc);
+});
+calc();
+
+/* ---------- the flight ---------- */
+var FLIGHTS=[
+ {alt:"—",sub:"ground",title:"Pre-flight",note:"before takeoff",gimbal:null,steps:[
+  ["Fix which side is <b>Side 1</b> and which is <b>Side 2</b>. Keep it for the whole project — it goes in the file names.",""],
+  ["<b>Measure shoulder separation.</b> Read the altitude floor from the table above, or use the calculator.","Below 1.8 x separation you need a centre pass. This decides your whole tier plan."],
+  ["Check airspace; confirm <b>VLOS</b> covers the run. Plan leapfrog launch points if not.",""],
+  ["Walk the run: overhead lines, sign structures, obstructions, launch points.",""],
+  ["Place <b>GCPs in a zigzag</b>, alternating Side 1 and Side 2, every 400–500 ft, with a <b>pair at each end</b>.","Never collinear down the centerline — shoulder-only flying gives the solve little to resist roll about that axis."],
+  ["Place <b>check points</b> interleaved, every third position, withheld from the solve.","Your only real accuracy measure. Vary height where terrain allows."],
+  ["Camera: manual exposure, manual WB, focus at infinity, no CPL, JPEG+DNG, <b>single-shot — not timed interval</b>.","Timed interval fights manual flight: it fires while you hover for traffic."]
+ ]},
+ {alt:"200",sub:"ft AGL",title:"Warm-up hover",note:"thermal stabilisation",gimbal:null,steps:[
+  ["Take off from the <b>Side 1</b> shoulder at station 0, climb to tier altitude.",""],
+  ["<b>Hover 2–3 minutes.</b>","Lens distortion shifts with temperature — a cold first frame is calibrated differently from a warm last one."]
+ ]},
+ {alt:"Pass 1",sub:"nadir",title:"Side 1 — outbound",note:"parallel to roadway",gimbal:"−90°",steps:[
+  ["<b>Rotate drone parallel to roadway</b>, nose down-station.",""],
+  ["Set gimbal <b>−90°</b>. Position over the <b>Side 1</b> shoulder.",""],
+  ["Fly down-station at the tier's shot spacing.","Hold the line by keeping the pavement edge at a constant position in frame — watching the frame beats watching the aircraft."],
+  ["Traffic: <b>stop, wait, shoot, advance.</b> Never coast while waiting.","Overlap is a function of distance, not time. Hovering costs nothing; coasting opens a gap exactly as long as your patience."]
+ ]},
+ {alt:"Pass 2",sub:"nadir",title:"Side 2 — return",note:"parallel to roadway",gimbal:"−90°",steps:[
+  ["At the end station, <b>rotate drone perpendicular to roadway</b>.",""],
+  ["Translate across to the <b>Side 2</b> shoulder.",""],
+  ["<b>Rotate drone parallel to roadway</b>, nose up-station. Gimbal stays <b>−90°</b>.",""],
+  ["Fly up-station at the same spacing, back to station 0.",""]
+ ]},
+ {alt:"Pass 3",sub:"nadir",title:"Centre line",note:"only below 1.8 × separation",gimbal:"−90°",steps:[
+  ["<b>Only if</b> your altitude is below 1.8 × shoulder separation. Skip otherwise.","At 80 ft separation and 120 ft AGL, two shoulder lines give 53% side overlap. The centre pass lifts it to 76%."],
+  ["<b>Rotate drone perpendicular to roadway</b>, translate to the centerline.",""],
+  ["<b>Rotate drone parallel to roadway</b>, nose down-station. Gimbal <b>−90°</b>, fly the full length.","This is one more parallel pass, not a grid."]
+ ]},
+ {alt:"Pass 4",sub:"oblique",title:"Side 1 — looking at Side 2",note:"the anti-doming pass",gimbal:"−55°",steps:[
+  ["Return to the <b>Side 1</b> shoulder. <b>Rotate drone parallel to roadway</b>.",""],
+  ["Set gimbal <b>−55°</b>, camera looking <b>across the roadway toward Side 2</b>.","Gimbal holds where you put it, so this is no harder to hand-fly than nadir."],
+  ["Fly the full length at the tier's shot spacing.","With no grid and no crosshatch, this pass and Pass 5 are the only thing breaking the focal-length/altitude correlation. Not optional."]
+ ]},
+ {alt:"Pass 5",sub:"oblique",title:"Side 2 — looking at Side 1",note:"opposing viewpoint",gimbal:"−55°",steps:[
+  ["<b>Rotate drone perpendicular to roadway</b>, translate to <b>Side 2</b>.",""],
+  ["<b>Rotate drone parallel to roadway</b>. Gimbal <b>−55°</b>, looking <b>across toward Side 1</b>.",""],
+  ["Fly the full length.","Passes 4 and 5 together give every vertical face — barrier, guardrail, sign back, curb, cut slope — two opposing viewpoints. One oblique pass alone leaves one face of everything unobserved."]
+ ]},
+ {alt:"Pass 6",sub:"crossings",title:"Perpendicular crossings",note:"every 1000–1600 ft",gimbal:"−90°",steps:[
+  ["At each crossing station, stop. <b>Rotate drone perpendicular to roadway</b>, gimbal <b>−90°</b>.",""],
+  ["Cross the full width, past the shoulder on both sides, shooting as you go.","A handful of frames each."],
+  ["<b>Rotate drone parallel to roadway</b> and resume.","These tie Side 1 and Side 2 together at intervals instead of only at the ends — the main defence against the run bending along its length. Spacing is my judgment, not a sourced figure."]
+ ]},
+ {alt:"Pass 7",sub:"profiles",title:"Altitude profiles",note:"both ends + middle",gimbal:"alt.",steps:[
+  ["At each station, hold position laterally.","Drifting turns a clean scale series into an ambiguous one."],
+  ["Climb or descend in <b>~25 ft steps</b>, shooting at each step.",""],
+  ["<b>Alternate gimbal −90° → −55° → −90°</b> as you go.","Varying height decouples focal length from flying height in the solve. A pure-nadir stack shares the same degenerate geometry as everything else."]
+ ]},
+ {alt:"Pass 8",sub:"AOI detail",title:"Low detail passes",note:"area of interest only",gimbal:"−90°/−45°/−30°",steps:[
+  ["Drop to 60 ft or lower over the area of interest.","Full-length coverage at this altitude is not worth the frame count — reserve it for what matters."],
+  ["<b>Rotate drone parallel to roadway</b>, gimbal <b>−90°</b>. Fly <b>Side 1, centre, Side 2</b> — three short passes.","At low altitude the shoulder lines alone will gap. The centre pass is mandatory here."],
+  ["Repeat at gimbal <b>−45°</b> — pavement texture, joints, edges, distress.",""],
+  ["Gimbal <b>−30°</b> for barrier faces, guardrail, sign structures.",""],
+  ["Two orbits around any structure, camera held on it — one each direction.",""]
+ ]},
+ {alt:"—",sub:"ground",title:"Before leaving site",note:"verification",gimbal:null,steps:[
+  ["Frame counts per pass compared against expected.",""],
+  ["Every GCP confirmed visible in <b>≥8–10 frames</b>.","If in doubt, fly back over it and take a few more."],
+  ["Cards backed up before anything is formatted.",""],
+  ["Rename per pass: <code>rename-uas-images.sh SITE DATE S1N src dest</code>","Side designation in the filename survives into processing: S1N, S2N, S1O, S2O, CTR, XNG, PRF."]
+ ]}
+];
+
+var lad=document.getElementById("ladder"),n=0,html="";
+FLIGHTS.forEach(function(f,fi){
+  var steps="";
+  f.steps.forEach(function(s,si){
+    n++;
+    var id="s"+fi+"_"+si, on=state[id]?" checked":"";
+    steps+='<li><label class="step" for="'+id+'">'+
+      '<input type="checkbox" id="'+id+'" data-k="'+id+'"'+on+'>'+
+      '<span class="body"><span class="n">'+(n<10?"0":"")+n+'</span>'+s[0]+
+      (s[1]?'<span class="why">'+s[1]+'</span>':'')+'</span></label></li>';
+  });
+  var isNadir=f.gimbal&&f.gimbal.indexOf("90")>-1&&f.gimbal.indexOf("/")<0;
+  var g=f.gimbal?'<span class="gimbal'+(isNadir?'':' ob')+'">'+f.gimbal+'</span>':'';
+  html+='<div class="tier"><div class="alt">'+f.alt+'<small>'+f.sub+'</small></div>'+
+    '<div class="card" data-f="'+fi+'"><div class="chead"><div class="t">'+
+    '<h4>'+f.title+'</h4><p>'+f.note+'</p></div>'+g+'</div>'+
+    '<ul class="steps">'+steps+'</ul></div></div>';
+});
+lad.innerHTML=html;
+document.getElementById("secount").textContent=n+" steps";
+
+var boxes=Array.prototype.slice.call(lad.querySelectorAll("input[type=checkbox]"));
+function refresh(){
+  var done=boxes.filter(function(b){return b.checked}).length;
+  document.getElementById("fill").style.width=(done/boxes.length*100)+"%";
+  document.getElementById("count").textContent=done+"/"+boxes.length;
+  lad.querySelectorAll(".card").forEach(function(c){
+    var bs=Array.prototype.slice.call(c.querySelectorAll("input"));
+    c.classList.toggle("done",bs.length>0&&bs.every(function(b){return b.checked}));
+  });
+}
+boxes.forEach(function(b){
+  b.addEventListener("change",function(){
+    state[b.dataset.k]=b.checked;
+    if(!b.checked)delete state[b.dataset.k];
+    save(state);refresh();
+  });
+});
+refresh();
+document.getElementById("reset").addEventListener("click",function(){
+  boxes.forEach(function(b){b.checked=false});
+  state={};save(state);refresh();
+});
+
+/* ---------- glossary ---------- */
+var TERMS=[
+ ["AGL — Above Ground Level","Altitude measured from the ground directly below. The number that sets your GSD."],
+ ["AOI — Area of Interest","The sub-area that matters most, warranting lower, denser capture."],
+ ["Banana effect","Doming's cousin on a corridor: error accumulates along the length and the strip bends."],
+ ["Bundle adjustment","The big simultaneous solve — every camera position, angle, lens parameter and 3D point at once. When a model 'aligns', this is what ran."],
+ ["Check point","A surveyed point deliberately withheld from the solve, used afterwards to measure true accuracy."],
+ ["Component","A group of photos RealityCapture aligned together. Corridors often fragment into several that must be linked manually."],
+ ["CPL — Circular Polariser","Its effect changes with heading, so the same surface looks different on opposing lines. Bad for photogrammetry. Plain ND is fine."],
+ ["Crosshatch","A second grid flown perpendicular to the first."],
+ ["Doming / bowl effect","Systematic vertical distortion where the model bows up or sags in the middle. The bundle adjustment cannot separate lens distortion from flying height when everything points straight down."],
+ ["GCP — Ground Control Point","A marked, surveyed point visible in your photos whose real coordinates you know. Anchors the model and corrects internal deformation."],
+ ["Ghosting","A moving object appearing duplicated and semi-transparent in an orthomosaic. Classic symptom of traffic."],
+ ["Gimbal","The motorised camera mount. 'Gimbal 55°' means tilted 55° below horizontal; DJI displays it as −55°."],
+ ["GNSS / RTK","Satellite positioning. RTK uses a base station for centimetre accuracy. The Mavic 3 Classic has no RTK — the reason GCPs are mandatory."],
+ ["GSD — Ground Sample Distance","How much real ground one pixel covers. Sets what you can resolve and how big a target must be."],
+ ["Nadir","Straight down. Gimbal at 90° (DJI: −90°)."],
+ ["Oblique","Any angled shot. Given either as degrees off nadir or as gimbal pitch — easy to confuse, so check which."],
+ ["Orthomosaic","Many aerial photos corrected for perspective and blended into one map-accurate image you can measure directly."],
+ ["Overlap, forward / side","How much consecutive photos along a line share / how much adjacent lines share."],
+ ["Rolling shutter","A sensor that exposes line by line rather than all at once, so a moving aircraft records a skewed frame. The Mavic 3 Classic is rolling-shutter only — enable correction in processing."],
+ ["RMSE","Root Mean Square Error — how a set of errors is summarised into one number. Check point RMSE is the accuracy figure you report."],
+ ["Self-calibration","Letting the bundle adjustment solve the lens from the photos themselves. Convenient, and the source of doming when flight geometry is poor."],
+ ["SfM — Structure from Motion","The algorithm that works out both the scene's shape and where each photo was taken from, from the photos alone."],
+ ["Tie point","A feature recognised in two or more overlapping photos, used to link them. Fresh asphalt yields few — which is why pavement is hard."],
+ ["VLOS","Visual Line of Sight. Part 107 requires it, and it is the binding constraint on corridor work."]
+];
+var dl=document.getElementById("gloss");
+function renderGloss(filter){
+  var f=(filter||"").trim().toLowerCase(),out="",c=0;
+  TERMS.forEach(function(t){
+    if(f&&(t[0]+" "+t[1]).toLowerCase().indexOf(f)<0)return;
+    c++;out+="<div><dt>"+t[0]+"</dt><dd>"+t[1]+"</dd></div>";
+  });
+  dl.innerHTML=out||'<div class="empty">No term matches that.</div>';
+  document.getElementById("gcount").textContent=c+" of "+TERMS.length;
+}
+document.getElementById("q").addEventListener("input",function(e){renderGloss(e.target.value)});
+renderGloss("");
+</script>

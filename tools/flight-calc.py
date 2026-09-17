@@ -85,6 +85,11 @@ def main(argv=None):
                         "--site-across, reports lines and total image count")
     p.add_argument("--site-across", type=float, metavar="FT",
                    help="site width across the flight lines, in feet")
+    p.add_argument("--line-sep", type=float, metavar="FT",
+                   help="fixed across-track distance between flight lines (e.g. "
+                        "shoulder to shoulder). Reports the side overlap that "
+                        "separation actually achieves, instead of deriving spacing "
+                        "from --side.")
     a = p.parse_args(argv)
 
     for name, val in (("--front", a.front), ("--side", a.side)):
@@ -98,6 +103,8 @@ def main(argv=None):
         p.error("--site-along and --site-across must be given together")
     if a.site_along is not None and (a.site_along <= 0 or a.site_across <= 0):
         p.error("site dimensions must be positive")
+    if a.line_sep is not None and a.line_sep <= 0:
+        p.error("--line-sep must be positive")
 
     if a.alt_m:
         alts = a.alt_m
@@ -131,6 +138,42 @@ def main(argv=None):
     print()
     print("max speed is the fastest you can fly and still hold the requested forward")
     print("overlap at the given interval. Flying faster silently thins your overlap.")
+
+    if a.line_sep is not None:
+        sep_m = a.line_sep / FT_PER_M
+        print()
+        print(f"flying two fixed lines {a.line_sep:g} ft apart "
+              f"(e.g. one down each shoulder):")
+        print()
+        hdr3 = (f"{'AGL':>12}  {'frame width':>13}  {'side overlap':>13}  {'verdict':>28}")
+        print(hdr3)
+        print("-" * len(hdr3))
+        for r in rows:
+            ov = (r["fp_w_m"] - sep_m) / r["fp_w_m"] * 100.0
+            if ov < 0:
+                verdict = "GAP between lines"
+            elif ov < 60:
+                verdict = "below 60% - add centre line"
+            elif ov < 70:
+                verdict = "adequate"
+            else:
+                verdict = "good"
+            alt = f"{r['alt_ft']:.0f} ft"
+            fw = f"{r['fp_w_ft']:.0f} ft"
+            print(f"{alt:>12}  {fw:>13}  {ov:>12.0f}%  {verdict:>28}")
+        # frame_w_m = PX_W * (pitch/focal) * alt_m, so alt scales linearly with sep.
+        sensor_w, img_w, _, focal = cam
+        k = img_w * (sensor_w / img_w) / focal      # frame width per unit altitude
+        print()
+        print(f"  minimum altitude for 60% side overlap: "
+              f"{sep_m / (0.40 * k) * FT_PER_M:.0f} ft "
+              f"({1 / (0.40 * k):.1f} x the separation)")
+        print(f"  minimum altitude for 70% side overlap: "
+              f"{sep_m / (0.30 * k) * FT_PER_M:.0f} ft "
+              f"({1 / (0.30 * k):.1f} x the separation)")
+        print()
+        print("  below the 60% figure, two shoulder lines alone are not enough:")
+        print("  add a third pass down the centre of the roadway.")
 
     if a.site_along is not None:
         import math
