@@ -1,0 +1,12 @@
+name,x,y,z,type,acc_xy_m,acc_z_m,target_size_cm,scene_target_type,notes
+GCP01,,,,control,0.003,0.005,60,checkerboard,
+GCP02,,,,control,0.003,0.005,60,checkerboard,
+GCP03,,,,control,0.003,0.005,60,checkerboard,
+GCP04,,,,control,0.003,0.005,60,checkerboard,
+GCP05,,,,control,0.003,0.005,60,checkerboard,
+GCP06,,,,control,0.003,0.005,60,sphere,elevated - vary Z
+GCP07,,,,control,0.003,0.005,60,checkerboard,
+GCP08,,,,control,0.003,0.005,60,checkerboard,
+CHK01,,,,check,0.003,0.005,60,checkerboard,withheld from solve
+CHK02,,,,check,0.003,0.005,60,checkerboard,withheld from solve
+CHK03,,,,check,0.003,0.005,60,checkerboard,elevated - withheld
