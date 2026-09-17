@@ -80,6 +80,11 @@ def main(argv=None):
     p.add_argument("--lines", type=int, default=2,
                    help="flight lines across the corridor, for image counts (default: %(default)s)")
     p.add_argument("--units", choices=("ft", "m", "both"), default="both")
+    p.add_argument("--site-along", type=float, metavar="FT",
+                   help="site length along the flight lines, in feet; with "
+                        "--site-across, reports lines and total image count")
+    p.add_argument("--site-across", type=float, metavar="FT",
+                   help="site width across the flight lines, in feet")
     a = p.parse_args(argv)
 
     for name, val in (("--front", a.front), ("--side", a.side)):
@@ -89,6 +94,10 @@ def main(argv=None):
         p.error(f"--interval must be positive, got {a.interval}")
     if a.lines < 1:
         p.error(f"--lines must be at least 1, got {a.lines}")
+    if (a.site_along is None) != (a.site_across is None):
+        p.error("--site-along and --site-across must be given together")
+    if a.site_along is not None and (a.site_along <= 0 or a.site_across <= 0):
+        p.error("site dimensions must be positive")
 
     if a.alt_m:
         alts = a.alt_m
@@ -122,6 +131,33 @@ def main(argv=None):
     print()
     print("max speed is the fastest you can fly and still hold the requested forward")
     print("overlap at the given interval. Flying faster silently thins your overlap.")
+
+    if a.site_along is not None:
+        import math
+        along_m = a.site_along / FT_PER_M
+        across_m = a.site_across / FT_PER_M
+        print()
+        print(f"coverage of a {a.site_along:g} ft x {a.site_across:g} ft site "
+              f"(one grid, lines along the {a.site_along:g} ft axis):")
+        print()
+        hdr2 = (f"{'AGL':>12}  {'lines':>6}  {'shots/line':>11}  "
+                f"{'images':>8}  {'+crosshatch':>12}")
+        print(hdr2)
+        print("-" * len(hdr2))
+        for r in rows:
+            # +1 line and +1 shot: fenceposts, so coverage reaches both edges.
+            lines = math.ceil(across_m / r["spacing_m"]) + 1
+            shots = math.ceil(along_m / r["advance_m"]) + 1
+            total = lines * shots
+            # Crosshatch: second grid rotated 90 deg, axes swapped.
+            xlines = math.ceil(along_m / r["spacing_m"]) + 1
+            xshots = math.ceil(across_m / r["advance_m"]) + 1
+            alt = f"{r['alt_ft']:.0f} ft"
+            print(f"{alt:>12}  {lines:>6}  {shots:>11}  {total:>8}  "
+                  f"{total + xlines * xshots:>12}")
+        print()
+        print("a grid needs enough images to be a block, not a snapshot: if a tier")
+        print("reports only a handful, it is too high to map this site.")
     return 0
 
 

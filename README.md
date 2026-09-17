@@ -10,6 +10,8 @@ Workflow and tooling for fusing **FARO Scene** terrestrial laser scans with
 | [docs/workflow.md](docs/workflow.md) | End-to-end pipeline, Phase 0 → 9: planning, Scene registration and export, control extraction, photogrammetry, fusion, QC, visualisation deliverables |
 | [docs/field-capture.md](docs/field-capture.md) | On-site practice: control design, scanner settings, flight planning, camera settings, checklists |
 | [docs/roadway-uas-flight.md](docs/roadway-uas-flight.md) | Corridor-specific drone flight workflow: altitude ladder, gimbal angles, flight line geometry, cross-ties, corridor GCP layout, RealityCapture vs Pix4D |
+| [docs/flight-plan-worked-example.md](docs/flight-plan-worked-example.md) | A concrete step-by-step manual flight for a compact roadway site, with computed spacings and image counts |
+| [docs/glossary.md](docs/glossary.md) | Every acronym and term used across these documents, grouped by topic |
 | [docs/naming-convention.md](docs/naming-convention.md) | File names, point IDs, directory layout, coordinate offsets |
 
 ## Short answers
