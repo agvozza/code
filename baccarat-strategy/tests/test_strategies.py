@@ -71,6 +71,11 @@ class TestSimulator(unittest.TestCase):
         for s in simulate(cfg, 100, seed=3).sessions:
             self.assertTrue(s.final_bankroll - cfg.bankroll < 60)
 
+    def test_one_shoe_ends_at_cut_card(self):
+        cfg = SessionConfig(strategy="flat", hands=10_000, one_shoe=True)
+        for s in simulate(cfg, 50, seed=5).sessions:
+            self.assertTrue(60 <= s.hands_played <= 90)
+
     def test_no_progression_beats_the_house(self):
         for name in STRATEGIES:
             cfg = SessionConfig(strategy=name, hands=100)

@@ -25,6 +25,7 @@ Session options (for `simulate` and `compare`):
 | `--hands` | 200 | max hands per session |
 | `--table-max` | 5000 | table limit (`0` = none) |
 | `--stop-win` / `--stop-loss` | — | leave the table at this profit / loss |
+| `--one-shoe` | off | each session is exactly one shoe (ends at the cut card) |
 | `--sessions` | 2000 | sessions to simulate |
 | `--seed` | — | for reproducible runs |
 

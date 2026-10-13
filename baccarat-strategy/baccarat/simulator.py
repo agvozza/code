@@ -23,6 +23,7 @@ class SessionConfig:
     stop_win: float | None = None  # quit once profit reaches this amount
     stop_loss: float | None = None  # quit once losses reach this amount
     decks: int = 8
+    one_shoe: bool = False  # end the session when the shoe reaches the cut card
 
 
 @dataclass
@@ -54,6 +55,9 @@ class Report:
             "median_profit": statistics.median(profits),
             "stdev_profit": statistics.pstdev(profits),
             "pct_winning_sessions": 100 * sum(p > 0 for p in profits) / self.n,
+            "pct_hit_stop_win": 100 * sum(
+                self.config.stop_win is not None and p >= self.config.stop_win for p in profits
+            ) / self.n,
             "pct_busted": 100 * sum(s.busted for s in self.sessions) / self.n,
             "worst_session": min(profits),
             "best_session": max(profits),
@@ -89,6 +93,8 @@ def play_session(cfg: SessionConfig, shoe: Shoe) -> SessionResult:
         if cfg.stop_loss is not None and -profit >= cfg.stop_loss:
             break
         if bankroll < cfg.unit:
+            break
+        if cfg.one_shoe and shoe.needs_shuffle():
             break
 
         bet = strategy.units() * cfg.unit

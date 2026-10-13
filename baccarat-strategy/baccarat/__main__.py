@@ -19,6 +19,7 @@ def add_session_args(p: argparse.ArgumentParser) -> None:
     p.add_argument("--stop-win", type=float, help="leave after winning this much")
     p.add_argument("--stop-loss", type=float, help="leave after losing this much")
     p.add_argument("--decks", type=int, default=8)
+    p.add_argument("--one-shoe", action="store_true", help="each session is exactly one shoe")
     p.add_argument("--sessions", type=int, default=2000, help="number of sessions to simulate")
     p.add_argument("--seed", type=int, help="RNG seed for reproducible runs")
 
@@ -34,6 +35,7 @@ def config_from(args: argparse.Namespace, strategy: str) -> SessionConfig:
         stop_win=args.stop_win,
         stop_loss=args.stop_loss,
         decks=args.decks,
+        one_shoe=args.one_shoe,
     )
 
 
@@ -56,6 +58,7 @@ def cmd_simulate(args: argparse.Namespace) -> None:
         ("Median profit / session", f"{s['median_profit']:+.2f}"),
         ("Std dev of profit", f"{s['stdev_profit']:.2f}"),
         ("Winning sessions", f"{s['pct_winning_sessions']:.1f}%"),
+        ("Hit stop-win target", f"{s['pct_hit_stop_win']:.1f}%"),
         ("Busted sessions", f"{s['pct_busted']:.1f}%"),
         ("Best / worst session", f"{s['best_session']:+.2f} / {s['worst_session']:+.2f}"),
         ("Avg hands played", f"{s['avg_hands']:.1f}"),
