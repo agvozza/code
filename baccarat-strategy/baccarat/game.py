@@ -104,9 +104,9 @@ def deal_hand(shoe: Shoe) -> Hand:
     return Hand(tuple(p), tuple(b))
 
 
-def exact_probabilities(decks: int = 8) -> dict[Outcome, float]:
-    """Exact outcome probabilities off the top of a fresh shoe (full enumeration)."""
-    counts = card_counts(decks)
+def exact_probabilities(decks: int = 8, counts: list[int] | None = None) -> dict[Outcome, float]:
+    """Exact outcome probabilities off the top of a fresh shoe, or of ``counts`` (full enumeration)."""
+    counts = list(counts) if counts is not None else card_counts(decks)
     probs = {o: 0.0 for o in Outcome}
 
     def draw(remaining: int):

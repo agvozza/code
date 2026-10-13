@@ -29,6 +29,7 @@ import random
 from typing import Iterable, Iterator
 
 from .game import Outcome, Shoe, deal_hand
+from .fastodds import probabilities
 from .roads import RED, Board
 
 ROAD_NAMES = (("big_eye", "Big Eye Boy"), ("small", "Small Road"), ("cockroach", "Cockroach Pig"))
@@ -50,6 +51,16 @@ def _run(items: list) -> tuple[object, int]:
     return last, n
 
 
+def prediction(odds) -> dict:
+    """Most likely winner and the value of each bet per $100, from (banker, player, tie) odds."""
+    pb, pp, pt = odds
+    values = {Outcome.BANKER: 100 * (0.95 * pb - pp), Outcome.PLAYER: 100 * (pp - pb),
+              Outcome.TIE: 100 * (8 * pt - pb - pp)}
+    likely = max(((Outcome.BANKER, pb), (Outcome.PLAYER, pp), (Outcome.TIE, pt)), key=lambda x: x[1])
+    return {"predicted": likely[0], "confidence": 100 * likely[1], "values": values,
+            "best_bet": max(values, key=values.get)}
+
+
 def board_lines(board: Board, ties_on_cell: int) -> list[str]:
     bead, bead_n = _run(board.beads)
     lines = [f"Bead Plate: {NAME[bead]} × {bead_n}" if bead else "Bead Plate: —"]
@@ -64,16 +75,23 @@ def board_lines(board: Board, ties_on_cell: int) -> list[str]:
     return lines
 
 
-def shoe_records(cards: Iterable[int], last_hand: int | None = None) -> Iterator[dict]:
+def shoe_records(cards: Iterable[int], last_hand: int | None = None, with_odds: bool = True) -> Iterator[dict]:
     """Deal a shoe from a fixed card order and yield the facts of each hand."""
     shoe = Shoe(rng=random.Random(0))
     shoe._cards = list(cards)
     board = Board()
     ties_on_cell = 0
     totals = {Outcome.BANKER: 0, Outcome.PLAYER: 0, Outcome.TIE: 0}
+    left = [0] * 10
+    for v in shoe._cards:
+        left[v] += 1
     hand_no = 0
     while not shoe.needs_shuffle() and (last_hand is None or hand_no < last_hand):
+        before = list(left)
+        odds = probabilities(before) if with_odds else None
         hand = deal_hand(shoe)
+        for v in hand.player_cards + hand.banker_cards:
+            left[v] -= 1
         hand_no += 1
         outcome = hand.outcome
         totals[outcome] += 1
@@ -87,7 +105,27 @@ def shoe_records(cards: Iterable[int], last_hand: int | None = None) -> Iterator
             "totals": dict(totals), "bead": (bead, bead_run),
             "big_road": (board.last, board.streak(), ties_on_cell), "roads": roads,
             "board": board, "ties_on_cell": ties_on_cell,
+            "left": before, "odds": odds,
         }
+
+
+_LABEL = ["0", "A", "2", "3", "4", "5", "6", "7", "8", "9"]
+
+
+def _count_lines(r) -> list[str]:
+    c = r["left"]
+    lines = [f"Cards Left Before Hand: {sum(c)} of 416",
+             "  By value: " + " | ".join(f"{_LABEL[v]}:{c[v]}" for v in range(10)),
+             f"  Zero (10-K): {c[0]} | Low (A-4): {sum(c[1:5])} | High (5-9): {sum(c[5:])}"]
+    if r["odds"]:
+        pb, pp, pt = r["odds"]
+        pr = prediction(r["odds"])
+        v = pr["values"]
+        lines += [f"Prediction: Banker {100 * pb:.2f}% | Player {100 * pp:.2f}% | Tie {100 * pt:.2f}%",
+                  f"Predicted Winner: {NAME[pr['predicted']]} (confidence {pr['confidence']:.2f}%)",
+                  f"Value per $100 bet: Banker {v[Outcome.BANKER]:+.2f} | Player {v[Outcome.PLAYER]:+.2f} | "
+                  f"Tie {v[Outcome.TIE]:+.2f} (best: {NAME[pr['best_bet']]})"]
+    return lines
 
 
 def shoe_log(shoe_no: int, cards: Iterable[int], last_hand: int | None = None) -> Iterator[str]:
@@ -102,6 +140,7 @@ def shoe_log(shoe_no: int, cards: Iterable[int], last_hand: int | None = None) -
             f"Banker Total: {r['banker_total']}",
             f"Winner: {NAME[r['winner']]}",
             f"Shoe Totals: Banker {t[Outcome.BANKER]} | Player {t[Outcome.PLAYER]} | Tie {t[Outcome.TIE]}",
+            *_count_lines(r),
             "Visible board states",
             *board_lines(r["board"], r["ties_on_cell"]),
         ])
@@ -120,6 +159,14 @@ CSV_COLUMNS = [
     "big_eye_color", "big_eye_run",               # 1 Red, 2 Blue, 0 not started; run = current column length
     "small_color", "small_run",
     "cockroach_color", "cockroach_run",
+    # counted before the hand is dealt (what is known when the bet is placed)
+    "cards_left",
+    "left_0", "left_1", "left_2", "left_3", "left_4", "left_5", "left_6", "left_7", "left_8", "left_9",
+    "zero_left", "low_left", "high_left",          # 10-K | A-4 | 5-9
+    "p_banker", "p_player", "p_tie",               # exact chance of each result, %
+    "predicted", "confidence",                     # most likely result (1/2/3) and its chance, %
+    "banker_value", "player_value", "tie_value",   # average result per $100 bet
+    "best_bet",                                    # bet with the highest value: 1/2/3
 ]
 _SIDE = {None: 0, Outcome.BANKER: 1, Outcome.PLAYER: 2, Outcome.TIE: 3}
 _COLOR = {None: 0, RED: 1, "B": 2}
@@ -139,4 +186,12 @@ def shoe_csv_rows(shoe_no: int, cards: Iterable[int], last_hand: int | None = No
         for key, _ in ROAD_NAMES:
             color, n = roads[key]
             values += [_COLOR[color], n]
+        c = r["left"]
+        values += [sum(c), *c, c[0], sum(c[1:5]), sum(c[5:])]
+        pr = prediction(r["odds"])
+        v = pr["values"]
+        values += [f"{100 * x:.4f}" for x in r["odds"]]
+        values += [_SIDE[pr["predicted"]], f"{pr['confidence']:.4f}",
+                   f"{v[Outcome.BANKER]:.4f}", f"{v[Outcome.PLAYER]:.4f}", f"{v[Outcome.TIE]:.4f}",
+                   _SIDE[pr["best_bet"]]]
         yield ",".join(map(str, values))

@@ -1,6 +1,6 @@
 # Numbers-only hand file: column key
 
-One row per hand, 25 comma-separated integers, no letters. Files contain no header
+One row per hand, 48 comma-separated numbers, no letters. Files contain no header
 line unless made with `--header`.
 
 | # | column | values |
@@ -26,16 +26,32 @@ line unless made with `--header`.
 | 23 | small_run | |
 | 24 | cockroach_color | Cockroach Pig, same coding |
 | 25 | cockroach_run | |
+| | **Columns 26-48 are counted before the hand is dealt** (what is known when the bet is placed) | |
+| 26 | cards_left | cards still in the shoe (416 at the start; includes cards behind the cut card) |
+| 27-36 | left_0 ... left_9 | how many of each value are left: 0 (10/J/Q/K), A, 2, ... 9 |
+| 37 | zero_left | 10/J/Q/K left (of 128) |
+| 38 | low_left | A-4 left (of 128) |
+| 39 | high_left | 5-9 left (of 160) |
+| 40 | p_banker | exact chance Banker wins this hand, % (4 decimals) |
+| 41 | p_player | exact chance Player wins, % |
+| 42 | p_tie | exact chance of a tie, % |
+| 43 | predicted | most likely result: 1 Banker, 2 Player, 3 Tie |
+| 44 | confidence | chance of that result, % |
+| 45 | banker_value | average result of a $100 Banker bet (after 5% commission) |
+| 46 | player_value | average result of a $100 Player bet |
+| 47 | tie_value | average result of a $100 Tie bet (8:1) |
+| 48 | best_bet | bet with the highest value: 1 Banker, 2 Player, 3 Tie |
 
-Example (shoe 1, hand 44):
+Example (shoe 51690, hand 82, the last hand of the shoe):
 
 ```
-1,44,5,0,1,0,7,-1,6,7,1,21,18,5,1,3,1,3,0,1,2,2,1,1,1
+51690,82,6,5,4,0,0,4,5,4,2,35,39,8,2,3,2,3,0,1,1,1,2,2,1,18,7,1,1,0,4,1,1,1,1,1,7,6,5,46.0833,45.6579,8.2588,1,46.0833,-1.8787,-0.4254,-25.6707,2
 ```
 
-Player 5, 0, A = 6; Banker 0, 7 = 7; Banker wins. Shoe so far: Banker 21, Player 18,
-Tie 5. Bead Plate Banker x3, Big Road Banker x3 with no tie, Big Eye Boy Red x2,
-Small Road Blue x1, Cockroach Pig Red x1.
+Player 6, 5, 4 = 5; Banker 0, 0, 4 = 4; Player wins. Shoe so far: Banker 35,
+Player 39, Tie 8. Before the hand 18 cards were left (7 zero, 6 low, 5 high);
+exact odds Banker 46.08%, Player 45.66%, Tie 8.26%; predicted Banker (46.08%);
+best value bet Player (-$0.43 per $100).
 
 Build the files with:
 
@@ -58,3 +74,21 @@ two numbers in front, so rows have 27 numbers:
 
 `banker-streaks-6plus.csv` has one labelled row per run: shoe, first and last
 hand, Banker wins, ties inside, what ended it.
+
+## Two lists: 6+ Banker runs split by the next decision
+
+`streak6-next-banker.csv` / `streak6-next-player.csv` (and a small
+`streak6-next-shoe-ended.csv`). One row for every Banker win that is the 6th or
+later in its run, 78 numbers per row:
+
+| # | column | values |
+|---|---|---|
+| 1 | run | run number (same numbering as `banker-streaks-6plus.csv`) |
+| 2 | banker_wins_so_far | 6, 7, 8, ... |
+| 3-50 | | the 48 hand columns above for that Banker win |
+| 51 | next_hand | hand number of the next hand (0 = shoe ended) |
+| 52 | next_hand_result | 1 Banker, 2 Player, 3 Tie, 0 none |
+| 53 | ties_before_next_decision | ties between this hand and the next Banker/Player result |
+| 54 | next_decision_hand | hand number of that next Banker/Player result |
+| 55 | next_decision | 1 Banker (list "banker") or 2 Player (list "player") |
+| 56-78 | next_... | columns 26-48 for the next hand: cards left, odds, prediction and bet values before it is dealt |

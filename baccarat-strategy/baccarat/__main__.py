@@ -278,38 +278,63 @@ def cmd_viewer(args: argparse.Namespace) -> None:
     print(f"viewer for shoes {args.start}-{end} written to {args.out}")
 
 
-def cmd_handcsv(args: argparse.Namespace) -> None:
-    import os
+_SHOES: dict = {}
 
-    from .handlog import CSV_COLUMNS, shoe_csv_rows
+
+def _csv_chunk(job):
+    from .handlog import shoe_csv_rows
     from .shoebank import load
 
-    shoes = load(args.shoes_file)
-    last = min(args.to, len(shoes))
+    path, first, last, last_hand = job
+    if path not in _SHOES:  # load the shoe file once per worker process
+        _SHOES[path] = load(path)
+    shoes = _SHOES[path]
+    return [(n, "".join(r + "\n" for r in shoe_csv_rows(n, shoes[n - 1], last_hand))) for n in range(first, last + 1)]
+
+
+def cmd_handcsv(args: argparse.Namespace) -> None:
+    import os
+    from concurrent.futures import ProcessPoolExecutor
+
+    from .handlog import CSV_COLUMNS
+    from .shoebank import load
+
+    total = len(load(args.shoes_file))
+    last = min(args.to, total)
     os.makedirs(args.out_dir, exist_ok=True)
     limit = int(args.max_mb * 1_000_000)
-    part, size, f, first_shoe, written = 0, 0, None, None, []
-
-    def close():
-        if f:
-            f.close()
-            written.append((path, first_shoe, shoe_no - 1, size))
-
-    for shoe_no in range(args.start, last + 1):
-        block = "".join(r + "\n" for r in shoe_csv_rows(shoe_no, shoes[shoe_no - 1], args.last_hand))
-        if f is None or size + len(block) > limit:  # never split a shoe across files
-            close()
-            part += 1
-            path = os.path.join(args.out_dir, f"hands-{part:03d}.csv")
-            f, size, first_shoe = open(path, "w"), 0, shoe_no
-            if args.header:
-                f.write(",".join(CSV_COLUMNS) + "\n")
-        f.write(block)
-        size += len(block)
-    shoe_no = last + 1
-    close()
+    step = 250
+    jobs = [(args.shoes_file, a, min(a + step - 1, last), args.last_hand) for a in range(args.start, last + 1, step)]
+    part, size, f, written, first_shoe, prev = 0, 0, None, [], None, None
+    with ProcessPoolExecutor(args.workers) as ex:
+        for done, chunk in enumerate(ex.map(_csv_chunk, jobs), 1):
+            for shoe_no, block in chunk:
+                if f is None or size + len(block) > limit:  # never split a shoe across files
+                    if f:
+                        f.close()
+                        written.append((path, first_shoe, prev, size))
+                    part += 1
+                    path = os.path.join(args.out_dir, f"hands-{part:03d}.csv")
+                    f, size, first_shoe = open(path, "w"), 0, shoe_no
+                    if args.header:
+                        f.write(",".join(CSV_COLUMNS) + "\n")
+                f.write(block)
+                size += len(block)
+                prev = shoe_no
+            if done % 40 == 0:
+                print(f"  {chunk[-1][0]:,} / {last:,} shoes", flush=True)
+    f.close()
+    written.append((path, first_shoe, prev, size))
     for path, a, b, n in written:
         print(f"{path}: shoes {a}-{b}, {n / 1e6:.1f} MB")
+
+
+def cmd_streak6(args: argparse.Namespace) -> None:
+    from .streaklists import build
+
+    counts = build(args.in_dir, args.out_dir)
+    print(f"{counts['runs']:,} runs of 6+ Banker wins: {counts['banker']:,} rows next=Banker, "
+          f"{counts['player']:,} rows next=Player, {counts['shoe-ended']:,} rows shoe ended -> {args.out_dir}")
 
 
 def main(argv: list[str] | None = None) -> None:
@@ -385,7 +410,13 @@ def main(argv: list[str] | None = None) -> None:
     p.add_argument("--max-mb", type=float, default=90, help="maximum size of each file in MB")
     p.add_argument("--header", action="store_true", help="put the column names on the first line of each file")
     p.add_argument("--out-dir", default="hands-csv")
+    p.add_argument("--workers", type=int, help="processes to use (default: all cores)")
     p.set_defaults(func=cmd_handcsv)
+
+    p = sub.add_parser("streak6", help="split every point inside a 6+ Banker run by the next decision")
+    p.add_argument("--in-dir", default="hands-csv", help="folder written by handcsv")
+    p.add_argument("--out-dir", default="reports/streak6")
+    p.set_defaults(func=cmd_streak6)
 
     args = parser.parse_args(argv)
     args.func(args)

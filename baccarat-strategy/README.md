@@ -128,6 +128,18 @@ Result: every signal wins 50.00% (+/-0.04%) of the hands it picks, the same as
 choosing a side at random, and no plan beats its Banker-only control beyond
 noise.
 
+## Hand data with card counts and exact odds
+
+```bash
+python -m baccarat shoebank                 # rebuild the 117,837 unique shoes (~5 min)
+python -m baccarat handcsv --max-mb 90      # every hand, 48 numbers per row (~13 min, ~1.5 GB, 18 files)
+python -m baccarat streak6                  # 6+ Banker run points split by the next decision
+```
+
+Columns are described in [`reports/hands-csv-columns.md`](reports/hands-csv-columns.md).
+Odds before each hand are computed exactly from the cards left, in C
+(`baccarat/native/odds.c`, compiled on first use).
+
 ## Layout
 
 ```
