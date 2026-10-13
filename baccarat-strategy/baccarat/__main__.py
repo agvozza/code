@@ -240,6 +240,21 @@ def cmd_roads(args: argparse.Namespace) -> None:
         print(f"\nFull report: {path}")
 
 
+def cmd_count(args: argparse.Namespace) -> None:
+    import os
+
+    from .counting import report, track_shoes
+
+    rows = track_shoes(args.shoes, args.seed)
+    text = ["# Perfect card tracking\n", "## Shoe dealt to the standard cut card (14 cards left)\n", report(rows),
+            f"\n## Shoe cut at hand {args.last_hand}\n", report(rows, last_hand=args.last_hand)]
+    print("\n".join(text))
+    if args.out:
+        os.makedirs(args.out, exist_ok=True)
+        with open(os.path.join(args.out, "card-tracking.md"), "w") as f:
+            f.write("\n".join(text) + "\n")
+
+
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(prog="baccarat", description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -284,6 +299,13 @@ def main(argv: list[str] | None = None) -> None:
     p.add_argument("--out", default="reports")
     p.add_argument("--cache", help="directory to cache generated months")
     p.set_defaults(func=cmd_roads)
+
+    p = sub.add_parser("count", help="exact odds before every hand with perfect card tracking")
+    p.add_argument("--shoes", type=int, default=200)
+    p.add_argument("--seed", type=int, default=1)
+    p.add_argument("--last-hand", type=int, default=70, help="also report shoes cut at this hand")
+    p.add_argument("--out", default="reports")
+    p.set_defaults(func=cmd_count)
 
     args = parser.parse_args(argv)
     args.func(args)
