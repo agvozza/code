@@ -103,6 +103,18 @@ accepted and a fresh cycle starts instead of betting the rest of the bankroll.
 20,000-shoe results: every one loses $5–8 per shoe on average. They differ
 only in how often you hit +$50 versus how often (and how badly) you lose.
 
+## 100 Player-only plans over simulated months (`python -m baccarat monthly`)
+
+`baccarat/catalog.py` defines 100 plans in six families (recovery sequences with
+breakers, slow recovery, pressing wins, flat with limits, pattern triggers, and
+plans built around a $500/month goal). `monthly` plays each through the same
+1,000 simulated months (30 days x 2-4 hours, 70 hands/hour) and writes
+[`reports/monthly-100.md`](reports/monthly-100.md) and a CSV.
+
+Result: **none of the 100 has a positive average month.** Goal-driven plans
+reach +$500 in up to ~90% of months, but the remaining months lose
+$5,000-$14,000 on average, so roughly two out of three years end behind.
+
 ## Layout
 
 ```

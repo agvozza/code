@@ -129,6 +129,51 @@ def cmd_plans(args: argparse.Namespace) -> None:
         print(f"  {name:<12}{make().description}")
 
 
+def cmd_monthly(args: argparse.Namespace) -> None:
+    import csv
+    import os
+
+    from .catalog import PLAN_LIST
+    from .monthly import load_months, run_all, summarize
+
+    months = load_months(args.months, args.seed, args.cache)
+    results = run_all([p.key for p in PLAN_LIST], months)
+    rows = []
+    for p in PLAN_LIST:
+        s = summarize(results[p.key], args.goal)
+        rows.append({"key": p.key, "family": p.family, "description": p.description, "rules": p.rules, **s})
+    rows.sort(key=lambda r: (-r["hit_goal"], -r["mean"]))
+
+    cols = [("hit_goal", f"hit ${args.goal:g}", "{:.1f}%"), ("profitable", "month > 0", "{:.1f}%"),
+            ("mean", "avg month", "{:+.0f}"), ("median", "median", "{:+.0f}"), ("p10", "worst 10%", "{:+.0f}"),
+            ("p1", "worst 1%", "{:+.0f}"), ("bankroll95", "bankroll", "{:.0f}"),
+            ("good_years", "good years", "{:.0f}%"), ("hours_per_day", "hrs/day", "{:.1f}")]
+    print(f"{args.months} months x 100 plans, Player only, 2-4 h/day, 70 hands/h\n")
+    head = f"{'#':>3} {'plan':<20}" + "".join(f"{c[1]:>11}" for c in cols)
+    print(head)
+    print("-" * len(head))
+    for i, r in enumerate(rows[: args.top], 1):
+        print(f"{i:>3} {r['key']:<20}" + "".join(f"{c[2].format(r[c[0]]):>11}" for c in cols))
+
+    if args.out:
+        os.makedirs(args.out, exist_ok=True)
+        with open(os.path.join(args.out, "monthly-100.csv"), "w", newline="") as f:
+            w = csv.DictWriter(f, fieldnames=list(rows[0]))
+            w.writeheader()
+            w.writerows(rows)
+        with open(os.path.join(args.out, "monthly-100.md"), "w") as f:
+            f.write(f"# 100 Player-only plans: {args.months} simulated months\n\n")
+            f.write("Each month is 30 days of 2-4 hours (70 hands/hour, fresh 8-deck shoe each hour). "
+                    "Every plan plays the same months. *bankroll* = money needed to survive 95% of months "
+                    "(5th-percentile low point). *good years* = share of 12-month stretches that ended ahead.\n\n")
+            f.write("| # | plan | family | bets | rules | " + " | ".join(c[1] for c in cols) + " |\n")
+            f.write("|---|---|---|---|---|" + "---|" * len(cols) + "\n")
+            for i, r in enumerate(rows, 1):
+                f.write(f"| {i} | `{r['key']}` | {r['family']} | {r['description']} | {r['rules'] or '-'} | "
+                        + " | ".join(c[2].format(r[c[0]]) for c in cols) + " |\n")
+        print(f"\nFull report: {os.path.join(args.out, 'monthly-100.md')}")
+
+
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(prog="baccarat", description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -156,6 +201,15 @@ def main(argv: list[str] | None = None) -> None:
     p = sub.add_parser("plans", help="compare the $1-table progressions in progressions.py")
     add_session_args(p)
     p.set_defaults(func=cmd_plans, side="player", hands=70, stop_win=50, last_start=66, sessions=1000)
+
+    p = sub.add_parser("monthly", help="run the 100 Player-only plans over simulated months")
+    p.add_argument("--months", type=int, default=1000)
+    p.add_argument("--seed", type=int, default=1)
+    p.add_argument("--goal", type=float, default=500, help="monthly profit goal")
+    p.add_argument("--top", type=int, default=100, help="rows to print")
+    p.add_argument("--out", default="reports", help="directory for the .md/.csv report ('' to skip)")
+    p.add_argument("--cache", help="directory to cache generated months")
+    p.set_defaults(func=cmd_monthly)
 
     args = parser.parse_args(argv)
     args.func(args)
