@@ -115,6 +115,19 @@ Result: **none of the 100 has a positive average month.** Goal-driven plans
 reach +$500 in up to ~90% of months, but the remaining months lose
 $5,000-$14,000 on average, so roughly two out of three years end behind.
 
+## Scoreboard-road strategies (`python -m baccarat roads`)
+
+`baccarat/roads.py` builds the Big Road and the three derived roads (Big Eye
+Boy, Small Road, Cockroach Pig) exactly as casino displays do.
+`baccarat/road_catalog.py` combines 10 board signals with 10 losing-cycle
+sizing rules (100 plans), plus Banker-only controls with the same sizing.
+The command first measures each signal's raw predictive power, then plays all
+plans through 1,000 months; see [`reports/roads-100.md`](reports/roads-100.md).
+
+Result: every signal wins 50.00% (+/-0.04%) of the hands it picks, the same as
+choosing a side at random, and no plan beats its Banker-only control beyond
+noise.
+
 ## Layout
 
 ```
@@ -125,6 +138,8 @@ baccarat/
   progressions.py  $1-table progressions
   catalog.py     100 Player-only plans
   monthly.py     monthly simulation
+  roads.py       Big Road + Big Eye Boy / Small Road / Cockroach Pig
+  road_catalog.py  10 signals x 10 sizing rules
   __main__.py    CLI
 tests/
 ```

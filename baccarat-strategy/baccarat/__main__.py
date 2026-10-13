@@ -174,6 +174,72 @@ def cmd_monthly(args: argparse.Namespace) -> None:
         print(f"\nFull report: {os.path.join(args.out, 'monthly-100.md')}")
 
 
+def cmd_roads(args: argparse.Namespace) -> None:
+    import os
+
+    from .monthly import load_months, run_all_roads, signal_accuracy, summarize
+    from .road_catalog import CONTROL, CONTROL_PLANS, ROAD_PLANS, SIGNALS, SIZERS
+
+    months = load_months(args.months, args.seed, args.cache)
+    out = []
+
+    def emit(line=""):
+        print(line)
+        out.append(line)
+
+    # 1. does any signal predict the next hand?
+    acc = signal_accuracy(list(SIGNALS) + list(CONTROL), months)
+    emit(f"## Signal accuracy ({args.months} months of hands, flat $1 on every hand the signal fires)\n")
+    emit("| signal | rule | bets | win % (ex. ties) | result per $100 bet | by confidence 1 / 2 / 3 (per $100) |")
+    emit("|---|---|---|---|---|---|")
+    for key in list(SIGNALS) + list(CONTROL):
+        st = acc[key]
+        fires = sum(v[0] for v in st.values())
+        wins = sum(v[1] for v in st.values())
+        losses = sum(v[2] for v in st.values())
+        net = sum(v[4] for v in st.values())
+        by = " / ".join(f"{100 * st[c][4] / st[c][0]:+.2f}" if c in st and st[c][0] else "-" for c in (1, 2, 3))
+        desc = {**SIGNALS, **CONTROL}[key][1]
+        emit(f"| `{key}` | {desc} | {fires:,} | {100 * wins / (wins + losses):.2f}% | {100 * net / fires:+.2f} | {by} |")
+
+    # 2. the 100 plans + controls
+    plans = ROAD_PLANS + CONTROL_PLANS
+    results = run_all_roads([p.key for p in plans], months)
+    rows = []
+    for p in plans:
+        rows.append({"plan": p, **summarize(results[p.key], args.goal)})
+    control = {r["plan"].sizing: r for r in rows if r["plan"].signal in CONTROL}
+    main_rows = sorted((r for r in rows if r["plan"].signal not in CONTROL), key=lambda r: -r["mean"])
+
+    emit(f"\n## 100 signal plans: {args.months} months, $10 base, stop month at +${args.goal:g} or -$3,000, "
+         "bets capped at $640\n")
+    emit("Compared with the same sizing rule betting Banker every hand with no signal (*vs Banker*).\n")
+    emit("| # | plan | hit $500 | avg month | vs Banker | worst 10% | good years | hrs/day |")
+    emit("|---|---|---|---|---|---|---|---|")
+    for i, r in enumerate(main_rows, 1):
+        c = control[r["plan"].sizing]
+        emit(f"| {i} | `{r['plan'].key}` | {r['hit_goal']:.1f}% | {r['mean']:+.0f} | {r['mean'] - c['mean']:+.0f} | "
+             f"{r['p10']:+.0f} | {r['good_years']:.0f}% | {r['hours_per_day']:.1f} |")
+    emit("\n### Banker-only controls\n")
+    emit("| sizing | rule | hit $500 | avg month | worst 10% | good years |")
+    emit("|---|---|---|---|---|---|")
+    for k, (_, desc, _) in SIZERS.items():
+        c = control[k]
+        emit(f"| `{k}` | {desc} | {c['hit_goal']:.1f}% | {c['mean']:+.0f} | {c['p10']:+.0f} | {c['good_years']:.0f}% |")
+    emit("\n*The `cooldown` control never produces a confidence-3 signal, so it stops for the day after 3 losses; "
+         "compare `cooldown` plans with `recover` instead.*")
+    emit("\n### Signals\n")
+    for k, (_, desc) in SIGNALS.items():
+        emit(f"- `{k}`: {desc}")
+
+    if args.out:
+        os.makedirs(args.out, exist_ok=True)
+        path = os.path.join(args.out, "roads-100.md")
+        with open(path, "w") as f:
+            f.write("# Scoreboard-road strategies\n\n" + "\n".join(out) + "\n")
+        print(f"\nFull report: {path}")
+
+
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(prog="baccarat", description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -210,6 +276,14 @@ def main(argv: list[str] | None = None) -> None:
     p.add_argument("--out", default="reports", help="directory for the .md/.csv report ('' to skip)")
     p.add_argument("--cache", help="directory to cache generated months")
     p.set_defaults(func=cmd_monthly)
+
+    p = sub.add_parser("roads", help="test 100 scoreboard-road signal strategies over simulated months")
+    p.add_argument("--months", type=int, default=1000)
+    p.add_argument("--seed", type=int, default=1)
+    p.add_argument("--goal", type=float, default=500)
+    p.add_argument("--out", default="reports")
+    p.add_argument("--cache", help="directory to cache generated months")
+    p.set_defaults(func=cmd_roads)
 
     args = parser.parse_args(argv)
     args.func(args)

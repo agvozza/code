@@ -149,3 +149,97 @@ def summarize(results: list[MonthResult], goal: float = 500) -> dict[str, float]
         "hours_per_day": sum(r.hours for r in results) / n / DAYS_PER_MONTH,
         "edge": 100 * -sum(profits) / wagered if wagered else 0.0,
     }
+
+
+# --- scoreboard-signal plans (either side) ----------------------------------------
+
+_NET_IF_WIN = {Outcome.BANKER: 0.95, Outcome.PLAYER: 1.0}
+
+
+def play_month_roads(plan, days: list[bytes]) -> MonthResult:
+    month = low = wagered = 0.0
+    hands_seen = 0
+    for day in days:
+        if plan.month_stop_win is not None and month >= plan.month_stop_win:
+            break
+        if plan.month_stop_loss is not None and -month >= plan.month_stop_loss:
+            break
+        s = plan.make()
+        s.reset()
+        today = 0.0
+        for code in day:
+            idle = s.at_cycle_start()
+            if idle and plan.day_stop_win is not None and today >= plan.day_stop_win:
+                break
+            if idle and plan.month_stop_win is not None and month >= plan.month_stop_win:
+                break
+            if plan.day_stop_loss is not None and -today >= plan.day_stop_loss:
+                break
+            if plan.month_stop_loss is not None and -month >= plan.month_stop_loss:
+                break
+            hands_seen += 1
+            outcome = _OUTCOME[code]
+            side, bet = s.decide()
+            net = None
+            if side is not None and bet > 0:
+                bet = min(bet, TABLE_MAX)
+                if outcome is Outcome.TIE:
+                    net = 0.0
+                elif outcome is side:
+                    net = bet * _NET_IF_WIN[side]
+                else:
+                    net = -bet
+                today += net
+                month += net
+                low = min(low, month)
+                wagered += bet
+            s.observe(outcome, net)
+    return MonthResult(month, wagered, low, hands_seen / HANDS_PER_HOUR)
+
+
+def _run_road(plan_key: str):
+    from .road_catalog import ROAD_CATALOG
+
+    plan = ROAD_CATALOG[plan_key]
+    return plan_key, [play_month_roads(plan, m) for m in _MONTHS]
+
+
+def run_all_roads(plan_keys: list[str], months, workers: int | None = None):
+    with ProcessPoolExecutor(workers, initializer=_init, initargs=(months,)) as ex:
+        return dict(ex.map(_run_road, plan_keys))
+
+
+def _signal_accuracy(sig_key: str):
+    """Flat-bet a signal on every hand it fires; tally by confidence."""
+    from .road_catalog import CONTROL, SIGNALS
+    from .roads import Board
+
+    fn = {**SIGNALS, **CONTROL}[sig_key][0]
+    stats = {}  # conf -> [fires, wins, losses, ties, net]
+    board = Board()
+    for month in _MONTHS:
+        for day in month:
+            for i, code in enumerate(day):
+                if i % HANDS_PER_HOUR == 0:
+                    board.reset()
+                outcome = _OUTCOME[code]
+                sig = fn(board)
+                if sig:
+                    side, conf = sig
+                    st = stats.setdefault(conf, [0, 0, 0, 0, 0.0])
+                    st[0] += 1
+                    if outcome is Outcome.TIE:
+                        st[3] += 1
+                    elif outcome is side:
+                        st[1] += 1
+                        st[4] += _NET_IF_WIN[side]
+                    else:
+                        st[2] += 1
+                        st[4] -= 1
+                board.add(outcome)
+    return sig_key, stats
+
+
+def signal_accuracy(sig_keys: list[str], months, workers: int | None = None):
+    with ProcessPoolExecutor(workers, initializer=_init, initargs=(months,)) as ex:
+        return dict(ex.map(_signal_accuracy, sig_keys))
