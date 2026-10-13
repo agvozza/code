@@ -80,6 +80,29 @@ wipe-outs, and because they put more money in action, the average loss per
 session is larger than flat betting. The cheapest way to play is flat bets on
 Banker with stop-loss limits.
 
+## $1-table progressions (`python -m baccarat plans`)
+
+Ten dollar-denominated cycles in `baccarat/progressions.py`, tested on Player,
+$1000 bankroll, 70-hand shoes, stop at +$50, no new cycle after hand 66.
+Several use a **circuit breaker**: when the last step loses, the loss is
+accepted and a fresh cycle starts instead of betting the rest of the bankroll.
+
+| name | idea |
+|---|---|
+| `grand-plus1` | 1-3-7-15-31-63-127-255: double +$1, earns $1 per hand in the cycle |
+| `your-a` | 2-6-14-28-56-112-224-448 |
+| `your-b` | 1-3-7-15-30-60-120-240-480 |
+| `breaker-7` | $2 Martingale, give up after 7 losses (max loss $254) |
+| `glide-5` | 5-9-17-33-65-130-260: profit target starts at $5 and shrinks per loss |
+| `glide-10` | 10-18-34-66-130-259 |
+| `oscar` | Oscar's Grind, $5 steps, +$5 per series |
+| `half-step` | $3 + half the cycle's deficit (two wins to recover) |
+| `ladder` | 1.5x rungs, up one on a loss, down two on a win |
+| `wait-2` | sit out until Player loses twice, then $2 Martingale |
+
+20,000-shoe results: every one loses $5–8 per shoe on average. They differ
+only in how often you hit +$50 versus how often (and how badly) you lose.
+
 ## Layout
 
 ```

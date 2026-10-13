@@ -31,6 +31,9 @@ class Strategy:
         """True when no progression is in progress (the next bet is a fresh cycle)."""
         return True
 
+    def observe(self, outcome: Outcome) -> None:
+        """Called with every hand's outcome, whether or not a bet was placed."""
+
 
 class Flat(Strategy):
     name = "flat"
@@ -181,11 +184,20 @@ STRATEGIES: dict[str, Callable[[], Strategy]] = {
 }
 
 
+def _register_plans() -> None:
+    from .progressions import PLANS
+
+    STRATEGIES.update(PLANS)
+
+
 def make_strategy(name: str) -> Strategy:
     try:
         return STRATEGIES[name]()
     except KeyError:
         raise ValueError(f"unknown strategy {name!r}; choose from {', '.join(STRATEGIES)}") from None
+
+
+_register_plans()
 
 
 # --- Side pickers ------------------------------------------------------------

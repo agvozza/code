@@ -41,6 +41,39 @@ class TestProgressions(unittest.TestCase):
             make_strategy("nope")
 
 
+class TestPlans(unittest.TestCase):
+    def test_sequences(self):
+        from baccarat.progressions import glide, plus_per_hand
+
+        self.assertEqual(plus_per_hand(1, 1, 6), [1, 3, 7, 15, 31, 63])
+        self.assertEqual(plus_per_hand(1, 1, 7, switch_after=4), [1, 3, 7, 15, 30, 60, 120])
+        self.assertEqual(glide([5, 4, 3, 2, 1, 1, 1], 1000), [5, 9, 17, 33, 65, 130, 260])
+
+    def test_grand_plus1_earns_one_per_hand(self):
+        # 3 losses then a win: -1 -3 -7 +15 = +4 over 4 hands
+        self.assertEqual(stakes("grand-plus1", [LOSS, LOSS, LOSS, WIN]), [1, 3, 7, 15, 1])
+
+    def test_breaker_restarts_after_last_step(self):
+        self.assertEqual(stakes("breaker-7", [LOSS] * 7), [2, 4, 8, 16, 32, 64, 128, 2])
+
+    def test_oscar(self):
+        # lose 5, win 5 (series 0, raise to 10 but capped at 5 needed), win 5 -> done
+        self.assertEqual(stakes("oscar", [LOSS, WIN, WIN]), [5, 5, 5, 5])
+
+    def test_wait_two_sits_out_until_two_player_losses(self):
+        s = make_strategy("wait-2")
+        s.reset()
+        for o in (Outcome.BANKER, Outcome.TIE, Outcome.PLAYER, Outcome.BANKER):
+            s.observe(o)
+            self.assertEqual(s.units(), 0)
+        s.observe(Outcome.BANKER)
+        self.assertEqual(s.units(), 2)
+        s.update(LOSS)
+        self.assertEqual(s.units(), 4)
+        s.update(WIN)
+        self.assertEqual(s.units(), 0)
+
+
 class TestSides(unittest.TestCase):
     def test_follow_and_chop_ignore_ties(self):
         h = [Outcome.PLAYER, Outcome.TIE]

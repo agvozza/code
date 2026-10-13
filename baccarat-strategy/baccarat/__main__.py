@@ -107,6 +107,28 @@ def cmd_cutoff(args: argparse.Namespace) -> None:
               f"{s['pct_busted']:>7.1f}%{s['mean_profit']:>+10.2f}{stuck_pl:>15}")
 
 
+def cmd_plans(args: argparse.Namespace) -> None:
+    from .progressions import PLANS
+
+    print(f"{args.sessions} shoes (the same shoes for every strategy), {args.side}, bankroll {args.bankroll:g}, "
+          f"{args.hands} hands, stop-win {args.stop_win}, last cycle start {args.last_start}\n")
+    header = (f"{'strategy':<12}{'hit target':>11}{'bust':>7}{'lose>250':>9}{'mean P/L':>10}"
+              f"{'total':>10}{'worst':>8}{'max bet':>8}")
+    print(header)
+    print("-" * len(header))
+    for name in PLANS:
+        args.unit = 1
+        report = simulate(config_from(args, name), args.sessions, args.seed)
+        s = report.summary()
+        profits = report.profits()
+        big = 100 * sum(p <= -250 for p in profits) / report.n
+        print(f"{name:<12}{s['pct_hit_stop_win']:>10.1f}%{s['pct_busted']:>6.1f}%{big:>8.1f}%"
+              f"{s['mean_profit']:>+10.2f}{sum(profits):>+10.0f}{s['worst_session']:>+8.0f}{s['largest_bet']:>8.0f}")
+    print()
+    for name, make in PLANS.items():
+        print(f"  {name:<12}{make().description}")
+
+
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(prog="baccarat", description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -130,6 +152,10 @@ def main(argv: list[str] | None = None) -> None:
     p.add_argument("--from-hand", type=int, default=30, help="first cutoff to test")
     p.add_argument("--step", type=int, default=2, help="spacing between cutoffs tested")
     p.set_defaults(func=cmd_cutoff)
+
+    p = sub.add_parser("plans", help="compare the $1-table progressions in progressions.py")
+    add_session_args(p)
+    p.set_defaults(func=cmd_plans, side="player", hands=70, stop_win=50, last_start=66, sessions=1000)
 
     args = parser.parse_args(argv)
     args.func(args)

@@ -104,12 +104,19 @@ def play_session(cfg: SessionConfig, shoe: Shoe) -> SessionResult:
             break
 
         bet = strategy.units() * cfg.unit
+        if bet == 0:  # sitting this hand out
+            outcome = deal_hand(shoe).outcome
+            strategy.observe(outcome)
+            history.append(outcome)
+            hands += 1
+            continue
         if cfg.table_max is not None:
             bet = min(bet, cfg.table_max)
         bet = min(bet, bankroll)  # can't bet money you don't have
         side = pick_side(history)
 
         outcome = deal_hand(shoe).outcome
+        strategy.observe(outcome)
         result = settle(side, outcome)
         if result == WIN:
             bankroll += bet * PAYOUTS[side]
