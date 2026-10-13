@@ -240,6 +240,33 @@ def cmd_roads(args: argparse.Namespace) -> None:
         print(f"\nFull report: {path}")
 
 
+def cmd_shoebank(args: argparse.Namespace) -> None:
+    from .shoebank import collect, save
+
+    shoes = collect(progress=lambda m: print(f"  replaying: {m}", flush=True))
+    save(shoes, args.out)
+    print(f"{len(shoes):,} unique shoes saved to {args.out}")
+
+
+def cmd_handlog(args: argparse.Namespace) -> None:
+    import sys
+
+    from .handlog import shoe_log
+    from .shoebank import load
+
+    shoes = load(args.shoes_file)
+    last = min(args.to, len(shoes))
+    out = open(args.out, "w") if args.out else sys.stdout
+    hands = 0
+    for n in range(args.start, last + 1):
+        for entry in shoe_log(n, shoes[n - 1], args.last_hand):
+            out.write(entry + "\n\n")
+            hands += 1
+    if args.out:
+        out.close()
+        print(f"shoes {args.start}-{last}: {hands:,} hands written to {args.out}")
+
+
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(prog="baccarat", description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -284,6 +311,18 @@ def main(argv: list[str] | None = None) -> None:
     p.add_argument("--out", default="reports")
     p.add_argument("--cache", help="directory to cache generated months")
     p.set_defaults(func=cmd_roads)
+
+    p = sub.add_parser("shoebank", help="rebuild the project's unique shoes (about 5 minutes)")
+    p.add_argument("--out", default="shoes.pkl")
+    p.set_defaults(func=cmd_shoebank)
+
+    p = sub.add_parser("handlog", help="write a hand-by-hand board log for a range of shoes")
+    p.add_argument("--shoes-file", default="shoes.pkl", help="file made by the shoebank command")
+    p.add_argument("--from", dest="start", type=int, default=1)
+    p.add_argument("--to", type=int, default=10)
+    p.add_argument("--last-hand", type=int, help="stop each shoe after this hand (e.g. 70)")
+    p.add_argument("--out", help="output file (default: print)")
+    p.set_defaults(func=cmd_handlog)
 
     args = parser.parse_args(argv)
     args.func(args)
