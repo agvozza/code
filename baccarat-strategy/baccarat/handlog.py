@@ -64,31 +64,79 @@ def board_lines(board: Board, ties_on_cell: int) -> list[str]:
     return lines
 
 
-def shoe_log(shoe_no: int, cards: Iterable[int], last_hand: int | None = None) -> Iterator[str]:
-    """Deal a shoe from a fixed card order and yield one formatted entry per hand."""
+def shoe_records(cards: Iterable[int], last_hand: int | None = None) -> Iterator[dict]:
+    """Deal a shoe from a fixed card order and yield the facts of each hand."""
     shoe = Shoe(rng=random.Random(0))
     shoe._cards = list(cards)
     board = Board()
     ties_on_cell = 0
-    hand_no = 0
     totals = {Outcome.BANKER: 0, Outcome.PLAYER: 0, Outcome.TIE: 0}
+    hand_no = 0
     while not shoe.needs_shuffle() and (last_hand is None or hand_no < last_hand):
         hand = deal_hand(shoe)
         hand_no += 1
-        shown = {"p": [face(v) for v in hand.player_cards], "b": [face(v) for v in hand.banker_cards]}
         outcome = hand.outcome
         totals[outcome] += 1
         board.add(outcome)
         ties_on_cell = ties_on_cell + 1 if outcome is Outcome.TIE else 0
+        bead, bead_run = _run(board.beads)
+        roads = {key: _run(board.roads[key]) for key, _ in ROAD_NAMES}
+        yield {
+            "hand": hand_no, "player_cards": hand.player_cards, "banker_cards": hand.banker_cards,
+            "player_total": hand.player_total, "banker_total": hand.banker_total, "winner": outcome,
+            "totals": dict(totals), "bead": (bead, bead_run),
+            "big_road": (board.last, board.streak(), ties_on_cell), "roads": roads,
+            "board": board, "ties_on_cell": ties_on_cell,
+        }
+
+
+def shoe_log(shoe_no: int, cards: Iterable[int], last_hand: int | None = None) -> Iterator[str]:
+    """One formatted text entry per hand."""
+    for r in shoe_records(cards, last_hand):
+        t = r["totals"]
         yield "\n".join([
-            f"Shoe {shoe_no:06d} | Hand {hand_no:03d}",
-            f"Player Cards: {', '.join(shown['p'])}",
-            f"Banker Cards: {', '.join(shown['b'])}",
-            f"Player Total: {hand.player_total}",
-            f"Banker Total: {hand.banker_total}",
-            f"Winner: {NAME[outcome]}",
-            f"Shoe Totals: Banker {totals[Outcome.BANKER]} | Player {totals[Outcome.PLAYER]} | "
-            f"Tie {totals[Outcome.TIE]}",
+            f"Shoe {shoe_no:06d} | Hand {r['hand']:03d}",
+            f"Player Cards: {', '.join(face(v) for v in r['player_cards'])}",
+            f"Banker Cards: {', '.join(face(v) for v in r['banker_cards'])}",
+            f"Player Total: {r['player_total']}",
+            f"Banker Total: {r['banker_total']}",
+            f"Winner: {NAME[r['winner']]}",
+            f"Shoe Totals: Banker {t[Outcome.BANKER]} | Player {t[Outcome.PLAYER]} | Tie {t[Outcome.TIE]}",
             "Visible board states",
-            *board_lines(board, ties_on_cell),
+            *board_lines(r["board"], r["ties_on_cell"]),
         ])
+
+
+# --- numbers-only CSV (one row per hand) ------------------------------------------
+
+CSV_COLUMNS = [
+    "shoe", "hand",
+    "p1", "p2", "p3", "b1", "b2", "b3",          # card values 0-9 (10/J/Q/K = 0, A = 1); -1 = no third card
+    "p_total", "b_total",
+    "winner",                                     # 1 Banker, 2 Player, 3 Tie
+    "banker_wins", "player_wins", "ties",         # shoe totals so far, including this hand
+    "bead_result", "bead_run",                    # latest bead (1/2/3) and how many in a row
+    "big_road_side", "big_road_run", "big_road_ties",  # current column: 1 Banker / 2 Player / 0 none yet
+    "big_eye_color", "big_eye_run",               # 1 Red, 2 Blue, 0 not started; run = current column length
+    "small_color", "small_run",
+    "cockroach_color", "cockroach_run",
+]
+_SIDE = {None: 0, Outcome.BANKER: 1, Outcome.PLAYER: 2, Outcome.TIE: 3}
+_COLOR = {None: 0, RED: 1, "B": 2}
+
+
+def shoe_csv_rows(shoe_no: int, cards: Iterable[int], last_hand: int | None = None) -> Iterator[str]:
+    for r in shoe_records(cards, last_hand):
+        p = list(r["player_cards"]) + [-1] * (3 - len(r["player_cards"]))
+        b = list(r["banker_cards"]) + [-1] * (3 - len(r["banker_cards"]))
+        t = r["totals"]
+        bead, bead_run = r["bead"]
+        side, run, ties = r["big_road"]
+        roads = r["roads"]
+        values = [shoe_no, r["hand"], *p, *b, r["player_total"], r["banker_total"], _SIDE[r["winner"]],
+                  t[Outcome.BANKER], t[Outcome.PLAYER], t[Outcome.TIE], _SIDE[bead], bead_run,
+                  _SIDE[side], run, ties]
+        for key, _ in ROAD_NAMES:
+            color, n = roads[key]
+            values += [_COLOR[color], n]
+        yield ",".join(map(str, values))

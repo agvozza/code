@@ -37,3 +37,15 @@ class TestHandLog(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestHandCsv(unittest.TestCase):
+    def test_numbers_only_row(self):
+        from baccarat.handlog import CSV_COLUMNS, shoe_csv_rows
+
+        row = next(shoe_csv_rows(1, stacked_shoe([0, 8, 0, 2, 9, 9])))
+        values = row.split(",")
+        self.assertEqual(len(values), len(CSV_COLUMNS))
+        self.assertTrue(all(v.lstrip("-").isdigit() for v in values))
+        # P 0,0,9 = 9 ; B 8,2,9 = 9 ; tie ; totals 0/0/1 ; bead tie x1 ; no Big Road column, 1 tie
+        self.assertEqual(row, "1,1,0,0,9,8,2,9,9,9,3,0,0,1,3,1,0,0,1,0,0,0,0,0,0")

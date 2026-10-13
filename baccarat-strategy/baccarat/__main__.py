@@ -278,6 +278,40 @@ def cmd_viewer(args: argparse.Namespace) -> None:
     print(f"viewer for shoes {args.start}-{end} written to {args.out}")
 
 
+def cmd_handcsv(args: argparse.Namespace) -> None:
+    import os
+
+    from .handlog import CSV_COLUMNS, shoe_csv_rows
+    from .shoebank import load
+
+    shoes = load(args.shoes_file)
+    last = min(args.to, len(shoes))
+    os.makedirs(args.out_dir, exist_ok=True)
+    limit = int(args.max_mb * 1_000_000)
+    part, size, f, first_shoe, written = 0, 0, None, None, []
+
+    def close():
+        if f:
+            f.close()
+            written.append((path, first_shoe, shoe_no - 1, size))
+
+    for shoe_no in range(args.start, last + 1):
+        block = "".join(r + "\n" for r in shoe_csv_rows(shoe_no, shoes[shoe_no - 1], args.last_hand))
+        if f is None or size + len(block) > limit:  # never split a shoe across files
+            close()
+            part += 1
+            path = os.path.join(args.out_dir, f"hands-{part:03d}.csv")
+            f, size, first_shoe = open(path, "w"), 0, shoe_no
+            if args.header:
+                f.write(",".join(CSV_COLUMNS) + "\n")
+        f.write(block)
+        size += len(block)
+    shoe_no = last + 1
+    close()
+    for path, a, b, n in written:
+        print(f"{path}: shoes {a}-{b}, {n / 1e6:.1f} MB")
+
+
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(prog="baccarat", description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -342,6 +376,16 @@ def main(argv: list[str] | None = None) -> None:
     p.add_argument("--last-hand", type=int, help="stop each shoe after this hand (e.g. 70)")
     p.add_argument("--out", default="reports/shoe-viewer.html")
     p.set_defaults(func=cmd_viewer)
+
+    p = sub.add_parser("handcsv", help="write every hand as numbers-only CSV rows, split into files")
+    p.add_argument("--shoes-file", default="shoes.pkl", help="file made by the shoebank command")
+    p.add_argument("--from", dest="start", type=int, default=1)
+    p.add_argument("--to", type=int, default=10**9)
+    p.add_argument("--last-hand", type=int, help="stop each shoe after this hand (e.g. 70)")
+    p.add_argument("--max-mb", type=float, default=90, help="maximum size of each file in MB")
+    p.add_argument("--header", action="store_true", help="put the column names on the first line of each file")
+    p.add_argument("--out-dir", default="hands-csv")
+    p.set_defaults(func=cmd_handcsv)
 
     args = parser.parse_args(argv)
     args.func(args)
