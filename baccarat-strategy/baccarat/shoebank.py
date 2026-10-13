@@ -15,25 +15,41 @@ from .game import Shoe
 BASE = ["flat", "martingale", "paroli", "fibonacci", "dalembert", "1326", "labouchere"]
 
 
-def collect(progress=print) -> list[bytes]:
+class CountingRandom(random.Random):
+    """random.Random that counts the 32-bit words it has drawn from the generator."""
+
+    def __init__(self, seed=None):
+        self.words = 0
+        super().__init__(seed)
+        self.seed_value = seed
+        self.words = 0
+
+    def getrandbits(self, k):
+        self.words += (k + 31) // 32
+        return super().getrandbits(k)
+
+
+def collect(progress=print, with_offsets: bool = False):
+    """Unique shoes in viewer order; with ``with_offsets`` also each shoe's (seed, word offset)."""
     from .monthly import generate_months
     from .progressions import PLANS
     from .simulator import SessionConfig, simulate
 
-    seen: set[bytes] = set()
-    orig_shuffle, orig_draw = Shoe.shuffle, Shoe.draw
+    seen: dict[bytes, tuple[int, int]] = {}
+    orig_shuffle, orig_draw, orig_random = Shoe.shuffle, Shoe.draw, random.Random
 
     def shuffle(self):
+        where = (getattr(self.rng, "seed_value", None), getattr(self.rng, "words", None))
         orig_shuffle(self)
-        self._fresh = True
+        self._fresh = where
 
     def draw(self):
-        if getattr(self, "_fresh", False):
-            seen.add(bytes(self._cards))
-            self._fresh = False
+        if getattr(self, "_fresh", None):
+            seen.setdefault(bytes(self._cards), self._fresh)
+            self._fresh = None
         return orig_draw(self)
 
-    Shoe.shuffle, Shoe.draw = shuffle, draw
+    Shoe.shuffle, Shoe.draw, random.Random = shuffle, draw, CountingRandom
     try:
         progress("compare (Banker)")
         for s in BASE:
@@ -56,9 +72,11 @@ def collect(progress=print) -> list[bytes]:
         progress("monthly")
         generate_months(1000, seed=1)
     finally:
-        Shoe.shuffle, Shoe.draw = orig_shuffle, orig_draw
+        Shoe.shuffle, Shoe.draw, random.Random = orig_shuffle, orig_draw, orig_random
     shoes = sorted(seen)
     random.Random(0).shuffle(shoes)
+    if with_offsets:
+        return shoes, [seen[s] for s in shoes]
     return shoes
 
 

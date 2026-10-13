@@ -267,6 +267,17 @@ def cmd_handlog(args: argparse.Namespace) -> None:
         print(f"shoes {args.start}-{last}: {hands:,} hands written to {args.out}")
 
 
+def cmd_viewer(args: argparse.Namespace) -> None:
+    from .shoebank import load
+    from .viewer import build
+
+    shoes = load(args.shoes_file)
+    end = min(args.to, len(shoes))
+    with open(args.out, "w") as f:
+        f.write(build(shoes, args.start, end, args.last_hand))
+    print(f"viewer for shoes {args.start}-{end} written to {args.out}")
+
+
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(prog="baccarat", description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -323,6 +334,14 @@ def main(argv: list[str] | None = None) -> None:
     p.add_argument("--last-hand", type=int, help="stop each shoe after this hand (e.g. 70)")
     p.add_argument("--out", help="output file (default: print)")
     p.set_defaults(func=cmd_handlog)
+
+    p = sub.add_parser("viewer", help="build an HTML scoreboard viewer for a range of shoes")
+    p.add_argument("--shoes-file", default="shoes.pkl", help="file made by the shoebank command")
+    p.add_argument("--from", dest="start", type=int, default=1)
+    p.add_argument("--to", type=int, default=100)
+    p.add_argument("--last-hand", type=int, help="stop each shoe after this hand (e.g. 70)")
+    p.add_argument("--out", default="reports/shoe-viewer.html")
+    p.set_defaults(func=cmd_viewer)
 
     args = parser.parse_args(argv)
     args.func(args)
