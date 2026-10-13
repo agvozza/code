@@ -43,3 +43,18 @@ Build the files with:
 python -m baccarat shoebank                     # once, about 5 minutes
 python -m baccarat handcsv --max-mb 90          # writes hands-csv/hands-001.csv, ...
 ```
+
+## Banker streaks of 6+ (`banker-streaks-6plus-hands.csv`)
+
+Every hand inside a run of 6 or more Banker wins in a row (ties inside a run do
+not end it, as on the Big Road). Each row is the 25-column hand row above with
+two numbers in front, so rows have 27 numbers:
+
+| # | column | values |
+|---|---|---|
+| 1 | streak | run number, 1-69,079 (matches `banker-streaks-6plus.csv`) |
+| 2 | streak_length | Banker wins in that run (6-22) |
+| 3-27 | | the 25 hand columns above (shoe, hand, cards, ...) |
+
+`banker-streaks-6plus.csv` has one labelled row per run: shoe, first and last
+hand, Banker wins, ties inside, what ended it.
