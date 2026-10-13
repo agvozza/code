@@ -76,6 +76,13 @@ class TestSimulator(unittest.TestCase):
         for s in simulate(cfg, 50, seed=5).sessions:
             self.assertTrue(60 <= s.hands_played <= 90)
 
+    def test_last_cycle_start(self):
+        cfg = SessionConfig(strategy="martingale", hands=70, last_cycle_start=40)
+        for s in simulate(cfg, 200, seed=2).sessions:
+            if s.hands_played > 40:  # only allowed to keep going to finish a cycle
+                self.assertTrue(s.stranded or s.busted or s.hands_played < 70)
+            self.assertFalse(s.stranded and s.hands_played < 70)
+
     def test_no_progression_beats_the_house(self):
         for name in STRATEGIES:
             cfg = SessionConfig(strategy=name, hands=100)

@@ -12,6 +12,8 @@ Pure Python 3.10+, no dependencies.
 python -m baccarat odds                       # exact probabilities & house edge
 python -m baccarat simulate martingale --seed 1
 python -m baccarat compare --seed 1           # every strategy, same settings
+python -m baccarat cutoff martingale --side player --unit 2 --stop-win 50 --hands 70
+                                              # best last hand to start a new cycle
 python -m unittest                            # run tests
 ```
 
@@ -26,6 +28,7 @@ Session options (for `simulate` and `compare`):
 | `--table-max` | 5000 | table limit (`0` = none) |
 | `--stop-win` / `--stop-loss` | — | leave the table at this profit / loss |
 | `--one-shoe` | off | each session is exactly one shoe (ends at the cut card) |
+| `--last-start N` | — | don't start a new betting cycle after hand N (a running cycle may finish) |
 | `--sessions` | 2000 | sessions to simulate |
 | `--seed` | — | for reproducible runs |
 

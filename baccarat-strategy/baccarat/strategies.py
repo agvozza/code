@@ -27,6 +27,10 @@ class Strategy:
     def update(self, result: str) -> None:
         """``result`` is WIN, LOSS or PUSH for the bet just settled."""
 
+    def at_cycle_start(self) -> bool:
+        """True when no progression is in progress (the next bet is a fresh cycle)."""
+        return True
+
 
 class Flat(Strategy):
     name = "flat"
@@ -39,6 +43,9 @@ class Flat(Strategy):
 class Martingale(Strategy):
     name = "martingale"
     description = "Double after each loss, back to 1 after a win."
+
+    def at_cycle_start(self) -> bool:
+        return self.stake == 1
 
     def reset(self) -> None:
         self.stake = 1
@@ -60,6 +67,9 @@ class ReverseMartingale(Strategy):
     def __init__(self, target_streak: int = 3):
         self.target_streak = target_streak
 
+    def at_cycle_start(self) -> bool:
+        return self.streak == 0
+
     def reset(self) -> None:
         self.streak = 0
 
@@ -78,6 +88,9 @@ class ReverseMartingale(Strategy):
 class Fibonacci(Strategy):
     name = "fibonacci"
     description = "Move one step up the Fibonacci sequence on a loss, two steps back on a win."
+
+    def at_cycle_start(self) -> bool:
+        return self.i == 0
 
     def reset(self) -> None:
         self.seq = [1, 1]
@@ -99,6 +112,9 @@ class DAlembert(Strategy):
     name = "dalembert"
     description = "Add 1 unit after a loss, subtract 1 after a win (minimum 1)."
 
+    def at_cycle_start(self) -> bool:
+        return self.stake == 1
+
     def reset(self) -> None:
         self.stake = 1
 
@@ -117,6 +133,9 @@ class OneThreeTwoSix(Strategy):
     description = "Bet 1-3-2-6 units through a winning streak; reset on loss or completion."
 
     SEQUENCE = (1, 3, 2, 6)
+
+    def at_cycle_start(self) -> bool:
+        return self.i == 0
 
     def reset(self) -> None:
         self.i = 0
@@ -137,6 +156,9 @@ class Labouchere(Strategy):
 
     def __init__(self, line: tuple[int, ...] = (1, 2, 3, 4)):
         self.initial = list(line)
+
+    def at_cycle_start(self) -> bool:
+        return not self.line or self.line == self.initial
 
     def reset(self) -> None:
         self.line = list(self.initial)

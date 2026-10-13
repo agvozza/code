@@ -24,6 +24,7 @@ class SessionConfig:
     stop_loss: float | None = None  # quit once losses reach this amount
     decks: int = 8
     one_shoe: bool = False  # end the session when the shoe reaches the cut card
+    last_cycle_start: int | None = None  # don't start a new betting cycle after this hand number
 
 
 @dataclass
@@ -33,6 +34,7 @@ class SessionResult:
     total_wagered: float
     max_bet: float
     busted: bool
+    stranded: bool  # shoe ended in the middle of a betting cycle
 
 
 @dataclass
@@ -59,6 +61,7 @@ class Report:
                 self.config.stop_win is not None and p >= self.config.stop_win for p in profits
             ) / self.n,
             "pct_busted": 100 * sum(s.busted for s in self.sessions) / self.n,
+            "pct_stranded": 100 * sum(s.stranded for s in self.sessions) / self.n,
             "worst_session": min(profits),
             "best_session": max(profits),
             "avg_hands": statistics.fmean(s.hands_played for s in self.sessions),
@@ -96,6 +99,9 @@ def play_session(cfg: SessionConfig, shoe: Shoe) -> SessionResult:
             break
         if cfg.one_shoe and shoe.needs_shuffle():
             break
+        if (cfg.last_cycle_start is not None and hands >= cfg.last_cycle_start
+                and strategy.at_cycle_start()):
+            break
 
         bet = strategy.units() * cfg.unit
         if cfg.table_max is not None:
@@ -122,6 +128,7 @@ def play_session(cfg: SessionConfig, shoe: Shoe) -> SessionResult:
         total_wagered=wagered,
         max_bet=max_bet,
         busted=bankroll < cfg.unit,
+        stranded=bankroll >= cfg.unit and not strategy.at_cycle_start(),
     )
 
 

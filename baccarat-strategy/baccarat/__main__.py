@@ -20,6 +20,8 @@ def add_session_args(p: argparse.ArgumentParser) -> None:
     p.add_argument("--stop-loss", type=float, help="leave after losing this much")
     p.add_argument("--decks", type=int, default=8)
     p.add_argument("--one-shoe", action="store_true", help="each session is exactly one shoe")
+    p.add_argument("--last-start", type=int, metavar="N",
+                   help="don't start a new betting cycle after hand N (a running cycle may finish)")
     p.add_argument("--sessions", type=int, default=2000, help="number of sessions to simulate")
     p.add_argument("--seed", type=int, help="RNG seed for reproducible runs")
 
@@ -36,6 +38,7 @@ def config_from(args: argparse.Namespace, strategy: str) -> SessionConfig:
         stop_loss=args.stop_loss,
         decks=args.decks,
         one_shoe=args.one_shoe,
+        last_cycle_start=args.last_start,
     )
 
 
@@ -59,6 +62,7 @@ def cmd_simulate(args: argparse.Namespace) -> None:
         ("Std dev of profit", f"{s['stdev_profit']:.2f}"),
         ("Winning sessions", f"{s['pct_winning_sessions']:.1f}%"),
         ("Hit stop-win target", f"{s['pct_hit_stop_win']:.1f}%"),
+        ("Shoe ended mid-cycle", f"{s['pct_stranded']:.1f}%"),
         ("Busted sessions", f"{s['pct_busted']:.1f}%"),
         ("Best / worst session", f"{s['best_session']:+.2f} / {s['worst_session']:+.2f}"),
         ("Avg hands played", f"{s['avg_hands']:.1f}"),
@@ -83,6 +87,26 @@ def cmd_compare(args: argparse.Namespace) -> None:
               f"{s['realized_edge_pct']:>8.2f}")
 
 
+def cmd_cutoff(args: argparse.Namespace) -> None:
+    print(f"{args.strategy} on {args.side}  |  {args.hands}-hand shoe, {args.sessions} shoes per row, "
+          f"bankroll {args.bankroll:g}, unit {args.unit:g}, stop-win {args.stop_win}\n")
+    print("Last hand to start a new cycle (a cycle already running may continue to the end of the shoe)\n")
+    header = (f"{'last start':>10}{'hit target':>12}{'mid-cycle':>11}{'busted':>8}"
+              f"{'mean P/L':>10}{'P/L mid-cycle':>15}")
+    print(header)
+    print("-" * len(header))
+    cutoffs = list(range(args.from_hand, args.hands, args.step)) + [args.hands]
+    for n in cutoffs:
+        args.last_start = None if n >= args.hands else n
+        report = simulate(config_from(args, args.strategy), args.sessions, args.seed)
+        s = report.summary()
+        stuck = [x.final_bankroll - args.bankroll for x in report.sessions if x.stranded]
+        stuck_pl = f"{sum(stuck) / len(stuck):+.2f}" if stuck else "-"
+        label = f"{n}" if n < args.hands else f"{n} (none)"
+        print(f"{label:>10}{s['pct_hit_stop_win']:>11.1f}%{s['pct_stranded']:>10.1f}%"
+              f"{s['pct_busted']:>7.1f}%{s['mean_profit']:>+10.2f}{stuck_pl:>15}")
+
+
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(prog="baccarat", description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -99,6 +123,13 @@ def main(argv: list[str] | None = None) -> None:
     p = sub.add_parser("compare", help="simulate every strategy with the same settings")
     add_session_args(p)
     p.set_defaults(func=cmd_compare)
+
+    p = sub.add_parser("cutoff", help="find the last hand at which to start a new betting cycle")
+    p.add_argument("strategy", choices=STRATEGIES)
+    add_session_args(p)
+    p.add_argument("--from-hand", type=int, default=30, help="first cutoff to test")
+    p.add_argument("--step", type=int, default=2, help="spacing between cutoffs tested")
+    p.set_defaults(func=cmd_cutoff)
 
     args = parser.parse_args(argv)
     args.func(args)
