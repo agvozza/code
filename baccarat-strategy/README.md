@@ -122,6 +122,9 @@ baccarat/
   game.py        shoe, drawing rules, exact odds
   strategies.py  stake progressions + side pickers
   simulator.py   session loop and statistics
+  progressions.py  $1-table progressions
+  catalog.py     100 Player-only plans
+  monthly.py     monthly simulation
   __main__.py    CLI
 tests/
 ```
