@@ -8,6 +8,7 @@ Example entry::
     Player Total: 9
     Banker Total: 9
     Winner: Tie
+    Shoe Totals: Banker 5 | Player 3 | Tie 2
     Visible board states
     Bead Plate: Tie × 1
     Big Road: Banker × 2 (tie)
@@ -15,6 +16,7 @@ Example entry::
     Small Road: Red × 2
     Cockroach Pig: Blue × 1
 
+Shoe Totals counts every hand of the shoe so far, including this one.
 Each board line shows the newest run on that road: Bead Plate = latest result and
 how many times in a row it appeared; Big Road = current streak (with any ties
 marked on its newest cell); derived roads = colour and length of the current column.
@@ -69,11 +71,13 @@ def shoe_log(shoe_no: int, cards: Iterable[int], last_hand: int | None = None) -
     board = Board()
     ties_on_cell = 0
     hand_no = 0
+    totals = {Outcome.BANKER: 0, Outcome.PLAYER: 0, Outcome.TIE: 0}
     while not shoe.needs_shuffle() and (last_hand is None or hand_no < last_hand):
         hand = deal_hand(shoe)
         hand_no += 1
         shown = {"p": [face(v) for v in hand.player_cards], "b": [face(v) for v in hand.banker_cards]}
         outcome = hand.outcome
+        totals[outcome] += 1
         board.add(outcome)
         ties_on_cell = ties_on_cell + 1 if outcome is Outcome.TIE else 0
         yield "\n".join([
@@ -83,6 +87,8 @@ def shoe_log(shoe_no: int, cards: Iterable[int], last_hand: int | None = None) -
             f"Player Total: {hand.player_total}",
             f"Banker Total: {hand.banker_total}",
             f"Winner: {NAME[outcome]}",
+            f"Shoe Totals: Banker {totals[Outcome.BANKER]} | Player {totals[Outcome.PLAYER]} | "
+            f"Tie {totals[Outcome.TIE]}",
             "Visible board states",
             *board_lines(board, ties_on_cell),
         ])

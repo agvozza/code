@@ -22,8 +22,9 @@ class TestHandLog(unittest.TestCase):
         self.assertEqual(lines[1], "Player Cards: 0, 0, 9")
         self.assertEqual(lines[2], "Banker Cards: 8, 2, 9")
         self.assertEqual(lines[3:6], ["Player Total: 9", "Banker Total: 9", "Winner: Tie"])
-        self.assertEqual(lines[6:9], ["Visible board states", "Bead Plate: Tie × 1", "Big Road: — (tie)"])
-        self.assertEqual(lines[9], "Big Eye Boy: — (not started)")
+        self.assertEqual(lines[6], "Shoe Totals: Banker 0 | Player 0 | Tie 1")
+        self.assertEqual(lines[7:10], ["Visible board states", "Bead Plate: Tie × 1", "Big Road: — (tie)"])
+        self.assertEqual(lines[10], "Big Eye Boy: — (not started)")
 
     def test_ace_and_streak(self):
         # hand 1: P 1,5 (6 stands) vs B 7,1 (8 natural) -> Banker; hand 2 same -> Banker x 2
@@ -31,6 +32,7 @@ class TestHandLog(unittest.TestCase):
         self.assertIn("Player Cards: A, 5", entries[0])
         self.assertIn("Big Road: Banker × 2", entries[1])
         self.assertIn("Bead Plate: Banker × 2", entries[1])
+        self.assertIn("Shoe Totals: Banker 2 | Player 0 | Tie 0", entries[1])
 
 
 if __name__ == "__main__":

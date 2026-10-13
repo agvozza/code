@@ -185,17 +185,17 @@ function render() {
   const hands = DATA[shoe], h = hands[hand - 1];
   const [pc, bc, pt, bt, w, , lines] = h;
   $("slider").max = hands.length; $("slider").value = hand;
+  const shown = hands.slice(0, hand);
+  const n = {P: 0, B: 0, T: 0}; shown.forEach(x => n[x[4]]++);
   $("pos").textContent = `Hand ${hand} / ${hands.length}`;
   $("winner").className = "winner w-" + w; $("winner").textContent = NAME[w] + (w === "T" ? "" : " wins");
   $("pt").textContent = pt; $("bt").textContent = bt; $("pc").textContent = pc; $("bc").textContent = bc;
   $("log").textContent = [
     `Shoe ${String(shoe).padStart(6, "0")} | Hand ${String(hand).padStart(3, "0")}`,
     `Player Cards: ${pc.split(" ").join(", ")}`, `Banker Cards: ${bc.split(" ").join(", ")}`,
-    `Player Total: ${pt}`, `Banker Total: ${bt}`, `Winner: ${NAME[w]}`, "Visible board states", ...lines,
+    `Player Total: ${pt}`, `Banker Total: ${bt}`, `Winner: ${NAME[w]}`,
+    `Shoe Totals: Banker ${n.B} | Player ${n.P} | Tie ${n.T}`, "Visible board states", ...lines,
   ].join("\n");
-
-  const shown = hands.slice(0, hand);
-  const n = {P: 0, B: 0, T: 0}; shown.forEach(x => n[x[4]]++);
   $("stats").innerHTML = `<span>Banker <b>${n.B}</b></span><span>Player <b>${n.P}</b></span><span>Tie <b>${n.T}</b></span>`;
 
   // Bead plate: 6 rows, column by column, every result including ties

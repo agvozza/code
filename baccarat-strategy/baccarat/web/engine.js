@@ -152,6 +152,7 @@ function dealShoe(seed, offset, lastHand) {
   const board = new Board();
   const hands = [];
   let ties = 0;
+  const totals = { B: 0, P: 0, T: 0 };
   while (cards.length > CUT_CARD && (!lastHand || hands.length < lastHand)) {
     const p = [cards.pop()], b = [cards.pop()];
     p.push(cards.pop()); b.push(cards.pop());
@@ -162,11 +163,12 @@ function dealShoe(seed, offset, lastHand) {
       if (bankerDraws(bt, p3)) { const v = cards.pop(); b.push(v); bt = (bt + v) % 10; }
     }
     const w = pt > bt ? "P" : bt > pt ? "B" : "T";
+    totals[w] += 1;
     const before = OFFSETS.map(([k]) => board.roads[k].length);
     board.add(w);
     ties = w === "T" ? ties + 1 : 0;
     const marks = OFFSETS.map(([k], i) => (board.roads[k].length > before[i] ? board.roads[k][board.roads[k].length - 1] : null));
-    hands.push({ pc: p.map(face), bc: b.map(face), pt, bt, w, marks, lines: boardLines(board, ties) });
+    hands.push({ pc: p.map(face), bc: b.map(face), pt, bt, w, marks, totals: { ...totals }, lines: boardLines(board, ties) });
   }
   return hands;
 }
@@ -176,6 +178,7 @@ function handText(shoeNo, i, h) {
     `Shoe ${String(shoeNo).padStart(6, "0")} | Hand ${String(i + 1).padStart(3, "0")}`,
     `Player Cards: ${h.pc.join(", ")}`, `Banker Cards: ${h.bc.join(", ")}`,
     `Player Total: ${h.pt}`, `Banker Total: ${h.bt}`, `Winner: ${NAME[h.w]}`,
+    `Shoe Totals: Banker ${h.totals.B} | Player ${h.totals.P} | Tie ${h.totals.T}`,
     "Visible board states", ...h.lines,
   ].join("\n");
 }
