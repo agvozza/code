@@ -16,8 +16,8 @@ Compiled 2026-10-15. These are working notes, not a polished article.
 
 ## The video that caught your eye: Main #483, "ESP32 precision GPS receiver (incl. RTK-GPS Tutorial). How to earn money with it (DePIN)"
 
-- URL: https://youtu.be/Oc1LBFDj2MA (main channel, around spring 2024)
-- ⚠️ YouTube blocked the transcript and full description from this environment. The notes below come from your screenshots plus research into each linked resource.
+- URL: https://youtu.be/Oc1LBFDj2MA (main channel, 2024-05-05, 22:18)
+- Full transcript: [`transcripts/main-483-Oc1LBFDj2MA.md`](transcripts/main-483-Oc1LBFDj2MA.md). The people, book and report he cites are researched in [`rtk-483-sources.md`](rtk-483-sources.md).
 
 ### Premise (from the description)
 You can get centimeter-level position anywhere, for everybody and not just the military, with only an ESP32 and a decent GNSS module, using **RTK (Real-Time Kinematics)**. You can even earn money by running a **base station** connected to a **DePIN** (Decentralized Physical Infrastructure Network). It started when Michael, a viewer, sent him a board.
