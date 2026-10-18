@@ -42,6 +42,14 @@ nav.toc .wrap::-webkit-scrollbar{display:none}
 nav.toc a{flex:none; text-decoration:none; color:var(--ink); background:var(--surface); border:1px solid var(--line);
   padding:6px 12px; border-radius:999px; font-size:14px; white-space:nowrap}
 nav.toc a:hover{border-color:var(--accent)}
+nav.toc a.active{background:var(--accent); border-color:var(--accent); color:var(--accent-ink); font-weight:700}
+main > section[hidden]{display:none}
+.pager{display:flex; justify-content:space-between; gap:10px; margin:28px 0 8px}
+.pager a{flex:1; text-decoration:none; color:var(--ink); background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:12px 14px; font-size:15px}
+.pager a:hover{border-color:var(--accent)}
+.pager a small{display:block; color:var(--ink-2); font-size:12px; text-transform:uppercase; letter-spacing:.06em}
+.pager a.next{text-align:right}
+.pager span{flex:1}
 section{padding:36px 0 8px}
 .sub{color:var(--ink-2); margin-bottom:16px}
 .card{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:16px}
@@ -126,7 +134,7 @@ details > div{padding:0 14px 12px; color:var(--ink-2); font-size:15px}
 footer{padding:36px 0 60px; color:var(--ink-2); font-size:14px}
 .themebtn{position:fixed; right:12px; bottom:12px; z-index:6; border:1px solid var(--line); background:var(--surface); color:var(--ink);
   border-radius:999px; padding:8px 12px; font:inherit; font-size:13px; cursor:pointer}
-@media print{ nav.toc,.themebtn{display:none} section{break-inside:avoid-page} }
+@media print{ nav.toc,.themebtn,.pager{display:none} main > section[hidden]{display:block} header.hero[hidden]{display:block} }
 </style>
 </head>
 <body>
@@ -372,6 +380,36 @@ footer{padding:36px 0 60px; color:var(--ink-2); font-size:14px}
   document.querySelectorAll('ol.legend li').forEach(function(li){
     li.addEventListener('click', function(){ select(li.dataset.key); });
   });
+
+  // tabbed pages: each top link shows only its own section
+  var sections = Array.prototype.slice.call(document.querySelectorAll('main > section'));
+  var navLinks = document.querySelectorAll('nav.toc a');
+  var hero = document.querySelector('header.hero');
+  var names = {};
+  navLinks.forEach(function(a){ names[a.getAttribute('href').slice(1)] = a.textContent; });
+  sections.forEach(function(s, i){
+    var prev = sections[i-1], next = sections[i+1], p = document.createElement('div');
+    p.className = 'pager';
+    p.innerHTML = (prev ? '<a href="#'+prev.id+'"><small>← Previous</small>'+names[prev.id]+'</a>' : '<span></span>') +
+                  (next ? '<a class="next" href="#'+next.id+'"><small>Next →</small>'+names[next.id]+'</a>' : '<span></span>');
+    s.appendChild(p);
+  });
+  function route(){
+    var id = location.hash.slice(1), target = id && document.getElementById(id);
+    var sec = target ? (target.tagName === 'SECTION' ? target : target.closest('main > section')) : null;
+    if(!sec) sec = sections[0];
+    sections.forEach(function(s){ s.hidden = s !== sec; });
+    hero.hidden = sec !== sections[0];
+    navLinks.forEach(function(a){
+      var on = a.getAttribute('href') === '#'+sec.id;
+      a.classList.toggle('active', on);
+      if(on){ a.setAttribute('aria-current','page'); a.scrollIntoView({inline:'nearest', block:'nearest'}); }
+      else a.removeAttribute('aria-current');
+    });
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', route);
+  route();
 
   // Fn menu replica: [screen label, sub-label, name, current value, explanation]
   var FN = [
