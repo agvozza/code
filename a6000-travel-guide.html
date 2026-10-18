@@ -50,6 +50,25 @@ main > section[hidden]{display:none}
 .pager a small{display:block; color:var(--ink-2); font-size:12px; text-transform:uppercase; letter-spacing:.06em}
 .pager a.next{text-align:right}
 .pager span{flex:1}
+.sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0)}
+.search{margin-top:18px; max-width:640px}
+.searchbox{display:flex; align-items:center; gap:10px; background:var(--surface); border:2px solid var(--line); border-radius:14px; padding:0 14px}
+.searchbox:focus-within{border-color:var(--accent)}
+.searchbox svg{width:20px; height:20px; flex:none; fill:none; stroke:var(--ink-2); stroke-width:2.2; stroke-linecap:round}
+.searchbox input{flex:1; min-width:0; border:0; outline:0; background:transparent; color:var(--ink); font:inherit; font-size:17px; padding:13px 0}
+.chips{display:flex; flex-wrap:wrap; gap:6px; margin-top:10px}
+.chips button{font:inherit; font-size:13px; color:var(--ink-2); background:transparent; border:1px solid var(--line); border-radius:999px; padding:4px 10px; cursor:pointer}
+.chips button:hover{border-color:var(--accent); color:var(--ink)}
+.results{list-style:none; padding:0; margin:10px 0 0; display:grid; gap:6px}
+.results li a{display:block; text-decoration:none; color:var(--ink); background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:10px 12px}
+.results li a:hover, .results li a:focus{border-color:var(--accent); outline:none}
+.results .rsec{font-size:11px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--accent)}
+.results .rtitle{font-weight:700; display:block}
+.results .rsnip{font-size:14px; color:var(--ink-2); display:block}
+.results mark{background:var(--accent-soft); color:inherit; border-radius:3px; padding:0 1px}
+.results .none{color:var(--ink-2); font-size:15px; padding:6px 2px}
+@keyframes flash{0%,60%{box-shadow:0 0 0 3px var(--accent)}100%{box-shadow:0 0 0 0 transparent}}
+.flash{animation:flash 2.2s ease-out}
 section{padding:36px 0 8px}
 .sub{color:var(--ink-2); margin-bottom:16px}
 .card{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:16px}
@@ -143,6 +162,17 @@ footer{padding:36px 0 60px; color:var(--ink-2); font-size:14px}
   <div class="eyebrow">Sony α6000 · Travel field guide</div>
   <h1>Your camera, set up and ready for Europe</h1>
   <p class="lede">Everything on this page matches how this camera has been set up. Start in <b>Intelligent Auto</b>, and when you're curious, try <b>A mode</b>. Tap any numbered dot on the photos to find out what that button does.</p>
+  <div class="search" role="search">
+    <label for="q" class="sr">Search the guide</label>
+    <div class="searchbox">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+      <input id="q" type="search" placeholder="Search: flash, delete, blurry, battery…" autocomplete="off" enterkeyhint="search">
+    </div>
+    <div class="chips" id="chips" aria-label="Common searches">
+      <button type="button">Charging</button><button type="button">Blurry</button><button type="button">Flash</button><button type="button">Delete</button><button type="button">Phone</button><button type="button">Portrait</button><button type="button">Screen black</button>
+    </div>
+    <ul class="results" id="results" aria-live="polite"></ul>
+  </div>
 </header>
 
 <nav class="toc" aria-label="Sections">
@@ -409,6 +439,7 @@ footer{padding:36px 0 60px; color:var(--ink-2); font-size:14px}
     window.scrollTo(0, 0);
   }
   window.addEventListener('hashchange', route);
+  window.addEventListener('popstate', route);
   route();
 
   // Fn menu replica: [screen label, sub-label, name, current value, explanation]
@@ -443,6 +474,91 @@ footer{padding:36px 0 60px; color:var(--ink-2); font-size:14px}
     grid.appendChild(b);
   });
   show(5);
+
+  // search: index every legend row, Fn tile, mode, step, table row and help item
+  var index = [];
+  function txt(el){ return el.textContent.replace(/\s+/g,' ').trim(); }
+  function secOf(el){ return el.closest('main > section'); }
+  function add(title, body, el, extra, act){
+    var sec = secOf(el);
+    index.push({title:title, body:body, el:el, sec:sec, hay:(title+' '+body+' '+(extra||'')).toLowerCase(), act:act});
+  }
+  document.querySelectorAll('ol.legend li').forEach(function(li){
+    var h = li.closest('.diagram').previousElementSibling;
+    var nm = li.querySelector('.lname').cloneNode(true), tg = nm.querySelector('.tag');
+    if(tg) tg.remove();
+    add(txt(nm), txt(li.querySelector('.ldesc')), li, h ? txt(h) : '', function(){ select(li.dataset.key); });
+  });
+  grid.querySelectorAll('button').forEach(function(b, i){
+    add(FN[i][2]+' (Fn menu)', 'Currently '+FN[i][3].replace(/<[^>]+>/g,'')+'. '+FN[i][4].replace(/<[^>]+>/g,''), detail, 'fn function', function(){ show(i); });
+  });
+  document.querySelectorAll('.steps li').forEach(function(li){ add(txt(li.querySelector('b')), txt(li.querySelector('span')), li); });
+  document.querySelectorAll('.mode').forEach(function(m){ add(txt(m.querySelector('b'))+' mode', txt(m.querySelector('p')), m, txt(m.querySelector('.sym'))); });
+  document.querySelectorAll('details').forEach(function(d){
+    add(txt(d.querySelector('summary')), txt(d.querySelector('div')), d, 'help problem trouble', function(){ d.open = true; });
+  });
+  document.querySelectorAll('tbody tr').forEach(function(tr){
+    var c = tr.children; add(txt(c[0]), Array.prototype.slice.call(c,1).map(txt).join(' · '), tr);
+  });
+  document.querySelectorAll('.tip, .note, .scale > div').forEach(function(n){
+    var b = n.querySelector('b'); add(b ? txt(b).replace(/[:?]$/,'') : 'Tip', txt(n), n);
+  });
+  // a few everyday words that don't appear verbatim in the text
+  var SYN = {charge:'charging battery', charging:'charging battery usb', wifi:'wi-fi', phone:'smartphone phone wi-fi', delete:'delete trash', erase:'delete', blur:'blurry', blurry:'blurry', dark:'dark bright exposure', bright:'bright exposure', video:'movie video', record:'movie', selfie:'self-timer', timer:'self-timer', zoom:'zoom', portrait:'portrait eye'};
+  function rx(w){ return w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); }
+  // match at the start of a word, so "raw" doesn't hit "draws"
+  function wordRe(w){ return new RegExp('(^|[^a-z0-9])' + rx(w)); }
+  function esc(s){ return s.replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function snippet(body, words){
+    var low = body.toLowerCase(), at = -1;
+    words.forEach(function(w){ var i = low.indexOf(w); if(i >= 0 && (at < 0 || i < at)) at = i; });
+    var start = Math.max(0, at - 40), s = (start ? '…' : '') + body.slice(start, start + 130) + (body.length > start + 130 ? '…' : '');
+    s = esc(s);
+    words.forEach(function(w){ if(w.length > 1) s = s.replace(new RegExp('(^|[^a-z0-9])('+rx(w)+')','ig'), '$1<mark>$2</mark>'); });
+    return s;
+  }
+  var q = document.getElementById('q'), results = document.getElementById('results'), hits = [];
+  function search(){
+    var raw = q.value.trim().toLowerCase();
+    results.innerHTML = '';
+    if(!raw){ return; }
+    var words = raw.split(/\s+/);
+    hits = index.map(function(e){
+      var score = 0;
+      for(var i = 0; i < words.length; i++){
+        var w = words[i], alts = (SYN[w] ? SYN[w].split(' ') : []).concat(w), found = false;
+        alts.forEach(function(a){
+          var re = wordRe(a);
+          if(re.test(e.hay)){ found = true; score += re.test(e.title.toLowerCase()) ? 3 : 1; }
+        });
+        if(!found) return null;
+      }
+      return {e:e, score:score};
+    }).filter(Boolean).sort(function(a,b){ return b.score - a.score; }).slice(0, 8);
+    if(!hits.length){ results.innerHTML = '<li class="none">No matches. Try a simpler word like “flash”, “battery” or “focus”.</li>'; return; }
+    hits.forEach(function(h, i){
+      var li = document.createElement('li'), a = document.createElement('a');
+      a.href = '#' + h.e.sec.id;
+      a.innerHTML = '<span class="rsec">'+esc(names[h.e.sec.id])+'</span><span class="rtitle">'+esc(h.e.title)+'</span><span class="rsnip">'+snippet(h.e.body, words)+'</span>';
+      a.addEventListener('click', function(ev){ ev.preventDefault(); go(h.e); });
+      li.appendChild(a); results.appendChild(li);
+    });
+  }
+  function go(e){
+    history.pushState(null, '', '#' + e.sec.id);
+    route();
+    if(e.act) e.act();
+    e.el.scrollIntoView({block:'center'});
+    e.el.classList.remove('flash'); void e.el.offsetWidth; e.el.classList.add('flash');
+  }
+  q.addEventListener('input', search);
+  q.addEventListener('keydown', function(ev){
+    if(ev.key === 'Enter' && hits[0]){ ev.preventDefault(); q.blur(); go(hits[0].e); }
+    if(ev.key === 'Escape'){ q.value = ''; search(); }
+  });
+  document.querySelectorAll('#chips button').forEach(function(b){
+    b.addEventListener('click', function(){ q.value = b.textContent; search(); });
+  });
 
   // theme toggle (per-viewer convenience only)
   var root = document.documentElement, btn = document.getElementById('themebtn');
