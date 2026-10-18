@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>a6000 Travel Guide</title>
+<script>document.documentElement.className += " js";</script>
 <style>
 :root{
   --bg:#f6f4f1; --surface:#ffffff; --surface-2:#efebe6; --ink:#1d1b19; --ink-2:#5c5650; --line:#ddd6ce;
@@ -44,6 +45,15 @@ nav.toc a{flex:none; text-decoration:none; color:var(--ink); background:var(--su
 nav.toc a:hover{border-color:var(--accent)}
 nav.toc a.active{background:var(--accent); border-color:var(--accent); color:var(--accent-ink); font-weight:700}
 main > section[hidden]{display:none}
+/* without scripts: pages switch with plain anchor links */
+@supports selector(:has(a)){
+  html:not(.js) main > section{display:none}
+  html:not(.js) main > section:target, html:not(.js) main:not(:has(> section:target)) > #start{display:block}
+  html:not(.js) body:has(main > section:target:not(#start)) header.hero{display:none}
+}
+html:not(.js) .search, html:not(.js) .themebtn{display:none}
+.nojs{font-size:14px; color:var(--ink-2); margin-top:14px}
+.fngrid button.on{background:#c8401a}
 .pager{display:flex; justify-content:space-between; gap:10px; margin:28px 0 8px}
 .pager a{flex:1; text-decoration:none; color:var(--ink); background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:12px 14px; font-size:15px}
 .pager a:hover{border-color:var(--accent)}
@@ -123,12 +133,8 @@ li.cust .n{background:var(--accent); color:#fff}
   font-weight:800; font-size:13px; line-height:1.1}
 .fngrid button:nth-child(6n){border-right:0}
 .fngrid button small{font-weight:600; font-size:10px; opacity:.75; margin-top:3px}
-.fngrid button.sel{background:#c8401a}
 .fngrid button:focus-visible{outline:2px solid #ffd400; outline-offset:-2px}
 .screen .hint{font-size:12px; text-align:right; opacity:.8; margin-top:8px}
-.fndetail{margin-top:12px; min-height:120px}
-.fndetail h4{margin:0 0 4px; font-size:17px}
-.fndetail .cur{font-size:14px; color:var(--ink-2); margin-bottom:6px}
 table{width:100%; border-collapse:collapse; font-size:15px}
 th,td{text-align:left; padding:10px 8px; border-bottom:1px solid var(--line); vertical-align:top}
 th{font-size:13px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-2)}
@@ -173,6 +179,7 @@ footer{padding:36px 0 60px; color:var(--ink-2); font-size:14px}
     </div>
     <ul class="results" id="results" aria-live="polite"></ul>
   </div>
+  <noscript><p class="nojs">Search needs this file opened in a web browser like Safari or Chrome. Everything else works here.</p></noscript>
 </header>
 
 <nav class="toc" aria-label="Sections">
@@ -195,13 +202,14 @@ footer{padding:36px 0 60px; color:var(--ink-2); font-size:14px}
   <h2>Quick start</h2>
   <p class="sub">The 30-second version.</p>
   <ol class="steps">
-    <li><b>Turn it on</b><span>Flip the <span class="key">ON / OFF</span> switch around the shutter button <a href="#buttons">(13)</a>. The lens extends by itself, so let it.</span></li>
-    <li><b>Set the mode dial to <span class="key">iAuto</span></b><span>That's the camera icon with a little “i” on the top dial <a href="#buttons">(15)</a>. The camera handles everything for you.</span></li>
-    <li><b>Zoom</b><span>Slide the <span class="key">W — T</span> lever on the side of the lens <a href="#buttons">(20)</a>. W = wide, T = zoomed in (telephoto).</span></li>
-    <li><b>Half-press to focus</b><span>Press the shutter button <a href="#buttons">(12)</a> <em>halfway</em> and hold it. Green boxes and a beep mean it's in focus.</span></li>
-    <li><b>Press all the way to take the photo</b><span>Keep holding and press the rest of the way down. For video, press the red <span class="key">MOVIE</span> button <a href="#buttons">(6)</a> to start and again to stop.</span></li>
+    <li><b>Turn it on</b><span>Flip the <span class="key">ON / OFF</span> switch around the shutter button <a href="#buttons" data-key="k13">(13)</a>. The lens extends by itself, so let it.</span></li>
+    <li><b>Set the mode dial to <span class="key">iAuto</span></b><span>That's the camera icon with a little “i” on the top dial <a href="#buttons" data-key="k15">(15)</a>. The camera handles everything for you.</span></li>
+    <li><b>Zoom</b><span>Slide the <span class="key">W — T</span> lever on the side of the lens <a href="#buttons" data-key="k20">(20)</a>. W = wide, T = zoomed in (telephoto).</span></li>
+    <li><b>Half-press to focus</b><span>Press the shutter button <a href="#buttons" data-key="k12">(12)</a> <em>halfway</em> and hold it. Green boxes and a beep mean it's in focus.</span></li>
+    <li><b>Press all the way to take the photo</b><span>Keep holding and press the rest of the way down. For video, press the red <span class="key">MOVIE</span> button <a href="#buttons" data-key="k6">(6)</a> to start and again to stop.</span></li>
   </ol>
-  <div class="tip"><b>Screen went black?</b> There's an eye sensor above the screen. When your hand or body is close to the viewfinder <a href="#buttons">(1)</a>, the camera turns off the back screen and uses the viewfinder instead. Move your hand away and the screen comes back.</div>
+  <div class="tip"><b>Screen went black?</b> There's an eye sensor above the screen. When your hand or body is close to the viewfinder <a href="#buttons" data-key="k1">(1)</a>, the camera turns off the back screen and uses the viewfinder instead. Move your hand away and the screen comes back.</div>
+  <div class="pager"><span></span><a class="next" href="#buttons"><small>Next →</small>Buttons</a></div>
 </section>
 
 <!-- BUTTONS -->
@@ -251,7 +259,7 @@ footer{padding:36px 0 60px; color:var(--ink-2); font-size:14px}
       <li data-key="k15"><span class="n">15</span><div><div class="lname">Mode dial</div><div class="ldesc">Picks the shooting mode. Use <b>iAuto</b> for everyday shooting and <b>A</b> when you're learning. Every position is explained in <a href="#modes">Modes</a>.</div></div></li>
       <li data-key="k16"><span class="n">16</span><div><div class="lname">Control dial</div><div class="ldesc">In <b>A mode</b>, turn this to change the aperture (the f-number). In the Fn menu, turn it to change the selected setting.</div></div></li>
       <li data-key="k17"><span class="n">17</span><div><div class="lname">Hot shoe</div><div class="ldesc">For an external flash or microphone. You won't need it on the trip.</div></div></li>
-      <li data-key="k18"><span class="n">18</span><div><div class="lname">Built-in flash</div><div class="ldesc">This is where the flash pops up from when you press ⚡ <a href="#buttons">(3)</a>. Many museums and churches don't allow flash, so keep it down there.</div></div></li>
+      <li data-key="k18"><span class="n">18</span><div><div class="lname">Built-in flash</div><div class="ldesc">This is where the flash pops up from when you press ⚡ <a href="#buttons" data-key="k3">(3)</a>. Many museums and churches don't allow flash, so keep it down there.</div></div></li>
       <li data-key="k19"><span class="n">19</span><div><div class="lname">Lens ring (zoom / focus)</div><div class="ldesc">Usually it zooms. Right after the camera focuses (while you're still half-pressing), turning it fine-tunes the focus by hand. That's the “DMF” setting.</div></div></li>
       <li data-key="k20"><span class="n">20</span><div><div class="lname">Power zoom lever (W — T)</div><div class="ldesc">The easiest way to zoom: slide it toward T to zoom in and toward W to zoom out.</div></div></li>
     </ol>
@@ -267,18 +275,33 @@ footer{padding:36px 0 60px; color:var(--ink-2); font-size:14px}
       <li data-key="k22"><span class="n">22</span><div><div class="lname">Wi-Fi</div><div class="ldesc">Built in, for sending photos to your phone (see <a href="#playback">Viewing &amp; phone</a>).</div></div></li>
     </ol>
   </div>
+  <div class="pager"><a href="#start"><small>← Previous</small>Quick start</a><a class="next" href="#fn"><small>Next →</small>Fn menu</a></div>
 </section>
 
 <!-- FN MENU -->
 <section id="fn">
   <h2>The Fn menu: your 12 shortcuts</h2>
-  <p class="sub">Press <span class="key">Fn</span>, move around with the wheel buttons (▲▼◀▶), and <b>turn the control dial</b> (top) to change the highlighted setting. Press <span class="key">●</span> to see all the options. Half-press the shutter to leave. Tap a tile below to read about it. In iAuto, some tiles are greyed out because the camera is choosing for you.</p>
+  <p class="sub">Press <span class="key">Fn</span>, move around with the wheel buttons (▲▼◀▶), and <b>turn the control dial</b> (top) to change the highlighted setting. Press <span class="key">●</span> to see all the options. Half-press the shutter to leave. Tap a tile to jump to its explanation below. In iAuto, some tiles are greyed out because the camera is choosing for you.</p>
   <div class="screen" role="group" aria-label="Fn menu as it looks on the camera">
-    <div class="ttl" id="fnTitle">Quality</div>
-    <div class="fngrid" id="fngrid"></div>
+    <div class="ttl" id="fnTitle">Function menu</div>
+    <div class="fngrid" id="fngrid"><button type="button" data-key="f0" aria-label="SteadyShot">✋ ON</button><button type="button" data-key="f1" aria-label="Smile/Face Detect.">☺ ON</button><button type="button" data-key="f2" aria-label="Metering Mode">(◉)<small>Multi</small></button><button type="button" data-key="f3" aria-label="Grid Line">▦</button><button type="button" data-key="f4" aria-label="Peaking Level">PEAK<small>HI</small></button><button type="button" data-key="f5" aria-label="Quality">RAW</button><button type="button" data-key="f6" aria-label="Focus Mode">DMF</button><button type="button" data-key="f7" aria-label="Shoot Mode">A</button><button type="button" data-key="f8" aria-label="White Balance">AWB</button><button type="button" data-key="f9" aria-label="DRO/Auto HDR">DRO<small>Lv4</small></button><button type="button" data-key="f10" aria-label="Zebra">▧<small>OFF</small></button><button type="button" data-key="f11" aria-label="Flash Mode">⚡<small>REAR</small></button></div>
     <div class="hint">◯ / dial: Change · ● More · MENU ↩</div>
   </div>
-  <div class="card fndetail" id="fndetail" aria-live="polite"></div>
+  <div class="diagram" style="margin-top:14px">
+    <ol class="legend"><li data-key="f0"><span class="n">1</span><div><div class="lname">SteadyShot</div><div class="ldesc"><b>Set to: On</b> · Function Upper1<br>Image stabilisation, which cancels out shaky hands. Leave it ON (switch it off only if the camera is on a tripod).</div></div></li>
+      <li data-key="f1"><span class="n">2</span><div><div class="lname">Smile/Face Detect.</div><div class="ldesc"><b>Set to: Face Detection On</b> · Function Upper2<br>Finds faces and focuses on them automatically. A box appears around each face it sees.</div></div></li>
+      <li data-key="f2"><span class="n">3</span><div><div class="lname">Metering Mode</div><div class="ldesc"><b>Set to: Multi</b> · Function Upper3<br>How the camera measures brightness. <b>Multi</b> looks at the whole scene and is right most of the time. <b>Spot</b> measures only the centre, which is useful for a person against a bright window or sky. Also on the ▼ button.</div></div></li>
+      <li data-key="f3"><span class="n">4</span><div><div class="lname">Grid Line</div><div class="ldesc"><b>Set to: Grid on</b> · Function Upper4<br>Draws lines over the screen (not on the photo). Use them to keep horizons and buildings straight, and to place your subject on a line instead of dead centre (the rule of thirds).</div></div></li>
+      <li data-key="f4"><span class="n">5</span><div><div class="lname">Peaking Level</div><div class="ldesc"><b>Set to: High</b> · Function Upper5<br>Highlights in-focus edges with colour so you can see what's sharp. It doesn't affect the photo. Also on <b>C1</b>. Set to Off if it's distracting.</div></div></li>
+      <li data-key="f5"><span class="n">6</span><div><div class="lname">Quality</div><div class="ldesc"><b>Set to: RAW</b> · Function Upper6<br>File type. <b>RAW</b> = maximum quality for editing on a computer, but the files are large and can't go to your phone. <b>RAW &amp; JPEG</b> saves both, which is the best choice if you want to share from the road. <b>Fine</b> = JPEG only, small and easy.</div></div></li>
+      <li data-key="f6"><span class="n">7</span><div><div class="lname">Focus Mode</div><div class="ldesc"><b>Set to: DMF (Direct Manual Focus)</b> · Function Lower1<br>The camera autofocuses when you half-press. While you're still holding, you can turn the lens ring to fine-tune focus by hand. For moving subjects, switch to <b>AF-C</b> (continuous) so it keeps tracking them.</div></div></li>
+      <li data-key="f7"><span class="n">8</span><div><div class="lname">Shoot Mode</div><div class="ldesc"><b>Set to: Follows the mode dial</b> · Function Lower2<br>Shows the current mode. Change modes with the mode dial on top instead.</div></div></li>
+      <li data-key="f8"><span class="n">9</span><div><div class="lname">White Balance</div><div class="ldesc"><b>Set to: Auto</b> · Function Lower3<br>Keeps colours natural under different light (sun, shade, indoor bulbs). Leave it on AWB. If photos look too orange or too blue, check it's still on AWB.</div></div></li>
+      <li data-key="f9"><span class="n">10</span><div><div class="lname">DRO/Auto HDR</div><div class="ldesc"><b>Set to: DRO Level 4</b> · Function Lower4<br>Brightens dark shadows in high-contrast scenes, like a bright sky with a shady street. Lv4 is a fairly strong setting. If photos look flat or grey, try <b>Auto</b> or a lower level.</div></div></li>
+      <li data-key="f10"><span class="n">11</span><div><div class="lname">Zebra</div><div class="ldesc"><b>Set to: Off</b> · Function Lower5<br>Draws striped warnings on areas that are too bright. Mostly used for video. Fine to leave off.</div></div></li>
+      <li data-key="f11"><span class="n">12</span><div><div class="lname">Flash Mode</div><div class="ldesc"><b>Set to: Rear Sync.</b> · Function Lower6<br>Only matters when the flash is popped up. Rear Sync fires the flash at the <em>end</em> of the exposure, which gives a nice look at night with moving lights. For normal daytime fill-light, <b>Fill-flash</b> is simpler.</div></div></li></ol>
+  </div>
+  <div class="pager"><a href="#buttons"><small>← Previous</small>Buttons</a><a class="next" href="#modes"><small>Next →</small>Modes</a></div>
 </section>
 
 <!-- MODES -->
@@ -298,6 +321,7 @@ footer{padding:36px 0 60px; color:var(--ink-2); font-size:14px}
     <div class="mode"><span class="sym">SCN</span><b>Scene Selection</b><p>Presets such as Night Scene, Sports and Hand-held Twilight. Pick one by turning the control dial.</p></div>
   </div>
   <div class="tip"><b>Lost in the settings?</b> Turn the dial back to <b>iAuto</b>. It ignores most of the custom settings and just works.</div>
+  <div class="pager"><a href="#fn"><small>← Previous</small>Fn menu</a><a class="next" href="#amode"><small>Next →</small>A-mode lessons</a></div>
 </section>
 
 <!-- A MODE -->
@@ -306,7 +330,7 @@ footer{padding:36px 0 60px; color:var(--ink-2); font-size:14px}
   <p class="sub">Aperture Priority is the best way to learn photography. You make one creative choice and the camera handles the maths.</p>
 
   <h3>1 · The one setting you control: aperture (f-number)</h3>
-  <p>Turn the <b>control dial</b> on top <a href="#buttons">(16)</a> or the <b>control wheel</b> on the back <a href="#buttons">(8)</a>. You'll see a number like <b>F3.5</b> or <b>F8</b> change on screen.</p>
+  <p>Turn the <b>control dial</b> on top <a href="#buttons" data-key="k16">(16)</a> or the <b>control wheel</b> on the back <a href="#buttons" data-key="k8">(8)</a>. You'll see a number like <b>F3.5</b> or <b>F8</b> change on screen.</p>
   <div class="scale">
     <div><b>Small number</b><br>F3.5 – F5.6<br><span class="ldesc">The background goes soft and blurry, so your subject pops. Good for portraits, food and flowers. It also lets in more light.</span></div>
     <div><b>Big number</b><br>F8 – F11<br><span class="ldesc">Everything is sharp from front to back. Good for landscapes, architecture and big group shots.</span></div>
@@ -314,7 +338,7 @@ footer{padding:36px 0 60px; color:var(--ink-2); font-size:14px}
   <div class="tip"><b>Zoom changes it too.</b> This lens goes down to F3.5 when zoomed out (W) but only F5.6 when zoomed in (T). For the blurriest background, zoom in, stand back, and get close to your subject with distance behind them.</div>
 
   <h3>2 · Watch the shutter speed</h3>
-  <p>The camera picks the shutter speed for you and shows it as <b>1/250</b>, <b>1/60</b>, and so on. If it drops below about <b>1/50</b>, photos may come out blurry from hand shake. To fix it, pick a smaller f-number or make sure ISO <a href="#buttons">(▶)</a> is set to AUTO.</p>
+  <p>The camera picks the shutter speed for you and shows it as <b>1/250</b>, <b>1/60</b>, and so on. If it drops below about <b>1/50</b>, photos may come out blurry from hand shake. To fix it, pick a smaller f-number or make sure ISO <a href="#buttons" data-key="kright">(▶)</a> is set to AUTO.</p>
 
   <h3>3 · Cheat sheet</h3>
   <div class="tablewrap">
@@ -335,18 +359,20 @@ footer{padding:36px 0 60px; color:var(--ink-2); font-size:14px}
   <h3>4 · Too bright or too dark?</h3>
   <p>Exposure compensation brightens or darkens the next photos. On this camera it's in <span class="key">MENU</span> → camera tab → <b>Exposure Comp.</b> Move it toward + to brighten or − to darken. Remember to set it back to 0 afterwards. Bright sky behind your subject? Try switching <b>Metering</b> (▼) to <b>Spot</b>.</p>
   <div class="note"><b>Good to know:</b> photos taken in A mode are saved as <b>RAW</b> files. These are top quality for editing on a computer, but they can't be sent to your phone over Wi-Fi. If you want to share A-mode shots on the go, set <b>Quality</b> in the Fn menu to <b>RAW &amp; JPEG</b>.</div>
+  <div class="pager"><a href="#modes"><small>← Previous</small>Modes</a><a class="next" href="#playback"><small>Next →</small>Viewing &amp; phone</a></div>
 </section>
 
 <!-- PLAYBACK -->
 <section id="playback">
   <h2>Viewing, deleting and sending to your phone</h2>
   <ol class="steps">
-    <li><b>View</b><span>Press <span class="key">▶</span> <a href="#buttons">(9)</a>. Turn the wheel or press ◀ ▶ to go through your photos. Press <span class="key">●</span> to play a video.</span></li>
-    <li><b>Zoom in to check focus</b><span>Press <span class="key">AEL / 🔍</span> <a href="#buttons">(5)</a>, then turn the wheel to zoom in or out.</span></li>
-    <li><b>Delete</b><span>Press <span class="key">C2 / 🗑</span> <a href="#buttons">(10)</a>, choose <b>Delete</b> with ▲, and press <span class="key">●</span>.</span></li>
+    <li><b>View</b><span>Press <span class="key">▶</span> <a href="#buttons" data-key="k9">(9)</a>. Turn the wheel or press ◀ ▶ to go through your photos. Press <span class="key">●</span> to play a video.</span></li>
+    <li><b>Zoom in to check focus</b><span>Press <span class="key">AEL / 🔍</span> <a href="#buttons" data-key="k5">(5)</a>, then turn the wheel to zoom in or out.</span></li>
+    <li><b>Delete</b><span>Press <span class="key">C2 / 🗑</span> <a href="#buttons" data-key="k10">(10)</a>, choose <b>Delete</b> with ▲, and press <span class="key">●</span>.</span></li>
     <li><b>Send to your phone</b><span>On your phone, install Sony's <b>Imaging Edge Mobile</b> app (do this on hotel Wi-Fi before you need it). On the camera, press <span class="key">▶</span> and then <span class="key">Fn</span> (Send to Smartphone). The camera shows a Wi-Fi network name and password. Join that network from your phone's Wi-Fi settings, then open the app. JPEG photos transfer; RAW files don't.</span></li>
   </ol>
   <div class="tip"><b>Back to shooting:</b> just half-press the shutter button.</div>
+  <div class="pager"><a href="#amode"><small>← Previous</small>A-mode lessons</a><a class="next" href="#battery"><small>Next →</small>Battery &amp; cards</a></div>
 </section>
 
 <!-- BATTERY -->
@@ -356,7 +382,7 @@ footer{padding:36px 0 60px; color:var(--ink-2); font-size:14px}
     <table>
       <tbody>
         <tr><th scope="row">Battery life</th><td>About <b>360 shots</b> using the screen, ~310 using the viewfinder. Wi-Fi, video and cold weather drain it faster. Carry a spare (Sony NP-FW50) if you have one.</td></tr>
-        <tr><th scope="row">Charging</th><td>The battery charges <b>inside the camera</b>. Turn the camera <b>off</b> and plug a micro-USB cable into the port behind the MULTI flap <a href="#buttons">(21)</a>. Any phone USB charger or power bank works. In Europe you only need a plug adapter for the USB charger.</td></tr>
+        <tr><th scope="row">Charging</th><td>The battery charges <b>inside the camera</b>. Turn the camera <b>off</b> and plug a micro-USB cable into the port behind the MULTI flap <a href="#buttons" data-key="k21">(21)</a>. Any phone USB charger or power bank works. In Europe you only need a plug adapter for the USB charger.</td></tr>
         <tr><th scope="row">Charge lamp</th><td>Orange = charging. Off = done (a full charge from empty takes about 5 hours, so charge overnight). Flashing = too hot or too cold to charge, so move somewhere room temperature.</td></tr>
         <tr><th scope="row">Memory card</th><td>SD card, behind the battery door on the bottom. Push it in to release it. <b>Never open the door while the access lamp is lit.</b></td></tr>
         <tr><th scope="row">Changing lenses</th><td>Turn the camera off first. Hold the camera facing down, and change lenses out of the wind and dust.</td></tr>
@@ -365,21 +391,23 @@ footer{padding:36px 0 60px; color:var(--ink-2); font-size:14px}
     </table>
   </div>
   <div class="tip"><b>Backup habit:</b> every few days, send your favourite shots to your phone. If the camera is lost or stolen, you'll still have them.</div>
+  <div class="pager"><a href="#playback"><small>← Previous</small>Viewing &amp; phone</a><a class="next" href="#help"><small>Next →</small>Help!</a></div>
 </section>
 
 <!-- HELP -->
 <section id="help">
   <h2>Help! Something's wrong</h2>
   <details><summary>The back screen keeps going black</summary><div>Something near the viewfinder (your hand, the strap, your body) is triggering the eye sensor. Move it away. If it keeps happening: MENU → custom settings (⚙) → <b>FINDER/MONITOR</b> → set to <b>Monitor</b>.</div></details>
-  <details><summary>Coloured fuzzy outlines on the screen</summary><div>That's focus peaking. It shows what's sharp and doesn't appear in your photos. Press <span class="key">C1</span> <a href="#buttons">(14)</a> to turn it down or off.</div></details>
+  <details><summary>Coloured fuzzy outlines on the screen</summary><div>That's focus peaking. It shows what's sharp and doesn't appear in your photos. Press <span class="key">C1</span> <a href="#buttons" data-key="k14">(14)</a> to turn it down or off.</div></details>
   <details><summary>My photos are blurry</summary><div>Half-press and wait for the beep and green box before pressing all the way. Hold still and tuck your elbows in. In dim light, use iAuto or choose a smaller f-number in A mode. If the camera focused on the wrong thing, press <span class="key">●</span> (Focus Area) and choose <b>Wide</b>.</div></details>
-  <details><summary>The flash won't fire</summary><div>Press the ⚡ button <a href="#buttons">(3)</a> to pop it up. It never pops up by itself.</div></details>
+  <details><summary>The flash won't fire</summary><div>Press the ⚡ button <a href="#buttons" data-key="k3">(3)</a> to pop it up. It never pops up by itself.</div></details>
   <details><summary>Photos are too bright or too dark</summary><div>In iAuto the camera decides. In A mode, use MENU → camera tab → <b>Exposure Comp.</b> and check that Metering (▼) is set to <b>Multi</b>.</div></details>
   <details><summary>Colours look strange (too blue or too orange)</summary><div>Fn → White Balance → <b>AWB</b> (auto).</div></details>
   <details><summary>Pressing the shutter does nothing</summary><div>The card may be full or missing (check the screen for a message), or the camera hasn't been able to focus. Point at something with more contrast and half-press again.</div></details>
-  <details><summary>The viewfinder looks blurry</summary><div>Turn the diopter dial <a href="#buttons">(2)</a> beside it.</div></details>
+  <details><summary>The viewfinder looks blurry</summary><div>Turn the diopter dial <a href="#buttons" data-key="k2">(2)</a> beside it.</div></details>
   <details><summary>“What does this setting mean?”</summary><div>Highlight any item in MENU or in the Fn screen and press <span class="key">C2</span>. The camera shows a built-in explanation.</div></details>
   <details><summary>I changed something and can't undo it</summary><div>Turn the mode dial to <b>iAuto</b> and keep shooting. Then message me and we'll sort it out together.</div></details>
+  <div class="pager"><a href="#battery"><small>← Previous</small>Battery &amp; cards</a><span></span></div>
 </section>
 
 </main>
@@ -411,69 +439,59 @@ footer{padding:36px 0 60px; color:var(--ink-2); font-size:14px}
     li.addEventListener('click', function(){ select(li.dataset.key); });
   });
 
-  // tabbed pages: each top link shows only its own section
+  // pages: one section visible at a time. Navigation never relies on the URL,
+  // because sandboxed previews and file viewers break hash links and history.
   var sections = Array.prototype.slice.call(document.querySelectorAll('main > section'));
   var navLinks = document.querySelectorAll('nav.toc a');
   var hero = document.querySelector('header.hero');
   var names = {};
   navLinks.forEach(function(a){ names[a.getAttribute('href').slice(1)] = a.textContent; });
-  sections.forEach(function(s, i){
-    var prev = sections[i-1], next = sections[i+1], p = document.createElement('div');
-    p.className = 'pager';
-    p.innerHTML = (prev ? '<a href="#'+prev.id+'"><small>← Previous</small>'+names[prev.id]+'</a>' : '<span></span>') +
-                  (next ? '<a class="next" href="#'+next.id+'"><small>Next →</small>'+names[next.id]+'</a>' : '<span></span>');
-    s.appendChild(p);
-  });
-  function route(){
-    var id = location.hash.slice(1), target = id && document.getElementById(id);
-    var sec = target ? (target.tagName === 'SECTION' ? target : target.closest('main > section')) : null;
-    if(!sec) sec = sections[0];
+  function showPage(sec){
     sections.forEach(function(s){ s.hidden = s !== sec; });
     hero.hidden = sec !== sections[0];
     navLinks.forEach(function(a){
       var on = a.getAttribute('href') === '#'+sec.id;
       a.classList.toggle('active', on);
-      if(on){ a.setAttribute('aria-current','page'); a.scrollIntoView({inline:'nearest', block:'nearest'}); }
+      if(on){ a.setAttribute('aria-current','page'); var bar = a.parentNode; bar.scrollLeft = a.offsetLeft - (bar.clientWidth - a.offsetWidth)/2; }
       else a.removeAttribute('aria-current');
     });
     window.scrollTo(0, 0);
   }
-  window.addEventListener('hashchange', route);
-  window.addEventListener('popstate', route);
-  route();
-
-  // Fn menu replica: [screen label, sub-label, name, current value, explanation]
-  var FN = [
-    ["✋ ON","","SteadyShot","On","Image stabilisation, which cancels out shaky hands. Leave it ON (switch it off only if the camera is on a tripod)."],
-    ["☺ ON","","Smile/Face Detect.","Face Detection On","Finds faces and focuses on them automatically. A box appears around each face it sees."],
-    ["(◉)","Multi","Metering Mode","Multi","How the camera measures brightness. <b>Multi</b> looks at the whole scene and is right most of the time. <b>Spot</b> measures only the centre, which is useful for a person against a bright window or sky. Also on the ▼ button."],
-    ["▦","","Grid Line","Grid on","Draws lines over the screen (not on the photo). Use them to keep horizons and buildings straight, and to place your subject on a line instead of dead centre (the rule of thirds)."],
-    ["PEAK","HI","Peaking Level","High","Highlights in-focus edges with colour so you can see what's sharp. It doesn't affect the photo. Also on <b>C1</b>. Set to Off if it's distracting."],
-    ["RAW","","Quality","RAW","File type. <b>RAW</b> = maximum quality for editing on a computer, but the files are large and can't go to your phone. <b>RAW &amp; JPEG</b> saves both, which is the best choice if you want to share from the road. <b>Fine</b> = JPEG only, small and easy."],
-    ["DMF","","Focus Mode","DMF (Direct Manual Focus)","The camera autofocuses when you half-press. While you're still holding, you can turn the lens ring to fine-tune focus by hand. For moving subjects, switch to <b>AF-C</b> (continuous) so it keeps tracking them."],
-    ["A","","Shoot Mode","Follows the mode dial","Shows the current mode. Change modes with the mode dial on top instead."],
-    ["AWB","","White Balance","Auto","Keeps colours natural under different light (sun, shade, indoor bulbs). Leave it on AWB. If photos look too orange or too blue, check it's still on AWB."],
-    ["DRO","Lv4","DRO/Auto HDR","DRO Level 4","Brightens dark shadows in high-contrast scenes, like a bright sky with a shady street. Lv4 is a fairly strong setting. If photos look flat or grey, try <b>Auto</b> or a lower level."],
-    ["▧","OFF","Zebra","Off","Draws striped warnings on areas that are too bright. Mostly used for video. Fine to leave off."],
-    ["⚡","REAR","Flash Mode","Rear Sync.","Only matters when the flash is popped up. Rear Sync fires the flash at the <em>end</em> of the exposure, which gives a nice look at night with moving lights. For normal daytime fill-light, <b>Fill-flash</b> is simpler."]
-  ];
-  var grid = document.getElementById('fngrid'), detail = document.getElementById('fndetail'), title = document.getElementById('fnTitle');
-  var pos = ["Upper","Lower"];
-  function show(i){
-    grid.querySelectorAll('button').forEach(function(b,j){ b.classList.toggle('sel', j===i); b.setAttribute('aria-pressed', j===i); });
-    var f = FN[i];
-    title.textContent = f[2];
-    detail.innerHTML = '<h4>'+f[2]+'</h4><div class="cur">Function '+pos[Math.floor(i/6)]+(i%6+1)+' · currently set to <b>'+f[3]+'</b></div><p style="margin:0">'+f[4]+'</p>';
+  function pageOf(id){
+    var t = id && document.getElementById(id);
+    return t ? (t.tagName === 'SECTION' ? t : t.closest('main > section')) : null;
   }
-  FN.forEach(function(f,i){
-    var b = document.createElement('button');
-    b.type = 'button';
-    b.innerHTML = f[0] + (f[1] ? '<small>'+f[1]+'</small>' : '');
-    b.setAttribute('aria-label', f[2]);
-    b.addEventListener('click', function(){ show(i); });
-    grid.appendChild(b);
+  function flash(el){ el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); }
+  function remember(id){ try { history.pushState(null, '', '#' + id); } catch(e){} }
+  function fromUrl(){ var id = ''; try { id = location.hash.slice(1); } catch(e){} showPage(pageOf(id) || sections[0]); }
+  document.addEventListener('click', function(ev){
+    var a = ev.target.closest && ev.target.closest('a[href^="#"]');
+    if(!a) return;
+    var sec = pageOf(a.getAttribute('href').slice(1));
+    if(!sec) return;
+    ev.preventDefault();
+    showPage(sec);
+    remember(sec.id);
+    if(a.dataset.key){
+      select(a.dataset.key);
+      var row = sec.querySelector('li[data-key="'+a.dataset.key+'"]');
+      if(row){ row.scrollIntoView({block:'center'}); flash(row); }
+    }
   });
-  show(5);
+  window.addEventListener('popstate', fromUrl);
+  window.addEventListener('hashchange', fromUrl);
+  fromUrl();
+
+  // Fn menu: tiles jump to their explanation
+  var grid = document.getElementById('fngrid'), title = document.getElementById('fnTitle');
+  grid.querySelectorAll('button').forEach(function(b){
+    b.addEventListener('click', function(){
+      select(b.dataset.key);
+      title.textContent = b.getAttribute('aria-label');
+      var row = document.querySelector('#fn li[data-key="'+b.dataset.key+'"]');
+      if(row){ row.scrollIntoView({block:'center'}); flash(row); }
+    });
+  });
 
   // search: index every legend row, Fn tile, mode, step, table row and help item
   var index = [];
@@ -488,9 +506,6 @@ footer{padding:36px 0 60px; color:var(--ink-2); font-size:14px}
     var nm = li.querySelector('.lname').cloneNode(true), tg = nm.querySelector('.tag');
     if(tg) tg.remove();
     add(txt(nm), txt(li.querySelector('.ldesc')), li, h ? txt(h) : '', function(){ select(li.dataset.key); });
-  });
-  grid.querySelectorAll('button').forEach(function(b, i){
-    add(FN[i][2]+' (Fn menu)', 'Currently '+FN[i][3].replace(/<[^>]+>/g,'')+'. '+FN[i][4].replace(/<[^>]+>/g,''), detail, 'fn function', function(){ show(i); });
   });
   document.querySelectorAll('.steps li').forEach(function(li){ add(txt(li.querySelector('b')), txt(li.querySelector('span')), li); });
   document.querySelectorAll('.mode').forEach(function(m){ add(txt(m.querySelector('b'))+' mode', txt(m.querySelector('p')), m, txt(m.querySelector('.sym'))); });
@@ -540,16 +555,16 @@ footer{padding:36px 0 60px; color:var(--ink-2); font-size:14px}
       var li = document.createElement('li'), a = document.createElement('a');
       a.href = '#' + h.e.sec.id;
       a.innerHTML = '<span class="rsec">'+esc(names[h.e.sec.id])+'</span><span class="rtitle">'+esc(h.e.title)+'</span><span class="rsnip">'+snippet(h.e.body, words)+'</span>';
-      a.addEventListener('click', function(ev){ ev.preventDefault(); go(h.e); });
+      a.addEventListener('click', function(ev){ ev.preventDefault(); ev.stopPropagation(); go(h.e); });
       li.appendChild(a); results.appendChild(li);
     });
   }
   function go(e){
-    history.pushState(null, '', '#' + e.sec.id);
-    route();
+    showPage(e.sec);
+    remember(e.sec.id);
     if(e.act) e.act();
     e.el.scrollIntoView({block:'center'});
-    e.el.classList.remove('flash'); void e.el.offsetWidth; e.el.classList.add('flash');
+    flash(e.el);
   }
   q.addEventListener('input', search);
   q.addEventListener('keydown', function(ev){
