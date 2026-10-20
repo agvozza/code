@@ -1,6 +1,6 @@
 // Offline copy of the camera guide.
 // Opens instantly from the saved copy, then quietly fetches any update for next time.
-const CACHE = 'camera-guide-v1';
+const CACHE = 'camera-guide-v2';
 const FILES = ['./', 'manifest.webmanifest', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png'];
 
 self.addEventListener('install', e => {
