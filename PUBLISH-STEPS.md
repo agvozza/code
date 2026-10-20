@@ -18,7 +18,7 @@ offline helper. It only needs to go online once. These steps use Netlify, which 
 
 1. Open the link in **Safari**. It must be Safari, not the Gmail or Instagram in-app browser.
 2. Tap **Share** (the square with the arrow) → scroll down → **Add to Home Screen** → **Add**.
-3. Open the new **Camera Guide** icon on your home screen. It should open full screen, with no
+3. Open the new **Sony a6000** icon on your home screen. It should open full screen, with no
    address bar.
 4. Try it: tap a few tabs, search for "battery", and tap a result.
 5. Offline test: turn on **Airplane Mode**, close the app (swipe it away), open it again from the
@@ -33,7 +33,7 @@ Copy this into iMessage, with your link in place of the example:
 > Set it up before you leave (takes 30 seconds):
 > 1. Open the link in Safari
 > 2. Tap Share (square with the arrow) → Add to Home Screen → Add
-> 3. Open the new Camera Guide icon once while you have Wi-Fi
+> 3. Open the new Sony a6000 icon once while you have Wi-Fi
 >
 > After that it works without signal. Start with Level 1 (Auto), and move up to Scenes and A mode when you feel like it!
 
