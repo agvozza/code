@@ -29,7 +29,7 @@ body{margin:0; background:var(--bg); color:var(--ink);
   font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   -webkit-text-size-adjust:100%}
 .wrap{max-width:860px; margin:0 auto; padding:0 16px}
-header.hero{padding:40px 0 24px}
+header.hero{padding:40px 16px 24px}
 .eyebrow{font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); font-weight:700}
 h1{font-size:clamp(28px,6vw,40px); line-height:1.1; margin:6px 0 10px; letter-spacing:-.01em}
 h2{font-size:24px; margin:0 0 6px; letter-spacing:-.01em}
@@ -158,8 +158,8 @@ summary::after{content:"+"; float:right; color:var(--accent); font-weight:800}
 details[open] summary::after{content:"–"}
 details > div{padding:0 14px 12px; color:var(--ink-2); font-size:15px}
 footer{padding:36px 0 60px; color:var(--ink-2); font-size:14px}
-.themebtn{position:fixed; right:12px; bottom:12px; z-index:6; border:1px solid var(--line); background:var(--surface); color:var(--ink);
-  border-radius:999px; padding:8px 12px; font:inherit; font-size:13px; cursor:pointer}
+.themebtn{display:inline-block; margin-top:14px; border:1px solid var(--line); background:var(--surface); color:var(--ink);
+  border-radius:999px; padding:8px 14px; font:inherit; font-size:14px; cursor:pointer}
 @media print{ nav.toc,.themebtn,.pager{display:none} main > section[hidden]{display:block} header.hero[hidden]{display:block} }
 </style>
 </head>
@@ -415,9 +415,10 @@ footer{padding:36px 0 60px; color:var(--ink-2); font-size:14px}
 
 <footer class="wrap">
   This page works offline. Save it to your phone (Files app, or “Add to Home Screen”) so you have it without signal. Have a wonderful trip, and take lots of photos. 📷
+  <div><button class="themebtn" id="themebtn" type="button" aria-label="Toggle light or dark theme">◐ Switch light / dark</button></div>
 </footer>
 
-<button class="themebtn" id="themebtn" type="button" aria-label="Toggle light or dark theme">◐ Theme</button>
+
 
 <script>
 (function(){
