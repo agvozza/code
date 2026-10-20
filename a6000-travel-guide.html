@@ -157,7 +157,7 @@ summary::-webkit-details-marker{display:none}
 summary::after{content:"+"; float:right; color:var(--accent); font-weight:800}
 details[open] summary::after{content:"–"}
 details > div{padding:0 14px 12px; color:var(--ink-2); font-size:15px}
-footer{padding:36px 0 60px; color:var(--ink-2); font-size:14px}
+footer{padding:36px 16px calc(60px + env(safe-area-inset-bottom)); color:var(--ink-2); font-size:14px}
 .themebtn{display:inline-block; margin-top:14px; border:1px solid var(--line); background:var(--surface); color:var(--ink);
   border-radius:999px; padding:8px 14px; font:inherit; font-size:14px; cursor:pointer}
 @media print{ nav.toc,.themebtn,.pager{display:none} main > section[hidden]{display:block} header.hero[hidden]{display:block} }
