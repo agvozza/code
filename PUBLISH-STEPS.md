@@ -35,7 +35,7 @@ Copy this into iMessage, with your link in place of the example:
 > 2. Tap Share (square with the arrow) → Add to Home Screen → Add
 > 3. Open the new Camera Guide icon once while you have Wi-Fi
 >
-> After that it works without signal. Start on the Quick start page!
+> After that it works without signal. Start with Level 1 (Auto), and move up to Scenes and A mode when you feel like it!
 
 Step 3 matters. The home-screen icon keeps its own offline copy, separate from Safari, and saves
 it the first time she opens the icon with a connection.
