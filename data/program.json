@@ -1,0 +1,1138 @@
+{
+  "version": 1,
+  "title": "Off-season volleyball program",
+  "start": "2026-10-26",
+  "end": "2026-11-29",
+  "seasonStart": "2026-11-30",
+  "phases": {
+    "foundation": {
+      "name": "Foundation",
+      "weeks": [
+        1,
+        2
+      ]
+    },
+    "build": {
+      "name": "Build",
+      "weeks": [
+        3,
+        4
+      ]
+    },
+    "taper": {
+      "name": "Taper",
+      "weeks": [
+        5
+      ],
+      "note": "Thanksgiving week"
+    }
+  },
+  "days": {
+    "A": {
+      "name": "Day A",
+      "focus": "Jumps and leg strength"
+    },
+    "B": {
+      "name": "Day B",
+      "focus": "Volleyball movement and posterior chain"
+    }
+  },
+  "blocks": [
+    {
+      "id": "warmup",
+      "name": "Warm-up",
+      "minutes": 10,
+      "note": "FIFA 11+ Part 1 running drills, then snap-downs."
+    },
+    {
+      "id": "jumps",
+      "name": "Jumps",
+      "minutes": 15,
+      "note": "Rest 60–90 s between sets. Stick every landing."
+    },
+    {
+      "id": "strength",
+      "name": "Strength and core",
+      "minutes": 20
+    },
+    {
+      "id": "volleyball",
+      "name": "Volleyball skills",
+      "minutes": 35,
+      "minutesWithSwim": 15,
+      "note": "Do the drills below first, then use the rest of the time for serving, passing, approach footwork and defensive drills.",
+      "openNote": "Open practice: serving, passing, approach footwork and defensive drills."
+    },
+    {
+      "id": "shoulder",
+      "name": "Shoulder care",
+      "minutes": 5
+    },
+    {
+      "id": "swim",
+      "name": "Swim",
+      "minutes": 25,
+      "onlyWithSwim": true,
+      "note": "Always last, after the dryland work."
+    },
+    {
+      "id": "cooldown",
+      "name": "Cool-down",
+      "minutes": 5,
+      "onlyWithoutSwim": true,
+      "note": "Easy walk and stretching."
+    }
+  ],
+  "swimPlans": {
+    "foundation": {
+      "name": "Easy swim",
+      "minutes": 25,
+      "note": "Mostly easy freestyle with kick sets and backstroke.",
+      "sets": [
+        {
+          "label": "Warm-up",
+          "detail": "200 yd easy freestyle",
+          "yards": 200
+        },
+        {
+          "label": "Kick",
+          "detail": "4 × 50 yd kick with kickboard, 20 s rest",
+          "yards": 200,
+          "exerciseId": "swim-kick-set"
+        },
+        {
+          "label": "Backstroke",
+          "detail": "4 × 50 yd easy backstroke, 20 s rest",
+          "yards": 200,
+          "exerciseId": "backstroke"
+        },
+        {
+          "label": "Easy swim",
+          "detail": "200 yd easy freestyle",
+          "yards": 200
+        },
+        {
+          "label": "Cool-down",
+          "detail": "100 yd easy, any stroke",
+          "yards": 100
+        }
+      ]
+    },
+    "build": {
+      "name": "Swim with strong 50s",
+      "minutes": 30,
+      "note": "Easy swimming plus 6–8 × 50 yd at a strong pace.",
+      "sets": [
+        {
+          "label": "Warm-up",
+          "detail": "200 yd easy freestyle",
+          "yards": 200
+        },
+        {
+          "label": "Kick",
+          "detail": "4 × 50 yd kick with kickboard, 20 s rest",
+          "yards": 200,
+          "exerciseId": "swim-kick-set"
+        },
+        {
+          "label": "Strong 50s",
+          "detail": "6–8 × 50 yd freestyle at a strong pace, 30 s rest",
+          "yards": 300
+        },
+        {
+          "label": "Backstroke",
+          "detail": "4 × 50 yd easy backstroke, 20 s rest",
+          "yards": 200,
+          "exerciseId": "backstroke"
+        },
+        {
+          "label": "Cool-down",
+          "detail": "100 yd easy, any stroke",
+          "yards": 100
+        }
+      ]
+    },
+    "taper": {
+      "name": "Easy taper swim",
+      "minutes": 25,
+      "note": "Week 5: easy swimming only.",
+      "sets": [
+        {
+          "label": "Warm-up",
+          "detail": "200 yd easy freestyle",
+          "yards": 200
+        },
+        {
+          "label": "Kick",
+          "detail": "4 × 50 yd easy kick with kickboard",
+          "yards": 200,
+          "exerciseId": "swim-kick-set"
+        },
+        {
+          "label": "Backstroke",
+          "detail": "4 × 50 yd easy backstroke",
+          "yards": 200,
+          "exerciseId": "backstroke"
+        },
+        {
+          "label": "Easy swim",
+          "detail": "200 yd easy freestyle",
+          "yards": 200
+        }
+      ]
+    },
+    "serving-day": {
+      "name": "Easy kick-heavy swim",
+      "minutes": 25,
+      "note": "Serving day: keep the swim easy and kick-heavy to spare the shoulder.",
+      "sets": [
+        {
+          "label": "Warm-up",
+          "detail": "200 yd easy freestyle",
+          "yards": 200
+        },
+        {
+          "label": "Kick",
+          "detail": "6 × 50 yd kick with kickboard, 20 s rest",
+          "yards": 300,
+          "exerciseId": "swim-kick-set"
+        },
+        {
+          "label": "Backstroke",
+          "detail": "4 × 50 yd easy backstroke",
+          "yards": 200,
+          "exerciseId": "backstroke"
+        },
+        {
+          "label": "Cool-down",
+          "detail": "100 yd easy, any stroke",
+          "yards": 100
+        }
+      ]
+    }
+  },
+  "safety": [
+    "Stick every landing: soft knees, knees over toes, hold it.",
+    "Take at least one full rest day every week.",
+    "Pain below the kneecap, at the heel, or in the shoulder? Stop and tell a parent."
+  ],
+  "weeks": [
+    {
+      "week": 1,
+      "phase": "foundation",
+      "days": {
+        "A": {
+          "date": "2026-10-26",
+          "swim": true,
+          "swimPlan": "foundation",
+          "exercises": [
+            {
+              "block": "warmup",
+              "exerciseId": "fifa-11-warmup",
+              "sets": 1,
+              "reps": 8,
+              "unit": "min",
+              "perSide": false
+            },
+            {
+              "block": "warmup",
+              "exerciseId": "snap-down",
+              "sets": 2,
+              "reps": 5,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "jumps",
+              "exerciseId": "approach-footwork",
+              "sets": 3,
+              "reps": 4,
+              "unit": "reps",
+              "perSide": false,
+              "note": "Half speed"
+            },
+            {
+              "block": "jumps",
+              "exerciseId": "squat-jump",
+              "sets": 3,
+              "reps": 4,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "strength",
+              "exerciseId": "bodyweight-squat",
+              "sets": 3,
+              "reps": 10,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "strength",
+              "exerciseId": "split-squat",
+              "sets": 3,
+              "reps": 8,
+              "unit": "reps",
+              "perSide": true
+            },
+            {
+              "block": "strength",
+              "exerciseId": "glute-bridge",
+              "sets": 3,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "strength",
+              "exerciseId": "side-plank",
+              "sets": 2,
+              "reps": 20,
+              "unit": "s",
+              "perSide": true
+            },
+            {
+              "block": "shoulder",
+              "exerciseId": "band-external-rotation",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": true
+            },
+            {
+              "block": "shoulder",
+              "exerciseId": "band-ytw",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "shoulder",
+              "exerciseId": "band-scap-retraction",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": false
+            }
+          ]
+        },
+        "B": {
+          "date": "2026-10-29",
+          "swim": false,
+          "swimPlan": "serving-day",
+          "exercises": [
+            {
+              "block": "warmup",
+              "exerciseId": "fifa-11-warmup",
+              "sets": 1,
+              "reps": 8,
+              "unit": "min",
+              "perSide": false
+            },
+            {
+              "block": "warmup",
+              "exerciseId": "snap-down",
+              "sets": 2,
+              "reps": 5,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "jumps",
+              "exerciseId": "pogo-hops",
+              "sets": 2,
+              "reps": 10,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "strength",
+              "exerciseId": "single-leg-rdl",
+              "sets": 2,
+              "reps": 8,
+              "unit": "reps",
+              "perSide": true,
+              "note": "Bodyweight"
+            },
+            {
+              "block": "strength",
+              "exerciseId": "calf-raise",
+              "sets": 2,
+              "reps": 15,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "strength",
+              "exerciseId": "plank",
+              "sets": 3,
+              "reps": 30,
+              "unit": "s",
+              "perSide": false
+            },
+            {
+              "block": "volleyball",
+              "exerciseId": "shuffle-to-dig",
+              "sets": 4,
+              "reps": 20,
+              "unit": "s",
+              "perSide": false
+            },
+            {
+              "block": "volleyball",
+              "exerciseId": "serving",
+              "sets": 1,
+              "reps": 15,
+              "unit": "min",
+              "perSide": false
+            },
+            {
+              "block": "shoulder",
+              "exerciseId": "band-external-rotation",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": true
+            },
+            {
+              "block": "shoulder",
+              "exerciseId": "band-ytw",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "shoulder",
+              "exerciseId": "band-scap-retraction",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "week": 2,
+      "phase": "foundation",
+      "days": {
+        "A": {
+          "date": "2026-11-02",
+          "swim": true,
+          "swimPlan": "foundation",
+          "exercises": [
+            {
+              "block": "warmup",
+              "exerciseId": "fifa-11-warmup",
+              "sets": 1,
+              "reps": 8,
+              "unit": "min",
+              "perSide": false
+            },
+            {
+              "block": "warmup",
+              "exerciseId": "snap-down",
+              "sets": 2,
+              "reps": 5,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "jumps",
+              "exerciseId": "approach-footwork",
+              "sets": 3,
+              "reps": 4,
+              "unit": "reps",
+              "perSide": false,
+              "note": "Half speed"
+            },
+            {
+              "block": "jumps",
+              "exerciseId": "squat-jump",
+              "sets": 3,
+              "reps": 4,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "strength",
+              "exerciseId": "bodyweight-squat",
+              "sets": 3,
+              "reps": 10,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "strength",
+              "exerciseId": "split-squat",
+              "sets": 3,
+              "reps": 8,
+              "unit": "reps",
+              "perSide": true
+            },
+            {
+              "block": "strength",
+              "exerciseId": "glute-bridge",
+              "sets": 3,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "strength",
+              "exerciseId": "side-plank",
+              "sets": 2,
+              "reps": 20,
+              "unit": "s",
+              "perSide": true
+            },
+            {
+              "block": "shoulder",
+              "exerciseId": "band-external-rotation",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": true
+            },
+            {
+              "block": "shoulder",
+              "exerciseId": "band-ytw",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "shoulder",
+              "exerciseId": "band-scap-retraction",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": false
+            }
+          ]
+        },
+        "B": {
+          "date": "2026-11-05",
+          "swim": false,
+          "swimPlan": "serving-day",
+          "exercises": [
+            {
+              "block": "warmup",
+              "exerciseId": "fifa-11-warmup",
+              "sets": 1,
+              "reps": 8,
+              "unit": "min",
+              "perSide": false
+            },
+            {
+              "block": "warmup",
+              "exerciseId": "snap-down",
+              "sets": 2,
+              "reps": 5,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "jumps",
+              "exerciseId": "pogo-hops",
+              "sets": 2,
+              "reps": 10,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "strength",
+              "exerciseId": "single-leg-rdl",
+              "sets": 2,
+              "reps": 8,
+              "unit": "reps",
+              "perSide": true,
+              "note": "Bodyweight"
+            },
+            {
+              "block": "strength",
+              "exerciseId": "calf-raise",
+              "sets": 2,
+              "reps": 15,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "strength",
+              "exerciseId": "plank",
+              "sets": 3,
+              "reps": 30,
+              "unit": "s",
+              "perSide": false
+            },
+            {
+              "block": "volleyball",
+              "exerciseId": "shuffle-to-dig",
+              "sets": 4,
+              "reps": 20,
+              "unit": "s",
+              "perSide": false
+            },
+            {
+              "block": "volleyball",
+              "exerciseId": "serving",
+              "sets": 1,
+              "reps": 15,
+              "unit": "min",
+              "perSide": false
+            },
+            {
+              "block": "shoulder",
+              "exerciseId": "band-external-rotation",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": true
+            },
+            {
+              "block": "shoulder",
+              "exerciseId": "band-ytw",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "shoulder",
+              "exerciseId": "band-scap-retraction",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "week": 3,
+      "phase": "build",
+      "days": {
+        "A": {
+          "date": "2026-11-09",
+          "swim": true,
+          "swimPlan": "build",
+          "exercises": [
+            {
+              "block": "warmup",
+              "exerciseId": "fifa-11-warmup",
+              "sets": 1,
+              "reps": 8,
+              "unit": "min",
+              "perSide": false
+            },
+            {
+              "block": "warmup",
+              "exerciseId": "snap-down",
+              "sets": 2,
+              "reps": 5,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "jumps",
+              "exerciseId": "approach-jump",
+              "sets": 4,
+              "reps": 3,
+              "unit": "reps",
+              "perSide": false,
+              "note": "Full effort"
+            },
+            {
+              "block": "jumps",
+              "exerciseId": "lateral-bound",
+              "sets": 2,
+              "reps": 4,
+              "unit": "reps",
+              "perSide": true
+            },
+            {
+              "block": "strength",
+              "exerciseId": "goblet-squat",
+              "sets": 3,
+              "reps": 8,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "strength",
+              "exerciseId": "rfe-split-squat",
+              "sets": 3,
+              "reps": 6,
+              "unit": "reps",
+              "perSide": true
+            },
+            {
+              "block": "strength",
+              "exerciseId": "single-leg-glute-bridge",
+              "sets": 2,
+              "reps": 10,
+              "unit": "reps",
+              "perSide": true
+            },
+            {
+              "block": "shoulder",
+              "exerciseId": "band-external-rotation",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": true
+            },
+            {
+              "block": "shoulder",
+              "exerciseId": "band-ytw",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "shoulder",
+              "exerciseId": "band-scap-retraction",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": false
+            }
+          ]
+        },
+        "B": {
+          "date": "2026-11-12",
+          "swim": false,
+          "swimPlan": "serving-day",
+          "exercises": [
+            {
+              "block": "warmup",
+              "exerciseId": "fifa-11-warmup",
+              "sets": 1,
+              "reps": 8,
+              "unit": "min",
+              "perSide": false
+            },
+            {
+              "block": "warmup",
+              "exerciseId": "snap-down",
+              "sets": 2,
+              "reps": 5,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "jumps",
+              "exerciseId": "pogo-hops",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "jumps",
+              "exerciseId": "lateral-bound",
+              "sets": 3,
+              "reps": 4,
+              "unit": "reps",
+              "perSide": true
+            },
+            {
+              "block": "strength",
+              "exerciseId": "single-leg-rdl",
+              "sets": 3,
+              "reps": 8,
+              "unit": "reps",
+              "perSide": true,
+              "note": "Dumbbell"
+            },
+            {
+              "block": "volleyball",
+              "exerciseId": "reaction-drill",
+              "sets": 5,
+              "reps": 15,
+              "unit": "s",
+              "perSide": false
+            },
+            {
+              "block": "volleyball",
+              "exerciseId": "serving",
+              "sets": 1,
+              "reps": 15,
+              "unit": "min",
+              "perSide": false
+            },
+            {
+              "block": "shoulder",
+              "exerciseId": "band-external-rotation",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": true
+            },
+            {
+              "block": "shoulder",
+              "exerciseId": "band-ytw",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "shoulder",
+              "exerciseId": "band-scap-retraction",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "week": 4,
+      "phase": "build",
+      "days": {
+        "A": {
+          "date": "2026-11-16",
+          "swim": true,
+          "swimPlan": "build",
+          "exercises": [
+            {
+              "block": "warmup",
+              "exerciseId": "fifa-11-warmup",
+              "sets": 1,
+              "reps": 8,
+              "unit": "min",
+              "perSide": false
+            },
+            {
+              "block": "warmup",
+              "exerciseId": "snap-down",
+              "sets": 2,
+              "reps": 5,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "jumps",
+              "exerciseId": "approach-jump",
+              "sets": 4,
+              "reps": 3,
+              "unit": "reps",
+              "perSide": false,
+              "note": "Full effort"
+            },
+            {
+              "block": "jumps",
+              "exerciseId": "lateral-bound",
+              "sets": 2,
+              "reps": 4,
+              "unit": "reps",
+              "perSide": true
+            },
+            {
+              "block": "strength",
+              "exerciseId": "goblet-squat",
+              "sets": 3,
+              "reps": 8,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "strength",
+              "exerciseId": "rfe-split-squat",
+              "sets": 3,
+              "reps": 6,
+              "unit": "reps",
+              "perSide": true
+            },
+            {
+              "block": "strength",
+              "exerciseId": "single-leg-glute-bridge",
+              "sets": 2,
+              "reps": 10,
+              "unit": "reps",
+              "perSide": true
+            },
+            {
+              "block": "shoulder",
+              "exerciseId": "band-external-rotation",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": true
+            },
+            {
+              "block": "shoulder",
+              "exerciseId": "band-ytw",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "shoulder",
+              "exerciseId": "band-scap-retraction",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": false
+            }
+          ]
+        },
+        "B": {
+          "date": "2026-11-19",
+          "swim": false,
+          "swimPlan": "serving-day",
+          "exercises": [
+            {
+              "block": "warmup",
+              "exerciseId": "fifa-11-warmup",
+              "sets": 1,
+              "reps": 8,
+              "unit": "min",
+              "perSide": false
+            },
+            {
+              "block": "warmup",
+              "exerciseId": "snap-down",
+              "sets": 2,
+              "reps": 5,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "jumps",
+              "exerciseId": "pogo-hops",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "jumps",
+              "exerciseId": "lateral-bound",
+              "sets": 3,
+              "reps": 4,
+              "unit": "reps",
+              "perSide": true
+            },
+            {
+              "block": "strength",
+              "exerciseId": "single-leg-rdl",
+              "sets": 3,
+              "reps": 8,
+              "unit": "reps",
+              "perSide": true,
+              "note": "Dumbbell"
+            },
+            {
+              "block": "volleyball",
+              "exerciseId": "reaction-drill",
+              "sets": 5,
+              "reps": 15,
+              "unit": "s",
+              "perSide": false
+            },
+            {
+              "block": "volleyball",
+              "exerciseId": "serving",
+              "sets": 1,
+              "reps": 15,
+              "unit": "min",
+              "perSide": false
+            },
+            {
+              "block": "shoulder",
+              "exerciseId": "band-external-rotation",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": true
+            },
+            {
+              "block": "shoulder",
+              "exerciseId": "band-ytw",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "shoulder",
+              "exerciseId": "band-scap-retraction",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "week": 5,
+      "phase": "taper",
+      "days": {
+        "A": {
+          "date": "2026-11-23",
+          "swim": true,
+          "swimPlan": "taper",
+          "exercises": [
+            {
+              "block": "warmup",
+              "exerciseId": "fifa-11-warmup",
+              "sets": 1,
+              "reps": 8,
+              "unit": "min",
+              "perSide": false
+            },
+            {
+              "block": "warmup",
+              "exerciseId": "snap-down",
+              "sets": 2,
+              "reps": 5,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "jumps",
+              "exerciseId": "approach-jump",
+              "sets": 3,
+              "reps": 3,
+              "unit": "reps",
+              "perSide": false,
+              "note": "Full effort"
+            },
+            {
+              "block": "strength",
+              "exerciseId": "goblet-squat",
+              "sets": 2,
+              "reps": 6,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "strength",
+              "exerciseId": "split-squat",
+              "sets": 2,
+              "reps": 6,
+              "unit": "reps",
+              "perSide": true
+            },
+            {
+              "block": "shoulder",
+              "exerciseId": "band-external-rotation",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": true
+            },
+            {
+              "block": "shoulder",
+              "exerciseId": "band-ytw",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "shoulder",
+              "exerciseId": "band-scap-retraction",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": false
+            }
+          ]
+        },
+        "B": {
+          "date": "2026-11-26",
+          "swim": false,
+          "swimPlan": "serving-day",
+          "exercises": [
+            {
+              "block": "warmup",
+              "exerciseId": "fifa-11-warmup",
+              "sets": 1,
+              "reps": 8,
+              "unit": "min",
+              "perSide": false
+            },
+            {
+              "block": "warmup",
+              "exerciseId": "snap-down",
+              "sets": 2,
+              "reps": 5,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "jumps",
+              "exerciseId": "pogo-hops",
+              "sets": 2,
+              "reps": 10,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "strength",
+              "exerciseId": "single-leg-rdl",
+              "sets": 2,
+              "reps": 6,
+              "unit": "reps",
+              "perSide": true
+            },
+            {
+              "block": "volleyball",
+              "exerciseId": "reaction-drill",
+              "sets": 4,
+              "reps": 15,
+              "unit": "s",
+              "perSide": false
+            },
+            {
+              "block": "volleyball",
+              "exerciseId": "serving",
+              "sets": 1,
+              "reps": 15,
+              "unit": "min",
+              "perSide": false
+            },
+            {
+              "block": "shoulder",
+              "exerciseId": "band-external-rotation",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": true
+            },
+            {
+              "block": "shoulder",
+              "exerciseId": "band-ytw",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": false
+            },
+            {
+              "block": "shoulder",
+              "exerciseId": "band-scap-retraction",
+              "sets": 2,
+              "reps": 12,
+              "unit": "reps",
+              "perSide": false
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
