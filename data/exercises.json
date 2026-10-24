@@ -1,0 +1,678 @@
+[
+  {
+    "id": "fifa-11-warmup",
+    "name": "FIFA 11+ Warm-up (Part 1 Running Drills)",
+    "category": "warm-up",
+    "cues": [
+      "Easy jog pace, building gradually",
+      "Hip, knee and foot stay in a straight line",
+      "Land softly on the balls of your feet"
+    ],
+    "video": {
+      "youtubeId": "pK5jcQalrSs",
+      "start": 0,
+      "title": "FIFA 11+ Complete Warm-up Program - Part I - Running Exercises",
+      "channel": "University of Iowa Health Care",
+      "url": "https://www.youtube.com/watch?v=pK5jcQalrSs"
+    },
+    "backup": {
+      "youtubeId": "dxWUKSqVwGQ",
+      "start": 0,
+      "title": "FIFA 11+ Part 1: Warm-Up",
+      "channel": "Salmon Bay Physical Therapy",
+      "url": "https://www.youtube.com/watch?v=dxWUKSqVwGQ"
+    },
+    "status": "verified",
+    "notes": "Primary walks through the FIFA 11+ Part I running exercises in one clip from a university sports-medicine program. FIFA's own channel appears to post one video per exercise (its 'Part 1' clip shows only straight-ahead running, and the series runs to 'Part 11a'), so a complete Part I walkthrough was preferred."
+  },
+  {
+    "id": "snap-down",
+    "name": "Snap-Downs",
+    "category": "landing",
+    "cues": [
+      "Start tall on your toes, arms overhead",
+      "Snap arms down and drop hips back into an athletic stance",
+      "Land quiet and freeze, knees over toes"
+    ],
+    "video": {
+      "youtubeId": "F1jUC-KIC0E",
+      "start": 0,
+      "title": "How to Perform a Snap Down for Landing Mechanics",
+      "channel": "PRO+ Sports Medicine Education",
+      "url": "https://www.youtube.com/watch?v=F1jUC-KIC0E"
+    },
+    "backup": {
+      "youtubeId": "4BkMWe3au9w",
+      "start": 0,
+      "title": "Introduction to Landings: Snap Downs",
+      "channel": "basketball.physio",
+      "url": "https://www.youtube.com/watch?v=4BkMWe3au9w"
+    },
+    "status": "verified",
+    "notes": "Backup is demonstrated by a female physio and also shows a split-stance variation at the end."
+  },
+  {
+    "id": "box-step-down-stick",
+    "name": "Step Off Box and Stick Landing",
+    "category": "landing",
+    "cues": [
+      "Step off a low box or step, don't jump off",
+      "Land on both feet at the same time, soft and quiet",
+      "Hold 2 seconds: knees over toes, chest up"
+    ],
+    "video": {
+      "youtubeId": "FZmkr2qW5-Y",
+      "start": 0,
+      "title": "Double Leg Drop Landing",
+      "channel": "Forward Physical Therapy LLC",
+      "url": "https://www.youtube.com/watch?v=FZmkr2qW5-Y"
+    },
+    "backup": {
+      "youtubeId": "wV3ozV9mcgo",
+      "start": 0,
+      "title": "Drop Landing",
+      "channel": "Honest Fitness",
+      "url": "https://www.youtube.com/watch?v=wV3ozV9mcgo"
+    },
+    "status": "verified",
+    "notes": "Primary is filmed from the front, which shows knee alignment best; backup is a side view. Use a low box or step only."
+  },
+  {
+    "id": "approach-footwork",
+    "name": "Volleyball Approach Footwork (3- and 4-Step)",
+    "category": "volleyball",
+    "cues": [
+      "Start slow, finish fast: each step quicker than the last",
+      "Long second-to-last step, then close the feet quickly",
+      "Swing both arms back on the last step"
+    ],
+    "video": {
+      "youtubeId": "L2fj7o9fP5A",
+      "start": 0,
+      "title": "Develop Your Footwork for a Stronger Attack!",
+      "channel": "Championship Productions",
+      "url": "https://www.youtube.com/watch?v=L2fj7o9fP5A"
+    },
+    "backup": {
+      "youtubeId": "jY7FtJR7S5I",
+      "start": 0,
+      "title": "How to Four Step Approach in Volleyball",
+      "channel": "Four Athletes",
+      "url": "https://www.youtube.com/watch?v=jY7FtJR7S5I"
+    },
+    "status": "verified",
+    "notes": "Primary: University of Louisville head coach Anne Kordes teaching attack footwork to a line of young female players, no ball needed. Backup covers the 4-step approach specifically. Parent check: confirm both 3- and 4-step patterns are shown well enough."
+  },
+  {
+    "id": "approach-jump",
+    "name": "Approach Jump with Arm Swing",
+    "category": "jumps",
+    "cues": [
+      "Both arms swing back on the last two steps",
+      "Plant and jump straight up, not forward",
+      "Land on two feet, knees bent and balanced"
+    ],
+    "video": {
+      "youtubeId": "w6IevIgUfxY",
+      "start": 0,
+      "title": "The Approach",
+      "channel": "TORQVB",
+      "url": "https://www.youtube.com/watch?v=w6IevIgUfxY"
+    },
+    "backup": {
+      "youtubeId": "A5LAxy-fD0I",
+      "start": 0,
+      "title": "Approach Jump Technique - How to Perform a Volleyball Approach Jump",
+      "channel": "Drees Performance Training",
+      "url": "https://www.youtube.com/watch?v=A5LAxy-fD0I"
+    },
+    "status": "verified",
+    "notes": "Primary is a short side-view breakdown of the full approach and arm swing. Backup is 5:25 long; frames sampled across it all show demonstration, and no timestamp could be confirmed, so it starts at 0."
+  },
+  {
+    "id": "squat-jump",
+    "name": "Squat Jump",
+    "category": "jumps",
+    "cues": [
+      "Sit back to a quarter squat, arms back",
+      "Jump straight up and reach high",
+      "Stick the landing: soft knees over toes, hold 2 seconds"
+    ],
+    "video": {
+      "youtubeId": "PCCUyg7cJsc",
+      "start": 0,
+      "title": "Stability: Double Leg Squat Jump & Stick",
+      "channel": "PhysioplusHG",
+      "url": "https://www.youtube.com/watch?v=PCCUyg7cJsc"
+    },
+    "backup": {
+      "youtubeId": "ApYcsiootU0",
+      "start": 0,
+      "title": "Exercises with an Athletic Trainer: Double Leg Jumps with Eccentric Landing",
+      "channel": "Children's Hospital Colorado",
+      "url": "https://www.youtube.com/watch?v=ApYcsiootU0"
+    },
+    "status": "verified",
+    "notes": "Primary shows a female athlete performing the jump-and-stick from the front. Backup (Children's Hospital Colorado) is the same jump with a controlled landing."
+  },
+  {
+    "id": "pogo-hops",
+    "name": "Pogo Hops",
+    "category": "jumps",
+    "cues": [
+      "Small, quick hops off the balls of your feet",
+      "Knees nearly straight, bounce from the ankles",
+      "Stay tall and quiet; stop if form breaks"
+    ],
+    "video": {
+      "youtubeId": "Odp7J26_47s",
+      "start": 0,
+      "title": "Double-Leg Pogo Hops in Place | Ankle & Plyometric Exercise",
+      "channel": "Therapeutic EDGE",
+      "url": "https://www.youtube.com/watch?v=Odp7J26_47s"
+    },
+    "backup": {
+      "youtubeId": "j0nl5dWuqN4",
+      "start": 0,
+      "title": "Pogo Jumps Tutorial - Proper Form and Technique",
+      "channel": "Runna",
+      "url": "https://www.youtube.com/watch?v=j0nl5dWuqN4"
+    },
+    "status": "verified",
+    "notes": "Primary is from a physical-therapy clinic. Backup shows a female demonstrator."
+  },
+  {
+    "id": "lateral-bound",
+    "name": "Lateral Bound with Stick",
+    "category": "jumps",
+    "cues": [
+      "Push sideways off the outside leg",
+      "Land on the other foot and stick for 2 seconds",
+      "Knee stays over toes, never caving in"
+    ],
+    "video": {
+      "youtubeId": "IyadMTSm5cc",
+      "start": 0,
+      "title": "Lateral Bound w/ Stick (Speed Skater)",
+      "channel": "Littauer Strength Training",
+      "url": "https://www.youtube.com/watch?v=IyadMTSm5cc"
+    },
+    "backup": {
+      "youtubeId": "q0-E9oXBgbw",
+      "start": 0,
+      "title": "Skater Bound with Stick Landing | X3 Performance",
+      "channel": "X3 Performance",
+      "url": "https://www.youtube.com/watch?v=q0-E9oXBgbw"
+    },
+    "status": "verified",
+    "notes": "Backup has on-screen cues ('load the outside hip, push laterally, stick, sink and hold')."
+  },
+  {
+    "id": "bodyweight-squat",
+    "name": "Bodyweight Squat",
+    "category": "strength",
+    "cues": [
+      "Feet shoulder-width, toes slightly out",
+      "Sit hips back and down, knees track over toes",
+      "Chest up, push through the whole foot to stand"
+    ],
+    "video": {
+      "youtubeId": "vhGMD_BfYz4",
+      "start": 0,
+      "title": "Exercises with an Athletic Trainer: Air Squats",
+      "channel": "Children's Hospital Colorado",
+      "url": "https://www.youtube.com/watch?v=vhGMD_BfYz4"
+    },
+    "backup": {
+      "youtubeId": "o788uhM09Uc",
+      "start": 0,
+      "title": "ACL Injury Prevention Program: Strengthening  - Squats",
+      "channel": "St. Elizabeth Healthcare",
+      "url": "https://www.youtube.com/watch?v=o788uhM09Uc"
+    },
+    "status": "verified",
+    "notes": "Primary from a pediatric hospital's athletic-trainer series. Backup is from a hospital ACL-prevention program demonstrated by a teen athlete."
+  },
+  {
+    "id": "goblet-squat",
+    "name": "Goblet Squat",
+    "category": "strength",
+    "cues": [
+      "Hold the light dumbbell at your chest, elbows in",
+      "Sit down between your heels, knees out over toes",
+      "Chest tall, stand up through the mid-foot"
+    ],
+    "video": {
+      "youtubeId": "nfX7IFK9UNI",
+      "start": 0,
+      "title": "How to do a Goblet Squat  | Proper Form & Technique | NASM",
+      "channel": "National Academy of Sports Medicine (NASM)",
+      "url": "https://www.youtube.com/watch?v=nfX7IFK9UNI"
+    },
+    "backup": {
+      "youtubeId": "dxtgqrJC6gI",
+      "start": 0,
+      "title": "How to do a Goblet Squat // Form & Setup!",
+      "channel": "Denvyr | Tall Girl Nutritionist",
+      "url": "https://www.youtube.com/watch?v=dxtgqrJC6gI"
+    },
+    "status": "verified",
+    "notes": "Primary shows a female demonstrator from front and side. Keep the dumbbell light."
+  },
+  {
+    "id": "split-squat",
+    "name": "Split Squat",
+    "category": "strength",
+    "cues": [
+      "Front knee over toes",
+      "Back knee drops straight down",
+      "Tall chest"
+    ],
+    "video": {
+      "youtubeId": "qW5OGJ62ZjY",
+      "start": 0,
+      "title": "How to Do a Split Squat: A Guide from Physical Therapists",
+      "channel": "Hinge Health",
+      "url": "https://www.youtube.com/watch?v=qW5OGJ62ZjY"
+    },
+    "backup": {
+      "youtubeId": "hQjJBVor0OA",
+      "start": 0,
+      "title": "Physiotherapy: Split squat lunge",
+      "channel": "East Cheshire NHS Trust",
+      "url": "https://www.youtube.com/watch?v=hQjJBVor0OA"
+    },
+    "status": "verified",
+    "notes": "Both videos are physical-therapist demonstrations with female demonstrators. Backup (NHS) shows side and front views with written instructions."
+  },
+  {
+    "id": "rfe-split-squat",
+    "name": "Rear-Foot Elevated Split Squat",
+    "category": "strength",
+    "cues": [
+      "Back foot laces-down on a low box or step",
+      "Lower straight down until the front thigh is about level",
+      "Front knee tracks over toes; push through the front heel"
+    ],
+    "video": {
+      "youtubeId": "hbw7hdyOpq0",
+      "start": 0,
+      "title": "How to do a Bulgarian Split Squat  | Proper Form & Technique | NASM",
+      "channel": "National Academy of Sports Medicine (NASM)",
+      "url": "https://www.youtube.com/watch?v=hbw7hdyOpq0"
+    },
+    "backup": {
+      "youtubeId": "SZ6yKqTOEws",
+      "start": 0,
+      "title": "Rear Foot Elevated Split Squat (RFESS) | Build Leg Strength | Exercise of the Week | Easthill Physio",
+      "channel": "Easthill Physiotherapy & Acupuncture",
+      "url": "https://www.youtube.com/watch?v=SZ6yKqTOEws"
+    },
+    "status": "verified",
+    "notes": "Primary demonstrator holds dumbbells; at home this can be done bodyweight or with the one light dumbbell, with the back foot on a low box or step."
+  },
+  {
+    "id": "glute-bridge",
+    "name": "Glute Bridge",
+    "category": "strength",
+    "cues": [
+      "Feet flat and hip-width, knees bent",
+      "Squeeze glutes and lift until shoulders, hips and knees line up",
+      "Don't arch the low back; lower slowly"
+    ],
+    "video": {
+      "youtubeId": "_leI4qFfPVw",
+      "start": 0,
+      "title": "Core Exercise: Bridge",
+      "channel": "Children's Hospital Colorado",
+      "url": "https://www.youtube.com/watch?v=_leI4qFfPVw"
+    },
+    "backup": {
+      "youtubeId": "3uolgu7oDnY",
+      "start": 0,
+      "title": "ACL Injury Prevention Program: Strengthening - Double Leg Bridge",
+      "channel": "St. Elizabeth Healthcare",
+      "url": "https://www.youtube.com/watch?v=3uolgu7oDnY"
+    },
+    "status": "verified",
+    "notes": "Primary from a pediatric hospital core series. Backup from a hospital ACL-prevention program with teen athletes."
+  },
+  {
+    "id": "single-leg-glute-bridge",
+    "name": "Single-Leg Glute Bridge",
+    "category": "strength",
+    "cues": [
+      "One foot planted, other leg lifted straight",
+      "Push through the planted heel and keep hips level",
+      "Lower slowly, then switch legs"
+    ],
+    "video": {
+      "youtubeId": "AVAXhy6pl7o",
+      "start": 0,
+      "title": "Strengthening Exercise for ACL: Single Leg Bridge",
+      "channel": "MedStar Health",
+      "url": "https://www.youtube.com/watch?v=AVAXhy6pl7o"
+    },
+    "backup": {
+      "youtubeId": "vdmlNaXSjd4",
+      "start": 0,
+      "title": "Single Leg Glute Bridge",
+      "channel": "Middlebury College",
+      "url": "https://www.youtube.com/watch?v=vdmlNaXSjd4"
+    },
+    "status": "verified",
+    "notes": "Primary is part of a hospital system's ACL strengthening series. Backup is from a college sports-medicine department and has on-screen cues."
+  },
+  {
+    "id": "single-leg-rdl",
+    "name": "Single-Leg RDL (Bodyweight and Dumbbell)",
+    "category": "strength",
+    "cues": [
+      "Soft knee on the standing leg",
+      "Hinge at the hip: chest and back leg move like a seesaw",
+      "Keep hips square to the floor"
+    ],
+    "video": {
+      "youtubeId": "rYK7S9ZI3Z4",
+      "start": 0,
+      "title": "Exercises with an Athletic Trainer: Single Leg RDL",
+      "channel": "Children's Hospital Colorado",
+      "url": "https://www.youtube.com/watch?v=rYK7S9ZI3Z4"
+    },
+    "backup": {
+      "youtubeId": "pJewPISyHjw",
+      "start": 0,
+      "title": "Dumbbell Single Leg Romanian Deadlift - OPEX Exercise Library",
+      "channel": "OPEX Fitness",
+      "url": "https://www.youtube.com/watch?v=pJewPISyHjw"
+    },
+    "status": "verified",
+    "notes": "Primary shows the bodyweight version (weeks 1-2). Backup shows the dumbbell version for weeks 3-4; the demonstrator uses two dumbbells, while she will hold the one light dumbbell in the hand opposite the standing leg."
+  },
+  {
+    "id": "calf-raise",
+    "name": "Calf Raises",
+    "category": "strength",
+    "cues": [
+      "Rise high onto the balls of your feet",
+      "Pause 1 second at the top",
+      "Lower slowly; touch a wall or chair for balance"
+    ],
+    "video": {
+      "youtubeId": "nnPGrBLNlaw",
+      "start": 0,
+      "title": "Calf Raises",
+      "channel": "MGHOrthopaedics",
+      "url": "https://www.youtube.com/watch?v=nnPGrBLNlaw"
+    },
+    "backup": {
+      "youtubeId": "8_vZENE1aSM",
+      "start": 0,
+      "title": "ACL Injury Prevention Program: Strengthening - Bilateral Calf Raise",
+      "channel": "St. Elizabeth Healthcare",
+      "url": "https://www.youtube.com/watch?v=8_vZENE1aSM"
+    },
+    "status": "verified",
+    "notes": "Primary is a female demonstrator in side view with chair support. Backup from a hospital ACL-prevention program with teen athletes."
+  },
+  {
+    "id": "plank",
+    "name": "Plank",
+    "category": "core",
+    "cues": [
+      "Elbows under shoulders",
+      "Straight line from head to heels",
+      "Squeeze glutes, brace abs and keep breathing"
+    ],
+    "video": {
+      "youtubeId": "pvIjsG5Svck",
+      "start": 0,
+      "title": "Core Exercise: Plank",
+      "channel": "Children's Hospital Colorado",
+      "url": "https://www.youtube.com/watch?v=pvIjsG5Svck"
+    },
+    "backup": {
+      "youtubeId": "g7QcQ_f875o",
+      "start": 0,
+      "title": "ACL Injury Prevention Program: Strengthening - Standard Plank",
+      "channel": "St. Elizabeth Healthcare",
+      "url": "https://www.youtube.com/watch?v=g7QcQ_f875o"
+    },
+    "status": "verified",
+    "notes": "Primary from a pediatric hospital core series. Backup from a hospital ACL-prevention program demonstrated by a teen athlete."
+  },
+  {
+    "id": "side-plank",
+    "name": "Side Plank",
+    "category": "core",
+    "cues": [
+      "Elbow directly under the shoulder",
+      "Lift hips so head, hips and feet form one line",
+      "Don't let hips sag or roll forward"
+    ],
+    "video": {
+      "youtubeId": "N_s9em1xTqU",
+      "start": 0,
+      "title": "Core Exercise: Side Plank",
+      "channel": "Children's Hospital Colorado",
+      "url": "https://www.youtube.com/watch?v=N_s9em1xTqU"
+    },
+    "backup": {
+      "youtubeId": "s1yHUk0HSkA",
+      "start": 0,
+      "title": "ACL Injury Prevention Program: Strengthening - Side Plank",
+      "channel": "St. Elizabeth Healthcare",
+      "url": "https://www.youtube.com/watch?v=s1yHUk0HSkA"
+    },
+    "status": "verified",
+    "notes": "Primary from a pediatric hospital core series. Backup shows a teen girl and boy demonstrating."
+  },
+  {
+    "id": "shuffle-to-dig",
+    "name": "Shuffle-to-Dig Drill",
+    "category": "volleyball",
+    "cues": [
+      "Low athletic stance, weight on the balls of your feet",
+      "Shuffle without crossing your feet",
+      "Stop, set your platform and angle it to the target"
+    ],
+    "video": {
+      "youtubeId": "xT_iBl3BAkQ",
+      "start": 0,
+      "title": "Volleyball Lateral Shuffle Dig",
+      "channel": "Choose Coaching",
+      "url": "https://www.youtube.com/watch?v=xT_iBl3BAkQ"
+    },
+    "backup": {
+      "youtubeId": "s3VUz9CocM0",
+      "start": 0,
+      "title": "Volleyball Defensive Movement Drills - Coach Ashlie Hain",
+      "channel": "SportVideos",
+      "url": "https://www.youtube.com/watch?v=s3VUz9CocM0"
+    },
+    "status": "verified",
+    "notes": "Primary shows the exact drill: lateral shuffle, then a dig off a coach's toss. Backup (3:42) is a set of defensive movement drills with youth female players; slightly over 3 minutes, starts at 0."
+  },
+  {
+    "id": "reaction-drill",
+    "name": "Defensive Reaction Drill (Partner Point or Toss)",
+    "category": "volleyball",
+    "cues": [
+      "Ready position: low, balanced, hands out front",
+      "React to the partner's point or toss with a fast first step",
+      "Play the ball up, then reset between reps"
+    ],
+    "video": {
+      "youtubeId": "UbjQ43L_Tk8",
+      "start": 0,
+      "title": "3 Partner Reaction Drills for Defense",
+      "channel": "Volleyball University ",
+      "url": "https://www.youtube.com/watch?v=UbjQ43L_Tk8"
+    },
+    "backup": {
+      "youtubeId": "FpK3R3q9VtE",
+      "start": 0,
+      "title": "Workout Wednesday: 4 Quick Reaction Drills",
+      "channel": "Junior Volleyball Association",
+      "url": "https://www.youtube.com/watch?v=FpK3R3q9VtE"
+    },
+    "status": "verified",
+    "notes": "Primary shows three partner reaction drills with a female athlete. Backup is from the Junior Volleyball Association and needs little equipment."
+  },
+  {
+    "id": "serving",
+    "name": "Serving Practice (Float Serve)",
+    "category": "volleyball",
+    "cues": [
+      "Low, consistent toss in front of the hitting shoulder",
+      "Firm wrist, contact the middle of the ball",
+      "Stop the arm at contact for a float"
+    ],
+    "video": {
+      "youtubeId": "_oUQwKgdqN4",
+      "start": 0,
+      "title": "How to float serve in volleyball",
+      "channel": "The Art of Coaching Volleyball",
+      "url": "https://www.youtube.com/watch?v=_oUQwKgdqN4"
+    },
+    "backup": {
+      "youtubeId": "qTzo4eTxJSk",
+      "start": 0,
+      "title": "AVCA Video Tip of the Week: Mastering the Float Serve",
+      "channel": "AVCA Volleyball",
+      "url": "https://www.youtube.com/watch?v=qTzo4eTxJSk"
+    },
+    "status": "verified",
+    "notes": "Primary shows young female players float serving, filmed from the side by The Art of Coaching Volleyball. Backup (3:43) is AVCA's float serve tip, also produced with The Art of Coaching Volleyball."
+  },
+  {
+    "id": "band-external-rotation",
+    "name": "Band External Rotation",
+    "category": "shoulder",
+    "cues": [
+      "Elbow pinned at your side at 90 degrees, towel under the arm",
+      "Rotate the hand out slowly, wrist straight",
+      "Control the return; light band only"
+    ],
+    "video": {
+      "youtubeId": "y8WKcz0vqzg",
+      "start": 0,
+      "title": "Standing External Rotation with Resistance Band",
+      "channel": "MGHOrthopaedics",
+      "url": "https://www.youtube.com/watch?v=y8WKcz0vqzg"
+    },
+    "backup": {
+      "youtubeId": "0IOLRTdvzSM",
+      "start": 0,
+      "title": "Exercises with an Athletic Trainer: Shoulder Internal and External Rotation with Band",
+      "channel": "Children's Hospital Colorado",
+      "url": "https://www.youtube.com/watch?v=0IOLRTdvzSM"
+    },
+    "status": "verified",
+    "notes": "Primary is from Mass General orthopaedics physical therapy, female demonstrator. Backup also shows internal rotation; she only needs the external-rotation half."
+  },
+  {
+    "id": "band-ytw",
+    "name": "Y-T-W Raises",
+    "category": "shoulder",
+    "cues": [
+      "Thumbs up, shoulders down away from your ears",
+      "Squeeze shoulder blades together on each letter",
+      "Slow and controlled, light band or no weight"
+    ],
+    "video": {
+      "youtubeId": "09sUxrb6k0Y",
+      "start": 0,
+      "title": "Exercises with an Athletic Trainer: Is, Ts, Ys and Ws",
+      "channel": "Children's Hospital Colorado",
+      "url": "https://www.youtube.com/watch?v=09sUxrb6k0Y"
+    },
+    "backup": {
+      "youtubeId": "VCHwZgGPJJA",
+      "start": 0,
+      "title": "YTWL Shoulder Exercise (with Resistance Band)",
+      "channel": "Alpha Chiropractic & Physical Therapy",
+      "url": "https://www.youtube.com/watch?v=VCHwZgGPJJA"
+    },
+    "status": "verified",
+    "notes": "Primary (pediatric athletic trainer) shows the prone version lying face down, plus an 'I'; it can be done on the floor. Backup shows the standing version with a resistance band (plus an 'L'). Parent choice: use whichever matches how she will do it."
+  },
+  {
+    "id": "band-scap-retraction",
+    "name": "Band Scap Retraction (Pull-Apart)",
+    "category": "shoulder",
+    "cues": [
+      "Arms straight at shoulder height",
+      "Pull the band apart by squeezing shoulder blades together",
+      "Don't shrug; return slowly"
+    ],
+    "video": {
+      "youtubeId": "bYsgk9SrJ48",
+      "start": 0,
+      "title": "How to Do Band Pull Aparts: A Guide from Physical Therapists",
+      "channel": "Hinge Health",
+      "url": "https://www.youtube.com/watch?v=bYsgk9SrJ48"
+    },
+    "backup": {
+      "youtubeId": "pct3bP74WSw",
+      "start": 0,
+      "title": "Band Pull Apart",
+      "channel": "The Active Life",
+      "url": "https://www.youtube.com/watch?v=pct3bP74WSw"
+    },
+    "status": "verified",
+    "notes": "Primary is a physical-therapist guide with a female demonstrator. Backup is a short demo from a physical-therapy clinic."
+  },
+  {
+    "id": "swim-kick-set",
+    "name": "Kick Sets with Kickboard",
+    "category": "swim",
+    "cues": [
+      "Arms extended on the board, neck relaxed",
+      "Kick from the hips with long legs and loose ankles",
+      "Small, fast kicks with pointed toes"
+    ],
+    "video": {
+      "youtubeId": "ChjIcJj5PTI",
+      "start": 0,
+      "title": "Front Crawl Swimming Drills | Kickboard",
+      "channel": "Speedo",
+      "url": "https://www.youtube.com/watch?v=ChjIcJj5PTI"
+    },
+    "backup": {
+      "youtubeId": "Vjfi1erK5dQ",
+      "start": 0,
+      "title": "Coach Robb: Swimming: How To Use a Kickboard",
+      "channel": "Coach Robb Beams",
+      "url": "https://www.youtube.com/watch?v=Vjfi1erK5dQ"
+    },
+    "status": "verified",
+    "notes": "Primary is Speedo's kickboard drill with underwater footage of a female swimmer. Backup has on-screen technique captions."
+  },
+  {
+    "id": "backstroke",
+    "name": "Backstroke Technique",
+    "category": "swim",
+    "cues": [
+      "Head still, eyes up, ears in the water",
+      "Hips high, rotate shoulders with each stroke",
+      "Pinky enters first; steady flutter kick"
+    ],
+    "video": {
+      "youtubeId": "89HxafulzyI",
+      "start": 0,
+      "title": "Backstroke Swimming Technique | Stroke",
+      "channel": "Speedo",
+      "url": "https://www.youtube.com/watch?v=89HxafulzyI"
+    },
+    "backup": {
+      "youtubeId": "DQf3PiSe7Ec",
+      "start": 0,
+      "title": "Swimming: Basic Technique | Backstroke",
+      "channel": "SIKANA English",
+      "url": "https://www.youtube.com/watch?v=DQf3PiSe7Ec"
+    },
+    "status": "verified",
+    "notes": "Primary is Speedo's backstroke technique video. Backup is from SIKANA, a nonprofit how-to video library."
+  }
+]
