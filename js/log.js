@@ -72,7 +72,7 @@ function exerciseProgress() {
     const s = log.sessions[entry.key];
     for (const item of entry.data.exercises) {
       const ex = s.exercises?.[item.exerciseId];
-      if (!ex || !(ex.sets ?? []).some(Boolean)) continue;
+      if (!ex || !((ex.sets ?? []).some(Boolean) || ex.reps || ex.weight)) continue;
       if (!rows.has(item.exerciseId)) rows.set(item.exerciseId, []);
       rows.get(item.exerciseId).push({ entry, s, item, ex });
     }

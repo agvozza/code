@@ -23,9 +23,10 @@ function todayCard(program, sessions, log, now) {
 
   if (!entry) {
     const doneCount = sessions.filter((s) => isDone(log.sessions[s.key])).length;
+    const blockOver = now > parseDate(program.end);
     return el('section', { class: 'card hero' },
       el('p', { class: 'muted' }, 'Off-season block'),
-      el('h2', {}, 'The off-season block is over'),
+      el('h2', {}, blockOver ? 'The off-season block is over' : 'No workouts left in this block'),
       el('p', {}, `${doneCount} of ${sessions.length} workouts logged. Rest up and get ready for the season.`),
       el('a', { class: 'btn block', href: withToday('log.html') }, 'See your log'));
   }
@@ -38,7 +39,8 @@ function todayCard(program, sessions, log, now) {
   let eyebrow;
   if (kind === 'today') eyebrow = 'Today';
   else if (kind === 'catch-up') eyebrow = `Catch up: planned for ${fmtDate(entry.date)}`;
-  else if (now < start) eyebrow = `Starts ${fmtDate(entry.date, { weekday: 'long', month: 'short', day: 'numeric' })}`;
+  else if (now < start && entry === sessions[0]) eyebrow = `Starts ${fmtDate(entry.date, { weekday: 'long', month: 'short', day: 'numeric' })}`;
+  else if (now < start) eyebrow = `Next workout ${fmtDate(entry.date)}`;
   else eyebrow = `Rest day today · next workout ${fmtDate(entry.date)}`;
 
   let action = 'Start workout';
