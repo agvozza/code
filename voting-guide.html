@@ -3,162 +3,76 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nov 3, 2026 Voting Cheat Sheet – Lansing, MI</title>
+<title>Lansing Ballot Guide</title>
 <style>
-  :root { --bg:#f6f7fb; --card:#fff; --ink:#1b1f2a; --mute:#5b6475; --line:#dde1ea; --blue:#1f4fbf; --pill:#e8eefc; }
+  /* Layout: one-column checklist of cards in ballot order, large tap targets for use in a booth. */
+  :root { --bg:#f6f7fb; --card:#ffffff; --ink:#1b1f2a; --mute:#566074; --line:#dde1ea; --blue:#1f4fbf; --pill:#e8eefc; --amber:#d9962b; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg:#12151c; --card:#1b2029; --ink:#eef1f6; --mute:#a3adbf; --line:#2d3544; --blue:#7aa2ff; --pill:#243052; }
+    :root:not([data-theme="light"]) { --bg:#12151c; --card:#1b2029; --ink:#eef1f6; --mute:#a3adbf; --line:#2d3544; --blue:#7aa2ff; --pill:#243052; --amber:#e0a94a; color-scheme: dark; }
   }
+  :root[data-theme="dark"] { --bg:#12151c; --card:#1b2029; --ink:#eef1f6; --mute:#a3adbf; --line:#2d3544; --blue:#7aa2ff; --pill:#243052; --amber:#e0a94a; color-scheme: dark; }
   * { box-sizing:border-box; }
-  body { margin:0; background:var(--bg); color:var(--ink); font:17px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif; }
-  main { max-width:720px; margin:0 auto; padding:16px; }
-  h1 { font-size:1.4rem; margin:8px 0 2px; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:17px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+         padding-block:8px; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); }
+  main { max-width:720px; margin:0 auto; }
+  h1 { font-size:1.4rem; margin:8px 0 2px; text-wrap:balance; }
   h2 { font-size:1.1rem; margin:26px 0 8px; color:var(--blue); text-transform:uppercase; letter-spacing:.04em; }
   .sub { color:var(--mute); font-size:.9rem; margin:0 0 12px; }
   .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin:10px 0; }
   .card.done { opacity:.55; }
   .head { display:flex; gap:10px; align-items:flex-start; }
   .head input { width:24px; height:24px; margin-top:2px; flex:none; }
-  .office { font-weight:700; }
+  .office { font-weight:700; min-width:0; }
   .note { color:var(--mute); font-size:.88rem; margin:4px 0 0 34px; }
   .pick { margin:6px 0 0 34px; font-size:1rem; }
   .pick b { background:var(--pill); padding:1px 8px; border-radius:99px; }
   .pill { display:inline-block; background:var(--pill); border-radius:99px; padding:1px 9px; font-size:.8rem; margin-right:4px; }
-  .warn { border-left:4px solid #d9962b; }
+  .warn { border-left:4px solid var(--amber); }
   .banner { background:var(--pill); border-radius:10px; padding:10px 12px; font-size:.9rem; margin:12px 0; }
   ul { margin:4px 0 0 34px; padding-left:18px; font-size:.92rem; }
   button { font:inherit; padding:6px 12px; border-radius:8px; border:1px solid var(--line); background:var(--card); color:var(--ink); }
+  .vote { display:block; font-weight:400; font-size:.8rem; color:var(--mute); }
+  input:focus-visible, button:focus-visible { outline:2px solid var(--blue); outline-offset:2px; }
 </style>
 </head>
 <body>
 <main>
-<h1>Voting Cheat Sheet</h1>
-<p class="sub">General Election · Tuesday, Nov 3, 2026 · Lansing, Ingham County</p>
-
-<div class="banner">
-  Built for a Democratic-leaning voter. Where the ballot shows a party label, the pick is the <b>Democratic</b> nominee.
-  Nonpartisan offices list the Michigan Democratic Party's nominee/endorsement where I found one.
-  Names marked <b>⚠ verify</b> weren't confirmed, so check them against your actual ballot.
-  Tap a box to mark an office as done. <button onclick="resetAll()">Reset</button>
-</div>
-
-<h2>Top of the ticket (Partisan section)</h2>
-
-<div class="card"><label class="head"><input type="checkbox"><span class="office">Governor &amp; Lt. Governor</span></label>
-  <div class="pick"><span class="pill">Democratic</span><b>Jocelyn Benson / Winnie Brinks</b></div>
-  <div class="note">Opponent: John James (R). Benson is the current Secretary of State. Brinks is Senate Majority Leader.</div></div>
-
-<div class="card warn"><label class="head"><input type="checkbox"><span class="office">U.S. Senator</span></label>
-  <div class="pick"><span class="pill">Democratic</span><b>Democratic nominee</b> ⚠ verify</div>
-  <div class="note">Republican: Mike Rogers. The Democratic nominee after the Aug 4 primary was reported as Abdul El-Sayed, but I couldn't confirm it. Pick the (Democratic) line.</div></div>
-
-<div class="card"><label class="head"><input type="checkbox"><span class="office">Secretary of State</span></label>
-  <div class="pick"><span class="pill">Democratic</span><b>Garlin Gilchrist</b></div>
-  <div class="note">Current Lt. Governor. Opponent: Anthony Forlini (R), Macomb County Clerk.</div></div>
-
-<div class="card"><label class="head"><input type="checkbox"><span class="office">Attorney General</span></label>
-  <div class="pick"><span class="pill">Democratic</span><b>Eli Savit</b></div>
-  <div class="note">Washtenaw County Prosecutor. Opponent: Doug Lloyd (R), Eaton County Prosecutor. A Libertarian and a U.S. Taxpayers candidate may also be listed.</div></div>
-
-<div class="card warn"><label class="head"><input type="checkbox"><span class="office">U.S. Representative (Congress)</span></label>
-  <div class="pick"><span class="pill">Democratic</span><b>Pick the (Democratic) line</b> ⚠ verify</div>
-  <div class="note">I couldn't confirm the Democratic nominee's name. Tom Barrett (R) appeared on your sample ballot.</div></div>
-
-<div class="card warn"><label class="head"><input type="checkbox"><span class="office">State Senator</span></label>
-  <div class="pick"><span class="pill">Democratic</span><b>Pick the (Democratic) line</b> ⚠ verify</div></div>
-
-<div class="card"><label class="head"><input type="checkbox"><span class="office">State Representative – 74th District</span></label>
-  <div class="pick"><span class="pill">Democratic</span><b>Harold Pope</b></div>
-  <div class="note">Former Lansing NAACP president, from Holt. Opponent: Clinton Tarver (R). If your ballot shows a different district, pick the (Democratic) line.</div></div>
-
-<h2>Education boards (Partisan section, bottom)</h2>
-
-<div class="card"><label class="head"><input type="checkbox"><span class="office">State Board of Education (vote for 2)</span></label>
-  <div class="pick"><span class="pill">Democratic</span><b>Judith Pritchett</b> and <b>Tiffany Tilley</b></div></div>
-
-<div class="card"><label class="head"><input type="checkbox"><span class="office">University of Michigan Regents (vote for 2)</span></label>
-  <div class="pick"><span class="pill">Democratic</span><b>Paul Brown</b> and <b>Amir Makled</b></div></div>
-
-<div class="card"><label class="head"><input type="checkbox"><span class="office">Michigan State University Trustees (vote for 2)</span></label>
-  <div class="pick"><span class="pill">Democratic</span><b>Kelly Tebay Zemke</b> and <b>Brianna Scott</b></div></div>
-
-<div class="card"><label class="head"><input type="checkbox"><span class="office">Wayne State University Governors (vote for 2)</span></label>
-  <div class="pick"><span class="pill">Democratic</span><b>Shereef Akeel</b> and <b>Richard Mack</b></div></div>
-
-<h2>Nonpartisan section (no party labels)</h2>
-
-<div class="card"><label class="head"><input type="checkbox"><span class="office">Justice of the Supreme Court (vote for 2)</span></label>
-  <div class="pick"><span class="pill">Dem-nominated</span><b>Megan Cavanagh</b> and <b>Noah Hood</b></div>
-  <ul>
-    <li><b>Cavanagh</b> (D, incumbent): justice since 2019, chief justice since 2025. Backed by AFL-CIO, EMILY's List, Reproductive Freedom for All.</li>
-    <li><b>Hood</b> (D, incumbent): appointed 2025. Ex-Court of Appeals, Wayne County criminal judge, federal prosecutor.</li>
-    <li><b>Michael Warren</b> (R): Oakland County Circuit judge since 2002. Cooley law professor.</li>
-    <li><b>Casandra Morse-Bills</b> (R): rural circuit judge since 2018. Faces a pending whistleblower suit over alleged juror texts, which she denies.</li>
-    <li><b>Thomas Howe</b> (US Taxpayers): not a lawyer, couldn't serve. <b>Jody White</b> (US Taxpayers): no info found.</li>
-    <li>Court is now 6-1 Democratic-nominated. Vote for exactly two.</li>
-  </ul></div>
-
-<div class="card"><label class="head"><input type="checkbox"><span class="office">Lansing Community College Board (vote for 2)</span></label>
-  <ul>
-    <li><b>Hope Lovell</b> (incumbent): runs LoveJoy Community Services, a special-needs nonprofit. On board since Jan 2025.</li>
-    <li><b>LaShunda Thomas</b> (incumbent): on board since 2020, secretary since 2023.</li>
-    <li><b>Dominica Palacio</b>: challenger. No background found.</li>
-  </ul></div>
-
-<div class="card warn"><label class="head"><input type="checkbox"><span class="office">Lansing Public Schools board</span></label>
-  <ul>
-    <li><b>3 seats (6-year):</b> Caitlin Cornell, Heidi Frei, Ramiro Garcia, Aurora Lemieux-McKissic (sitting member), Smith.</li>
-    <li><b>1 partial-term seat:</b> Guillermo Lopez (incumbent, board president), Kyle Richard (affordable housing for district families and staff), Washington.</li>
-    <li>Names came from an AI-written site, so verify them. I found no track-record info.</li>
-  </ul></div>
-
-<div class="card warn"><label class="head"><input type="checkbox"><span class="office">Judges (Court of Appeals, Circuit, Probate, District)</span></label>
-  <div class="note" style="margin-left:34px">I found no candidate info beyond Richard J. Garcia (incumbent Ingham probate judge). Many are incumbents only. Fine to skip any you can't judge.</div></div>
-
-<h2>Ballot proposals</h2>
-<div class="banner">Rule of thumb: <b>YES = make the change</b>, <b>NO = keep things as they are</b>. Ignore the title and ask what changes if it passes.</div>
-
-<div class="card"><label class="head"><input type="checkbox"><span class="office">Proposal 1: Constitutional convention</span></label>
-  <div class="pick"><span class="pill">Likely you</span><b>NO</b></div>
-  <ul>
-    <li><b>Plain English:</b> should Michigan hold a convention in 2027 to rewrite the whole state constitution?</li>
-    <li><b>YES</b> = voters elect delegates, and they can rewrite anything (abortion rights, the independent redistricting commission, voting rules). Voters get a final vote on the result.</li>
-    <li><b>NO</b> = the constitution stays as is. It can still be changed one amendment at a time.</li>
-    <li><b>Why NO fits you:</b> whoever turns out in the delegate election controls the rewrite, and the protections you probably care about would be on the table.</li>
-  </ul></div>
-
-<div class="card"><label class="head"><input type="checkbox"><span class="office">Proposal 2: Campaign money limits</span></label>
-  <div class="pick"><span class="pill">Likely you</span><b>YES</b></div>
-  <ul>
-    <li><b>Plain English:</b> should utilities and big state contractors be banned from political donations?</li>
-    <li><b>YES</b> = DTE, Consumers Energy and companies with over $250,000 in state contracts (plus their officers, major owners, board members and immediate families) can't give to politicians. Groups running issue ads must disclose donors.</li>
-    <li><b>NO</b> = current rules stay.</li>
-    <li><b>Fine print:</b> it doesn't ban dark-money nonprofits, out-of-state donors who aren't state contractors, or union PACs. The campaign for it is funded by out-of-state groups ($5.4M from All Hands on Deck, $1.4M from the Sixteen Thirty Fund). Opponents include Consumers Energy and the Michigan Chamber.</li>
-    <li><b>Why YES fits you:</b> it's a real limit on utility and contractor money, and the Democratic Party supports it. It is a partial fix, not a cure-all.</li>
-  </ul></div>
-
-<div class="card"><label class="head"><input type="checkbox"><span class="office">Lansing: Essential services millage</span></label>
-  <div class="pick"><span class="pill">Likely you</span><b>YES</b> (nonpartisan, your call)</div>
-  <ul>
-    <li><b>Plain English:</b> renew the city property tax that pays for police, fire, and road and sidewalk upkeep.</li>
-    <li><b>YES</b> = the tax continues at 20 mills, the rate voters originally approved. State rollback rules had lowered it, so your bill could rise slightly versus today.</li>
-    <li><b>NO</b> = the funding expires or shrinks, which can mean service cuts.</li>
-  </ul></div>
-
-<div class="card"><label class="head"><input type="checkbox"><span class="office">Lansing: Citizens' Advisory Healthcare Action Board</span></label>
-  <div class="pick"><span class="pill">Low stakes</span><b>Lean YES</b> (your call)</div>
-  <ul>
-    <li><b>Plain English:</b> create a city board to study healthcare costs and access and recommend a plan.</li>
-    <li><b>YES</b> = the board exists. It can only recommend. The city can't carry out its plan, and the council must publish it.</li>
-    <li><b>NO</b> = no board.</li>
-    <li><b>Catch:</b> it was pushed by Community Action Michigan, a committee that raised about $1.4M and has partly opaque funding. The same effort is in five other cities. It does little either way, so vote based on whether you want the study.</li>
-  </ul></div>
-
-<p class="sub" style="margin-top:28px">Sources: Michigan Democratic Party nominee announcements, WKAR, Michigan Public, Ingham County Democratic Party. Confirm your sample ballot and polling place at mi.gov/vote. The party label on your ballot is what counts.</p>
+<h1>Lansing Ballot Guide</h1>
+<p class="sub">State General · Tue, Nov 3, 2026 · Ingham County · Lansing City, Ward 3, Precinct 23 · listed in ballot order</p>
+<div class="banner">Built from your sample ballot for a Democratic-leaning voter. Where the ballot shows a party, the pick is the <b>Democratic</b> candidate. Tap a box to mark a race done. <button id="reset" onclick="resetAll()">Reset</button></div>
+<h2>Partisan section</h2>
+<div class="card"><label class="head"><input type="checkbox"><span class="office">Governor and Lieutenant Governor<span class="vote">Vote for 1</span></span></label><div class="pick"><span class="pill">Democratic</span><b>Jocelyn Benson / Winnie Brinks</b></div><div class="note">Not these: John James / Jay DeBoer (R), Anthony Hudson / Beau Parmenter (Libertarian), Donna Brandenburg / Robert Cowper II (US Taxpayers), Douglas Campbell / Bobbie Clay (Green).</div></div>
+<div class="card"><label class="head"><input type="checkbox"><span class="office">Secretary of State<span class="vote">Vote for 1</span></span></label><div class="pick"><span class="pill">Democratic</span><b>Garlin Gilchrist II</b></div><div class="note">Not these: Anthony G. Forlini (R), Christine Sloan (L), Scott E. Aughney (US Taxpayers), Eric Borregard (Green).</div></div>
+<div class="card"><label class="head"><input type="checkbox"><span class="office">Attorney General<span class="vote">Vote for 1</span></span></label><div class="pick"><span class="pill">Democratic</span><b>Eli Savit</b></div><div class="note">Not these: Doug Lloyd (R), Jason Dye (L), John Perry Ludtke Jr (US Taxpayers), Jeff Polonowski (Green), Doug Dern (Natural Law).</div></div>
+<div class="card"><label class="head"><input type="checkbox"><span class="office">United States Senator<span class="vote">Vote for 1</span></span></label><div class="pick"><span class="pill">Democratic</span><b>Abdul El-Sayed</b></div><div class="note">Not these: Mike Rogers (R), Lydia Christensen (L), Tim Long (US Taxpayers), Douglas P. Marsh (Green), Walter P. Kristy (Natural Law).</div></div>
+<div class="card"><label class="head"><input type="checkbox"><span class="office">Representative in Congress, 7th District<span class="vote">Vote for 1</span></span></label><div class="pick"><span class="pill">Democratic</span><b>William Lawrence</b></div><div class="note">Not these: Tom Barrett (R, incumbent), Shane Dedrick (Green).</div></div>
+<div class="card"><label class="head"><input type="checkbox"><span class="office">State Senator, 21st District<span class="vote">Vote for 1</span></span></label><div class="pick"><span class="pill">Democratic</span><b>Sarah Anthony</b></div><div class="note">Not this: Josh Burns (R).</div></div>
+<div class="card"><label class="head"><input type="checkbox"><span class="office">State Representative, 74th District<span class="vote">Vote for 1</span></span></label><div class="pick"><span class="pill">Democratic</span><b>Harold A. Pope</b></div><div class="note">Not this: Clinton Tarver (R).</div></div>
+<div class="card"><label class="head"><input type="checkbox"><span class="office">Member of the State Board of Education<span class="vote">Vote for 2</span></span></label><div class="pick"><span class="pill">Democratic</span><b>Judith Pritchett</b> &amp; <b>Tiffany Tilley</b></div><div class="note">Not these: Terence Collins and Bree Moeggenberg (R), Charles Essner (L), William Mohr II and Christine C. Schwartz (US Taxpayers), Wissam Charafeddine (Green), Mary Anne Hering (Working Class), Kelli Monroe (Natural Law).</div></div>
+<div class="card"><label class="head"><input type="checkbox"><span class="office">Regent of the University of Michigan<span class="vote">Vote for 2</span></span></label><div class="pick"><span class="pill">Democratic</span><b>Paul Brown</b> &amp; <b>Amir Makled</b></div><div class="note">Not these: Lena Epstein and Michael Schostak (R), Andrew Chadderdon (L), Kyle Maas (US Taxpayers).</div></div>
+<div class="card"><label class="head"><input type="checkbox"><span class="office">Trustee of Michigan State University<span class="vote">Vote for 2</span></span></label><div class="pick"><span class="pill">Democratic</span><b>Brianna Scott</b> &amp; <b>Kelly Tebay Zemke</b></div><div class="note">Not these: Julie Madey and Roger Victory (R), Daniel R. Patterson and Will Tyler White (L), Janet Sanger and John Sanger (US Taxpayers), John Anthony La Pietra (Green), Yaz Gobek (Working Class).</div></div>
+<div class="card"><label class="head"><input type="checkbox"><span class="office">Governor of Wayne State University<span class="vote">Vote for 2</span></span></label><div class="pick"><span class="pill">Democratic</span><b>Shereef Akeel</b> &amp; <b>Richard Mack</b></div><div class="note">Not these: Andy Anuzis and Christa Murphy (R), Alex Avery and Jami Van Alstine (L), Jeff McDonald (US Taxpayers), Paul M. Ragan (Green), Suzanne Roehrig (Working Class), Kathleen Oakford (Natural Law).</div></div>
+<h2>Nonpartisan section</h2>
+<div class="card"><label class="head"><input type="checkbox"><span class="office">Justice of the Supreme Court<span class="vote">Vote for 2</span></span></label><div class="pick"><span class="pill">Dem-nominated</span><b>Megan Kathleen Cavanagh</b> &amp; <b>Noah P. Hood</b></div><ul><li><b>Cavanagh</b> (incumbent): justice since 2019, chief justice since 2025. Backed by the AFL-CIO, EMILY's List and Reproductive Freedom for All.</li><li><b>Hood</b> (incumbent): appointed 2025 by Gov. Whitmer. Former Court of Appeals judge, Wayne County criminal judge and federal prosecutor.</li><li><b>Michael Warren</b> (R-nominated): Oakland County Circuit judge since 2002 and Cooley law professor.</li><li><b>Casandra Morse-Bills</b> (R-nominated): rural circuit judge since 2018. A former clerk's pending federal whistleblower suit alleges she texted a juror. She denies it.</li><li><b>Thomas W. Howe</b> (US Taxpayers): not a lawyer, so he could not serve. <b>Jody White</b> (US Taxpayers): little information found.</li><li>The court is now 6-1 Democratic-nominated. Vote for exactly two.</li></ul></div>
+<div class="card warn"><label class="head"><input type="checkbox"><span class="office">Judge of Court of Appeals, District 4<span class="vote">Vote for up to 3</span></span></label><ul><li>Michael J. Kelly, Allie Greenleaf Maldonado and Michelle M. Rick, all incumbents. Three names for three votes, so none are opposed. I found no record information, so vote your judgment or skip.</li></ul></div>
+<div class="card warn"><label class="head"><input type="checkbox"><span class="office">Judge of Circuit Court, 30th Circuit<span class="vote">Vote for up to 3</span></span></label><ul><li>Rosemarie Elizabeth Aquilina, Carol N. Koenig and Wanda M. Stokes, all incumbents, unopposed.</li></ul></div>
+<div class="card warn"><label class="head"><input type="checkbox"><span class="office">Judge of Circuit Court, 30th Circuit (partial term to 1/1/2029)<span class="vote">Vote for 1</span></span></label><ul><li>Patricia Tremblay, incumbent, unopposed.</li></ul></div>
+<div class="card warn"><label class="head"><input type="checkbox"><span class="office">Judge of Probate Court, Ingham County<span class="vote">Vote for 1</span></span></label><ul><li>Richard J. Garcia, incumbent, unopposed.</li></ul></div>
+<div class="card warn"><label class="head"><input type="checkbox"><span class="office">Judge of District Court, 54-A<span class="vote">Vote for 1</span></span></label><ul><li>Stacia Buchanan, incumbent, unopposed.</li></ul></div>
+<div class="card"><label class="head"><input type="checkbox"><span class="office">Lansing Community College Board of Trustees<span class="vote">Vote for 2</span></span></label><ul><li><b>Hope M. Lovell</b> (incumbent): runs LoveJoy Community Services, a special-needs nonprofit. On the board since January 2025.</li><li><b>LaShunda Thomas</b> (incumbent): on the board since 2020 and secretary since 2023.</li><li><b>Dominica Palacio</b>: challenger. I found no background.</li><li>Nonpartisan, so no party guidance. Pick any two.</li></ul></div>
+<div class="card warn"><label class="head"><input type="checkbox"><span class="office">Lansing Public Schools Board, 6-year term<span class="vote">Vote for 3</span></span></label><ul><li>Caitlin Cornell, Heidi Frei, Ramiro Garcia, Aurora Lemieux-McKissic (sitting member), Ryan Smith.</li><li>I found no track-record information. Pick up to three.</li></ul></div>
+<div class="card warn"><label class="head"><input type="checkbox"><span class="office">Lansing Public Schools Board, partial term to 12/31/2030<span class="vote">Vote for 1</span></span></label><ul><li><b>Guillermo Z. Lopez</b>: incumbent and board president.</li><li><b>Kyle Richard</b>: campaigning on permanent affordable housing for district families and staff.</li><li><b>Jody Washington</b>: no information found.</li></ul></div>
+<div class="card warn"><label class="head"><input type="checkbox"><span class="office">Lansing Public Schools Board, partial term to 12/31/2028<span class="vote">Vote for 1</span></span></label><ul><li>Nino Rodriguez, unopposed.</li></ul></div>
+<h2>Proposals</h2>
+<div class="banner">Rule of thumb: <b>YES = make the change</b>, <b>NO = keep things as they are</b>. Ignore the title and read what changes if it passes.</div>
+<div class="card"><label class="head"><input type="checkbox"><span class="office">Proposal 2026-1: Constitutional convention<span class="vote">Yes or No</span></span></label><div class="pick"><span class="pill">Likely you</span><b>NO</b></div><ul><li>The ballot asks: shall a convention of elected delegates be convened in 2027 to draft a general revision of the State Constitution?</li><li><b>YES</b> = delegates are elected and can rewrite any part of the constitution, including abortion rights, the redistricting commission and voting rules. Voters get a final vote on the result.</li><li><b>NO</b> = the constitution stays as is. It can still be amended one change at a time.</li><li>Why NO fits you: whoever turns out for the delegate election controls the rewrite, and the protections you probably care about would be open. The Democratic Party opposes it.</li></ul></div>
+<div class="card"><label class="head"><input type="checkbox"><span class="office">Proposal 2026-2: Campaign contributions<span class="vote">Yes or No</span></span></label><div class="pick"><span class="pill">Likely you</span><b>YES</b></div><ul><li>Despite the long title, the ballot lists three changes if it passes:</li><li>1. Regulated electric and gas utilities, contractors with over $250,000 a year in government contracts, and people and organizations with substantial connections to them could not make direct or indirect campaign contributions to those who run for or hold offices that affect them.</li><li>2. Disclosure rules for spending on political communications would also cover communications that clearly identify candidates or ballot questions, even if they do not say to vote for or against.</li><li>3. The rule requiring disclosure of who paid for political communications would expressly cover internet communications.</li><li><b>YES</b> = those three changes happen. <b>NO</b> = current rules stay.</li><li>Limits: it does not ban dark-money nonprofits or out-of-state donors who aren't state contractors, and union PACs are mostly untouched. The campaign for it has been funded by out-of-state groups. Opponents include Consumers Energy and the Michigan Chamber of Commerce.</li><li>Why YES fits you: it is a real limit on utility and contractor money, and the Democratic Party supports it. It is a partial fix, not a cure-all.</li></ul></div>
+<div class="card"><label class="head"><input type="checkbox"><span class="office">City of Lansing: Essential Services Millage Restoration<span class="vote">Yes or No</span></span></label><div class="pick"><span class="pill">Likely you (nonpartisan)</span><b>YES</b></div><ul><li><b>Important:</b> this is not just a renewal. State rollback rules cut the city tax from 20 mills to 19.2214. A YES restores it to 20 mills, an increase of 0.7786 mills.</li><li>In dollars: about <b>$0.78 more per $1,000 of taxable value</b>. A home with $60,000 taxable value would pay roughly $47 more a year. Taxable value is usually lower than market value.</li><li>It funds police, fire, and road and sidewalk maintenance for five years (Jan 1, 2027 to Dec 31, 2031) and would raise about $2,585,101 in its first year.</li><li><b>NO</b> = the rate stays at 19.2214, the city collects less, and services may be trimmed.</li></ul></div>
+<div class="card"><label class="head"><input type="checkbox"><span class="office">City of Lansing: Citizens&#x27; Advisory Healthcare Action Board (charter amendment)<span class="vote">Yes or No</span></span></label><div class="pick"><span class="pill">Low stakes</span><b>Lean YES</b></div><ul><li>The ballot asks whether the city charter should require a Citizens' Advisory Healthcare Action Board to create a Lansing Healthcare Action Plan, recommend ways to address healthcare costs and access, set the board's powers and makeup, and require publication, a public overview and implementation recommendations.</li><li><b>YES</b> = the board becomes part of the charter. City Council said in public that the city cannot carry out the board's plan itself, though that sentence is not in the ballot text.</li><li><b>NO</b> = no board.</li><li>Backed by Community Action Michigan, a committee that reported about $1.4 million raised with partly undisclosed funding. It does little either way, so vote on whether you want the study.</li></ul></div>
+<p class="sub" style="margin-top:28px">Candidate lists and proposal wording are from your Michigan Voter Information Center sample ballot. Background notes come from news coverage. Your actual ballot is the final word.</p>
 </main>
-
 <script>
-  var key = 'mi-vote-2026';
+  var key = 'mi-vote-2026-v2';
   var boxes = document.querySelectorAll('input[type=checkbox]');
   function save() { try { localStorage.setItem(key, JSON.stringify([].map.call(boxes, function (b) { return b.checked; }))); } catch (e) {} }
   function paint(b) { b.closest('.card').classList.toggle('done', b.checked); }
